@@ -1,0 +1,475 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
+		A2A5228C15C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
+		A2A5228E15C6AF0C00D65863 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228D15C6AF0C00D65863 /* CoreGraphics.framework */; };
+		A2A5229415C6AF0C00D65863 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2A5229215C6AF0C00D65863 /* InfoPlist.strings */; };
+		A2A5229615C6AF0C00D65863 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229515C6AF0C00D65863 /* main.m */; };
+		A2A5229A15C6AF0C00D65863 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229915C6AF0C00D65863 /* AppDelegate.m */; };
+		A2A5229D15C6AF0C00D65863 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229C15C6AF0C00D65863 /* RootViewController.m */; };
+		A2A522A015C6AF0C00D65863 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229F15C6AF0C00D65863 /* DataViewController.m */; };
+		A2A522A315C6AF0C00D65863 /* ModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A522A215C6AF0C00D65863 /* ModelController.m */; };
+		A2A522A615C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A522A415C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard */; };
+		A2A522A915C6AF0C00D65863 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A522A715C6AF0C00D65863 /* MainStoryboard_iPad.storyboard */; };
+		A2A522B115C6AF0C00D65863 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A522B015C6AF0C00D65863 /* SenTestingKit.framework */; };
+		A2A522B215C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
+		A2A522B315C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
+		A2A522BB15C6AF0C00D65863 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2A522B915C6AF0C00D65863 /* InfoPlist.strings */; };
+		A2A522BE15C6AF0C00D65863 /* RotoSixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A522BD15C6AF0C00D65863 /* RotoSixTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A2A522B415C6AF0C00D65863 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2A5227C15C6AF0C00D65863 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A2A5228415C6AF0C00D65863;
+			remoteInfo = RotoSix;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A2A5228515C6AF0C00D65863 /* RotoSix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotoSix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2A5228915C6AF0C00D65863 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A2A5228B15C6AF0C00D65863 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A2A5228D15C6AF0C00D65863 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A2A5229115C6AF0C00D65863 /* RotoSix-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RotoSix-Info.plist"; sourceTree = "<group>"; };
+		A2A5229315C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A2A5229515C6AF0C00D65863 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A2A5229715C6AF0C00D65863 /* RotoSix-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RotoSix-Prefix.pch"; sourceTree = "<group>"; };
+		A2A5229815C6AF0C00D65863 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A2A5229915C6AF0C00D65863 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A2A5229B15C6AF0C00D65863 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		A2A5229C15C6AF0C00D65863 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		A2A5229E15C6AF0C00D65863 /* DataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
+		A2A5229F15C6AF0C00D65863 /* DataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
+		A2A522A115C6AF0C00D65863 /* ModelController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelController.h; sourceTree = "<group>"; };
+		A2A522A215C6AF0C00D65863 /* ModelController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelController.m; sourceTree = "<group>"; };
+		A2A522A515C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		A2A522A815C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		A2A522AF15C6AF0C00D65863 /* RotoSixTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RotoSixTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2A522B015C6AF0C00D65863 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		A2A522B815C6AF0C00D65863 /* RotoSixTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RotoSixTests-Info.plist"; sourceTree = "<group>"; };
+		A2A522BA15C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A2A522BC15C6AF0C00D65863 /* RotoSixTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotoSixTests.h; sourceTree = "<group>"; };
+		A2A522BD15C6AF0C00D65863 /* RotoSixTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotoSixTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A2A5228215C6AF0C00D65863 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */,
+				A2A5228C15C6AF0C00D65863 /* Foundation.framework in Frameworks */,
+				A2A5228E15C6AF0C00D65863 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2A522AB15C6AF0C00D65863 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2A522B115C6AF0C00D65863 /* SenTestingKit.framework in Frameworks */,
+				A2A522B215C6AF0C00D65863 /* UIKit.framework in Frameworks */,
+				A2A522B315C6AF0C00D65863 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A2A5227A15C6AF0C00D65863 = {
+			isa = PBXGroup;
+			children = (
+				A2A5228F15C6AF0C00D65863 /* RotoSix */,
+				A2A522B615C6AF0C00D65863 /* RotoSixTests */,
+				A2A5228815C6AF0C00D65863 /* Frameworks */,
+				A2A5228615C6AF0C00D65863 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A2A5228615C6AF0C00D65863 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A2A5228515C6AF0C00D65863 /* RotoSix.app */,
+				A2A522AF15C6AF0C00D65863 /* RotoSixTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A2A5228815C6AF0C00D65863 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A2A5228915C6AF0C00D65863 /* UIKit.framework */,
+				A2A5228B15C6AF0C00D65863 /* Foundation.framework */,
+				A2A5228D15C6AF0C00D65863 /* CoreGraphics.framework */,
+				A2A522B015C6AF0C00D65863 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A2A5228F15C6AF0C00D65863 /* RotoSix */ = {
+			isa = PBXGroup;
+			children = (
+				A2A5229815C6AF0C00D65863 /* AppDelegate.h */,
+				A2A5229915C6AF0C00D65863 /* AppDelegate.m */,
+				A2A5229B15C6AF0C00D65863 /* RootViewController.h */,
+				A2A5229C15C6AF0C00D65863 /* RootViewController.m */,
+				A2A5229E15C6AF0C00D65863 /* DataViewController.h */,
+				A2A5229F15C6AF0C00D65863 /* DataViewController.m */,
+				A2A522A115C6AF0C00D65863 /* ModelController.h */,
+				A2A522A215C6AF0C00D65863 /* ModelController.m */,
+				A2A522A415C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard */,
+				A2A522A715C6AF0C00D65863 /* MainStoryboard_iPad.storyboard */,
+				A2A5229015C6AF0C00D65863 /* Supporting Files */,
+			);
+			path = RotoSix;
+			sourceTree = "<group>";
+		};
+		A2A5229015C6AF0C00D65863 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A2A5229115C6AF0C00D65863 /* RotoSix-Info.plist */,
+				A2A5229215C6AF0C00D65863 /* InfoPlist.strings */,
+				A2A5229515C6AF0C00D65863 /* main.m */,
+				A2A5229715C6AF0C00D65863 /* RotoSix-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A2A522B615C6AF0C00D65863 /* RotoSixTests */ = {
+			isa = PBXGroup;
+			children = (
+				A2A522BC15C6AF0C00D65863 /* RotoSixTests.h */,
+				A2A522BD15C6AF0C00D65863 /* RotoSixTests.m */,
+				A2A522B715C6AF0C00D65863 /* Supporting Files */,
+			);
+			path = RotoSixTests;
+			sourceTree = "<group>";
+		};
+		A2A522B715C6AF0C00D65863 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A2A522B815C6AF0C00D65863 /* RotoSixTests-Info.plist */,
+				A2A522B915C6AF0C00D65863 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A2A5228415C6AF0C00D65863 /* RotoSix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2A522C115C6AF0C00D65863 /* Build configuration list for PBXNativeTarget "RotoSix" */;
+			buildPhases = (
+				A2A5228115C6AF0C00D65863 /* Sources */,
+				A2A5228215C6AF0C00D65863 /* Frameworks */,
+				A2A5228315C6AF0C00D65863 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RotoSix;
+			productName = RotoSix;
+			productReference = A2A5228515C6AF0C00D65863 /* RotoSix.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A2A522AE15C6AF0C00D65863 /* RotoSixTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2A522C415C6AF0C00D65863 /* Build configuration list for PBXNativeTarget "RotoSixTests" */;
+			buildPhases = (
+				A2A522AA15C6AF0C00D65863 /* Sources */,
+				A2A522AB15C6AF0C00D65863 /* Frameworks */,
+				A2A522AC15C6AF0C00D65863 /* Resources */,
+				A2A522AD15C6AF0C00D65863 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A2A522B515C6AF0C00D65863 /* PBXTargetDependency */,
+			);
+			name = RotoSixTests;
+			productName = RotoSixTests;
+			productReference = A2A522AF15C6AF0C00D65863 /* RotoSixTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A2A5227C15C6AF0C00D65863 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Juuichi Hirao";
+			};
+			buildConfigurationList = A2A5227F15C6AF0C00D65863 /* Build configuration list for PBXProject "RotoSix" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A2A5227A15C6AF0C00D65863;
+			productRefGroup = A2A5228615C6AF0C00D65863 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A2A5228415C6AF0C00D65863 /* RotoSix */,
+				A2A522AE15C6AF0C00D65863 /* RotoSixTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A2A5228315C6AF0C00D65863 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2A5229415C6AF0C00D65863 /* InfoPlist.strings in Resources */,
+				A2A522A615C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard in Resources */,
+				A2A522A915C6AF0C00D65863 /* MainStoryboard_iPad.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2A522AC15C6AF0C00D65863 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2A522BB15C6AF0C00D65863 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A2A522AD15C6AF0C00D65863 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A2A5228115C6AF0C00D65863 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2A5229615C6AF0C00D65863 /* main.m in Sources */,
+				A2A5229A15C6AF0C00D65863 /* AppDelegate.m in Sources */,
+				A2A5229D15C6AF0C00D65863 /* RootViewController.m in Sources */,
+				A2A522A015C6AF0C00D65863 /* DataViewController.m in Sources */,
+				A2A522A315C6AF0C00D65863 /* ModelController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2A522AA15C6AF0C00D65863 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2A522BE15C6AF0C00D65863 /* RotoSixTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A2A522B515C6AF0C00D65863 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A2A5228415C6AF0C00D65863 /* RotoSix */;
+			targetProxy = A2A522B415C6AF0C00D65863 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A2A5229215C6AF0C00D65863 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A2A5229315C6AF0C00D65863 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A2A522A415C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A2A522A515C6AF0C00D65863 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		A2A522A715C6AF0C00D65863 /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A2A522A815C6AF0C00D65863 /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		A2A522B915C6AF0C00D65863 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A2A522BA15C6AF0C00D65863 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A2A522BF15C6AF0C00D65863 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A2A522C015C6AF0C00D65863 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A2A522C215C6AF0C00D65863 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
+				INFOPLIST_FILE = "RotoSix/RotoSix-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A2A522C315C6AF0C00D65863 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
+				INFOPLIST_FILE = "RotoSix/RotoSix-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		A2A522C515C6AF0C00D65863 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RotoSix.app/RotoSix";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
+				INFOPLIST_FILE = "RotoSixTests/RotoSixTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		A2A522C615C6AF0C00D65863 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RotoSix.app/RotoSix";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
+				INFOPLIST_FILE = "RotoSixTests/RotoSixTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A2A5227F15C6AF0C00D65863 /* Build configuration list for PBXProject "RotoSix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2A522BF15C6AF0C00D65863 /* Debug */,
+				A2A522C015C6AF0C00D65863 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2A522C115C6AF0C00D65863 /* Build configuration list for PBXNativeTarget "RotoSix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2A522C215C6AF0C00D65863 /* Debug */,
+				A2A522C315C6AF0C00D65863 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A2A522C415C6AF0C00D65863 /* Build configuration list for PBXNativeTarget "RotoSixTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2A522C515C6AF0C00D65863 /* Debug */,
+				A2A522C615C6AF0C00D65863 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A2A5227C15C6AF0C00D65863 /* Project object */;
+}
