@@ -35,79 +35,70 @@
             </objects>
             <point key="canvasLocation" x="1171" y="444"/>
         </scene>
-        <!--Sample View Controller-->
-        <scene sceneID="b3G-Zg-rXC">
+        <!--Buy History View Controller - Root View Controller-->
+        <scene sceneID="kB8-FN-GiW">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gTs-jS-VhI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="XPu-9N-UbF" customClass="SampleViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="yT8-An-iHD">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DfW-nF-JiV">
-                                <rect key="frame" x="20" y="391" width="131" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button1">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button1Action:" destination="XPu-9N-UbF" eventType="touchUpInside" id="9sG-i4-FUY"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NzE-Uy-VRu">
-                                <rect key="frame" x="188" y="391" width="112" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button2">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button2Action:" destination="XPu-9N-UbF" eventType="touchUpInside" id="1hD-xr-0zK"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="fhU-pP-q2D">
-                                <rect key="frame" x="20" y="20" width="280" height="91"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="label1" destination="fhU-pP-q2D" id="Jvf-gl-nK0"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="1680" y="443"/>
-        </scene>
-        <!--Buy History View Controller - 購入履歴-->
-        <scene sceneID="aMT-n5-Ace">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vgw-Th-9j5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="0dh-Ex-BZZ" customClass="BuyHistoryViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="68" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ph6-HO-Tpl">
-                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GNj-yp-bYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="Vgp-uj-upC" customClass="BuyHistoryViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="E2g-oQ-wF0">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="購入履歴" id="TDB-Bl-dOg"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="V5K-aI-QAV"/>
                     <connections>
-                        <outlet property="histTableView" destination="Ph6-HO-Tpl" id="PVo-yL-M0A"/>
+                        <outlet property="histTableView" destination="E2g-oQ-wF0" id="f0E-pR-TuP"/>
+                        <segue destination="MAH-WE-nxU" kind="push" identifier="HistDetail" id="Xa3-DG-j0E"/>
                     </connections>
-                </viewController>
+                </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1171" y="-181"/>
+            <point key="canvasLocation" x="1679" y="-212"/>
+        </scene>
+        <!--Buy Hist Detail View Controller-->
+        <scene sceneID="zI7-e5-vAM">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w7V-z7-2p6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="MAH-WE-nxU" customClass="BuyHistDetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iaA-oA-Bj1">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="oMa-qG-Let">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="MAH-WE-nxU" id="pg2-ey-qqk"/>
+                            <outlet property="delegate" destination="MAH-WE-nxU" id="JxF-ew-Pc9"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="g6L-Fg-V0v"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2152" y="-212"/>
+        </scene>
+        <!--Navigation Controller - 購入履歴-->
+        <scene sceneID="gZy-J7-7sG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WGF-xp-OLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="T9f-og-IQz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="購入履歴" id="ePm-xx-ca4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8IP-PJ-U6Y">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Vgp-uj-upC" kind="relationship" relationship="rootViewController" id="nNW-6D-4cj"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1171" y="-212"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="AkY-zN-rox">
@@ -176,9 +167,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="0dh-Ex-BZZ" kind="relationship" relationship="viewControllers" id="xQe-r8-SaV"/>
                         <segue destination="lCD-9p-hds" kind="relationship" relationship="viewControllers" id="q4j-6u-eMP"/>
                         <segue destination="xWr-OS-iPS" kind="relationship" relationship="viewControllers" id="4ot-mb-jKm"/>
+                        <segue destination="T9f-og-IQz" kind="relationship" relationship="viewControllers" id="1GN-9i-erx"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -197,7 +188,7 @@
                     <navigationItem key="navigationItem" id="BQm-YB-RNS"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1669" y="-181"/>
+            <point key="canvasLocation" x="1679" y="412"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
