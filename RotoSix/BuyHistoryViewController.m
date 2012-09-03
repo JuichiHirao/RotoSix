@@ -7,6 +7,7 @@
 //
 
 #import "BuyHistoryViewController.h"
+#import "BuyHistDetailViewController.h"
 
 @interface BuyHistoryViewController ()
 
@@ -33,6 +34,17 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    histTableView.backgroundColor = [UIColor clearColor];
+    UIImageView *imgBg = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 3.0, 15.0, 15.0)];
+    
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"Background" ofType:@"png"];
+    UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+    
+    imgBg.image = theImage;
+
+    histTableView.backgroundView = imgBg;
+//	imageView.image = [UIImage imageNamed:@"Background.png"];
 }
 
 - (void)viewDidUnload
@@ -69,70 +81,111 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     UILabel *lbKaisuu, *lbLotteryDate;
-    UIImageView *img, *img15, *img20, *img25, *img30;
+    UIImage *rowBackground;
+    UIImageView *imgBar;
+    UIImageView *img1_1, *img1_2, *img1_3, *img1_4, *img1_5, *img1_6;
+    UIImageView *img2_1, *img2_2, *img2_3, *img2_4, *img2_5, *img2_6;
+    UIImageView *img3_1, *img3_2, *img3_3, *img3_4, *img3_5, *img3_6;
+    UIImageView *img4_1, *img4_2, *img4_3, *img4_4, *img4_5, *img4_6;
+    UIImageView *img5_1, *img5_2, *img5_3, *img5_4, *img5_5, *img5_6;
+    
+    UIBezierPath *aPath;
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
-        lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 120.0, 15.0)];
+        lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 0.0, 120.0, 15.0)];
         lbLotteryDate.tag = 1;
+        lbLotteryDate.backgroundColor = [UIColor clearColor];
         lbLotteryDate.font = [UIFont systemFontOfSize:12.0];
-        lbLotteryDate.textAlignment = UITextAlignmentCenter;
+        lbLotteryDate.textAlignment = UITextAlignmentLeft;
         lbLotteryDate.textColor = [UIColor blackColor];
         
         [cell.contentView addSubview:lbLotteryDate];
 
-        lbKaisuu = [[UILabel alloc] initWithFrame:CGRectMake(121.0, 3.0, 50.0, 15.0)];
+        lbKaisuu = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 18.0, 50.0, 15.0)];
         lbKaisuu.tag = 2;
+        lbKaisuu.backgroundColor = [UIColor clearColor];
         lbKaisuu.font = [UIFont systemFontOfSize:10.0];
         lbKaisuu.textAlignment = UITextAlignmentCenter;
         lbKaisuu.textColor = [UIColor blackColor];
 
         [cell.contentView addSubview:lbKaisuu];
 
-        img = [[UIImageView alloc] initWithFrame:CGRectMake(131.0, 3.0, 10.0, 10.0)];
-        img15 = [[UIImageView alloc] initWithFrame:CGRectMake(146.0, 3.0, 15.0, 15.0)];
-        img20 = [[UIImageView alloc] initWithFrame:CGRectMake(166.0, 3.0, 20.0, 20.0)];
-        img25 = [[UIImageView alloc] initWithFrame:CGRectMake(196.0, 3.0, 25.0, 25.0)];
-        img30 = [[UIImageView alloc] initWithFrame:CGRectMake(226.0, 3.0, 30.0, 30.0)];
+        imgBar = [[UIImageView alloc] initWithFrame:CGRectMake(118.0, 2.0, 123.0, 18.0)];
+        img1_1 = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 3.0, 15.0, 15.0)];
+        img1_2 = [[UIImageView alloc] initWithFrame:CGRectMake(140.0, 3.0, 15.0, 15.0)];
+        img1_3 = [[UIImageView alloc] initWithFrame:CGRectMake(159.0, 3.0, 15.0, 15.0)];
+        img1_4 = [[UIImageView alloc] initWithFrame:CGRectMake(178.0, 3.0, 15.0, 15.0)];
+        img1_5 = [[UIImageView alloc] initWithFrame:CGRectMake(197.0, 3.0, 15.0, 15.0)];
+        img1_6 = [[UIImageView alloc] initWithFrame:CGRectMake(216.0, 3.0, 15.0, 15.0)];
+        img2_1 = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 24.0, 15.0, 15.0)];
+        img2_2 = [[UIImageView alloc] initWithFrame:CGRectMake(143.0, 24.0, 15.0, 15.0)];
+        img2_3 = [[UIImageView alloc] initWithFrame:CGRectMake(165.0, 24.0, 15.0, 15.0)];
+        img3_1 = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 35.0, 15.0, 15.0)];
+        img3_2 = [[UIImageView alloc] initWithFrame:CGRectMake(143.0, 35.0, 15.0, 15.0)];
+        img3_3 = [[UIImageView alloc] initWithFrame:CGRectMake(165.0, 35.0, 15.0, 15.0)];
 //        img.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
 
-        [cell.contentView addSubview:img];
-        [cell.contentView addSubview:img15];
-        [cell.contentView addSubview:img20];
-        [cell.contentView addSubview:img25];
-        [cell.contentView addSubview:img30];
+        [cell.contentView addSubview:imgBar];
+        [cell.contentView addSubview:img1_1];
+        [cell.contentView addSubview:img1_2];
+        [cell.contentView addSubview:img1_3];
+        [cell.contentView addSubview:img1_4];
+        [cell.contentView addSubview:img1_5];
+        [cell.contentView addSubview:img1_6];
+        [cell.contentView addSubview:img2_1];
+        [cell.contentView addSubview:img2_2];
+        [cell.contentView addSubview:img2_3];
+        [cell.contentView addSubview:img3_1];
+        [cell.contentView addSubview:img3_2];
+        [cell.contentView addSubview:img3_3];
 //        layerBg.contents = (id)[UIImage imageNamed:@"BallIcon-48.png"].CGImage;
         
+//    NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
+//    rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
+//        rowBackground = [UIImage imageNamed:@"CellBackground.png"];
+        
+//        ((UIImageView *)cell.backgroundView).image = rowBackground;
+        cell.backgroundView = [[UIImageView alloc] init];
     }
+
+    NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
+    rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
+//    rowBackground = [UIImage imageNamed:@"CellBackground.png"];
     
+    ((UIImageView *)cell.backgroundView).image = rowBackground;
+
     lbLotteryDate.text = @"平成24年12月20日";
     lbKaisuu.text = @"第689回";
-    
+
+    aPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0.0, 0.0, 100.0, 18.0) byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(10.0, 10.0)];
+    [aPath moveToPoint:CGPointMake(120.0, 2.0)];
+    [[UIColor blackColor] setStroke];
+    [aPath stroke];
+
+    NSString *imageBarPath = [[NSBundle mainBundle] pathForResource:@"BackGroundBar" ofType:@"png"];
+    UIImage *theImageBar = [UIImage imageWithContentsOfFile:imageBarPath];
+
 //    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"BallIcon-48" ofType:@"png"];
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"No01" ofType:@"png"];
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"No01-15" ofType:@"png"];
     UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-    
-//    NSString *imagePath15 = [[NSBundle mainBundle] pathForResource:@"No01-15" ofType:@"png"];
-    NSString *imagePath15 = [[NSBundle mainBundle] pathForResource:@"NewNo01" ofType:@"png"];
-    UIImage *theImage15 = [UIImage imageWithContentsOfFile:imagePath15];
 
-    NSString *imagePath20 = [[NSBundle mainBundle] pathForResource:@"No01-20" ofType:@"png"];
-    UIImage *theImage20 = [UIImage imageWithContentsOfFile:imagePath20];
-
-    NSString *imagePath25 = [[NSBundle mainBundle] pathForResource:@"No01-25" ofType:@"png"];
-    UIImage *theImage25 = [UIImage imageWithContentsOfFile:imagePath25];
-
-    NSString *imagePath30 = [[NSBundle mainBundle] pathForResource:@"No01-30" ofType:@"png"];
-    UIImage *theImage30 = [UIImage imageWithContentsOfFile:imagePath30];
-
-    img.image = theImage;
-    img15.image = theImage15;
-    img20.image = theImage20;
-    img25.image = theImage25;
-    img30.image = theImage30;
+    imgBar.image = theImageBar;
+    img1_1.image = theImage;
+    img1_2.image = theImage;
+    img1_3.image = theImage;
+    img1_4.image = theImage;
+    img1_5.image = theImage;
+    img1_6.image = theImage;
+    img2_1.image = theImage;
+    img2_2.image = theImage;
+    img2_3.image = theImage;
+    img3_1.image = theImage;
+    img3_2.image = theImage;
+    img3_3.image = theImage;
 //    cell.textLabel.text = @"TEST1";
     
     // Configure the cell...
@@ -190,6 +243,23 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    //BuyHistDetailViewController *detailViewController = [[BuyHistDetailViewController alloc] initWithStyle:<#(UITableViewStyle)#>]
+}
+
+#pragma mark Table view selection
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    /*
+     When a row is selected, the segue creates the detail view controller as the destination.
+     Set the detail view controller's detail item to the item associated with the selected row.
+     */
+    if ([[segue identifier] isEqualToString:@"HistDetail"]) {
+        
+        NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+        BuyHistDetailViewController *detailViewController = [segue destinationViewController];
+        //detailViewController.play = [dataController objectInListAtIndex:selectedRowIndex.row];
+    }
 }
 
 @end
