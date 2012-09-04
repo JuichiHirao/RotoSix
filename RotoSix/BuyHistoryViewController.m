@@ -15,6 +15,7 @@
 
 @implementation BuyHistoryViewController
 @synthesize histTableView;
+@synthesize buyHistCell;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -50,6 +51,7 @@
 - (void)viewDidUnload
 {
     [self setHistTableView:nil];
+    [self setBuyHistCell:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -78,8 +80,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"BuyHistCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    //histTableCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     UILabel *lbKaisuu, *lbLotteryDate;
     UIImage *rowBackground;
     UIImageView *imgBar;
@@ -91,10 +94,9 @@
     
     UIBezierPath *aPath;
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
-        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    //if (cell == nil) {
+        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];        
+        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
         lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 0.0, 120.0, 15.0)];
         lbLotteryDate.tag = 1;
@@ -142,15 +144,9 @@
         [cell.contentView addSubview:img3_1];
         [cell.contentView addSubview:img3_2];
         [cell.contentView addSubview:img3_3];
-//        layerBg.contents = (id)[UIImage imageNamed:@"BallIcon-48.png"].CGImage;
         
-//    NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
-//    rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
-//        rowBackground = [UIImage imageNamed:@"CellBackground.png"];
-        
-//        ((UIImageView *)cell.backgroundView).image = rowBackground;
         cell.backgroundView = [[UIImageView alloc] init];
-    }
+    //}
 
     NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
     rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
@@ -243,22 +239,22 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    //[self performSegueWithIdentifier:@"BuyHistDetail" sender:self];
     //BuyHistDetailViewController *detailViewController = [[BuyHistDetailViewController alloc] initWithStyle:<#(UITableViewStyle)#>]
 }
 
 #pragma mark Table view selection
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
     /*
      When a row is selected, the segue creates the detail view controller as the destination.
      Set the detail view controller's detail item to the item associated with the selected row.
      */
-    if ([[segue identifier] isEqualToString:@"HistDetail"]) {
+    if ([[segue identifier] isEqualToString:@"BuyHistDetail"]) {
         
         NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
         BuyHistDetailViewController *detailViewController = [segue destinationViewController];
-        //detailViewController.play = [dataController objectInListAtIndex:selectedRowIndex.row];
+        detailViewController.buyHist= nil;
     }
 }
 

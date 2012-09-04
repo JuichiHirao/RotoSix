@@ -40,15 +40,28 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNj-yp-bYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="Vgp-uj-upC" customClass="BuyHistoryViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="E2g-oQ-wF0">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="E2g-oQ-wF0">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="BuyHistCell" rowHeight="90" id="zJu-aw-Bgg">
+                                <rect key="frame" x="0.0" y="22" width="320" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="89"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="MAH-WE-nxU" kind="push" identifier="BuyHistDetail" id="Pe0-GW-1ml"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="V5K-aI-QAV"/>
                     <connections>
                         <outlet property="histTableView" destination="E2g-oQ-wF0" id="f0E-pR-TuP"/>
-                        <segue destination="MAH-WE-nxU" kind="push" identifier="HistDetail" id="Xa3-DG-j0E"/>
                     </connections>
                 </tableViewController>
             </objects>

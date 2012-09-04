@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class BuyHistory;
+
 @interface BuyHistDetailViewController : UITableViewController
+
+@property (nonatomic, strong) BuyHistory *buyHist;
 
 @end

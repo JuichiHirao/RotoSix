@@ -7,13 +7,14 @@
 //
 
 #import "BuyHistDetailViewController.h"
+#import "BuyHistory.h"
 
 @interface BuyHistDetailViewController ()
 
 @end
 
 @implementation BuyHistDetailViewController
-
+/*
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -44,7 +45,17 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+} */
+- (void)viewWillAppear:(BOOL)animated {
+    // Update the view with current data before it is displayed.
+    [super viewWillAppear:animated];
+    
+    // Scroll the table view to the top before it appears
+    [self.tableView reloadData];
+    [self.tableView setContentOffset:CGPointZero animated:NO];
+//    self.title = play.title;
 }
+
 
 #pragma mark - Table view data source
 
