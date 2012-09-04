@@ -7,17 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A275DF5A15EC5D90001E4731 /* BallIcon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = A275DF5915EC5D90001E4731 /* BallIcon-48.png */; };
-		A29DE84015EE46D800D8DF1F /* BackGroundBar.png in Resources */ = {isa = PBXBuildFile; fileRef = A29DE83F15EE46D800D8DF1F /* BackGroundBar.png */; };
 		A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
 		A2A5228C15C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
 		A2A5228E15C6AF0C00D65863 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228D15C6AF0C00D65863 /* CoreGraphics.framework */; };
 		A2A5229415C6AF0C00D65863 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2A5229215C6AF0C00D65863 /* InfoPlist.strings */; };
 		A2A5229615C6AF0C00D65863 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229515C6AF0C00D65863 /* main.m */; };
 		A2A5229A15C6AF0C00D65863 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229915C6AF0C00D65863 /* AppDelegate.m */; };
-		A2A5229D15C6AF0C00D65863 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229C15C6AF0C00D65863 /* RootViewController.m */; };
-		A2A522A015C6AF0C00D65863 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229F15C6AF0C00D65863 /* DataViewController.m */; };
-		A2A522A315C6AF0C00D65863 /* ModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A522A215C6AF0C00D65863 /* ModelController.m */; };
 		A2A522A615C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A522A415C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard */; };
 		A2A522A915C6AF0C00D65863 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A522A715C6AF0C00D65863 /* MainStoryboard_iPad.storyboard */; };
 		A2A522B115C6AF0C00D65863 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A522B015C6AF0C00D65863 /* SenTestingKit.framework */; };
@@ -25,7 +20,6 @@
 		A2A522B315C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
 		A2A522BB15C6AF0C00D65863 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2A522B915C6AF0C00D65863 /* InfoPlist.strings */; };
 		A2A522BE15C6AF0C00D65863 /* RotoSixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A522BD15C6AF0C00D65863 /* RotoSixTests.m */; };
-		A2BD5C1B15EE1246003FEC40 /* NewNo01.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BD5C1A15EE1246003FEC40 /* NewNo01.png */; };
 		A2C0051415F4452E0081A14E /* BuyHistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */; };
 		A2C0051715F448F30081A14E /* BuyHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051615F448F30081A14E /* BuyHistory.m */; };
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
@@ -47,8 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A275DF5915EC5D90001E4731 /* BallIcon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BallIcon-48.png"; sourceTree = "<group>"; };
-		A29DE83F15EE46D800D8DF1F /* BackGroundBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackGroundBar.png; sourceTree = "<group>"; };
 		A2A5228515C6AF0C00D65863 /* RotoSix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotoSix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A5228915C6AF0C00D65863 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A2A5228B15C6AF0C00D65863 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,12 +51,6 @@
 		A2A5229715C6AF0C00D65863 /* RotoSix-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RotoSix-Prefix.pch"; sourceTree = "<group>"; };
 		A2A5229815C6AF0C00D65863 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A2A5229915C6AF0C00D65863 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A2A5229B15C6AF0C00D65863 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		A2A5229C15C6AF0C00D65863 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		A2A5229E15C6AF0C00D65863 /* DataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
-		A2A5229F15C6AF0C00D65863 /* DataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
-		A2A522A115C6AF0C00D65863 /* ModelController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelController.h; sourceTree = "<group>"; };
-		A2A522A215C6AF0C00D65863 /* ModelController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelController.m; sourceTree = "<group>"; };
 		A2A522A515C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		A2A522A815C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		A2A522AF15C6AF0C00D65863 /* RotoSixTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RotoSixTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +59,6 @@
 		A2A522BA15C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A2A522BC15C6AF0C00D65863 /* RotoSixTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotoSixTests.h; sourceTree = "<group>"; };
 		A2A522BD15C6AF0C00D65863 /* RotoSixTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotoSixTests.m; sourceTree = "<group>"; };
-		A2BD5C1A15EE1246003FEC40 /* NewNo01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewNo01.png; sourceTree = "<group>"; };
 		A2C0051215F4452E0081A14E /* BuyHistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistDetailViewController.h; sourceTree = "<group>"; };
 		A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistDetailViewController.m; sourceTree = "<group>"; };
 		A2C0051515F448F30081A14E /* BuyHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistory.h; sourceTree = "<group>"; };
@@ -149,17 +134,8 @@
 				E6689B0815F253420026CBC3 /* CellBackground.png */,
 				A2ED92F015EF847D0051CD57 /* No01-15.png */,
 				A2ED92F115EF847D0051CD57 /* No01-15@x2.png */,
-				A29DE83F15EE46D800D8DF1F /* BackGroundBar.png */,
-				A2BD5C1A15EE1246003FEC40 /* NewNo01.png */,
-				A275DF5915EC5D90001E4731 /* BallIcon-48.png */,
 				A2A5229815C6AF0C00D65863 /* AppDelegate.h */,
 				A2A5229915C6AF0C00D65863 /* AppDelegate.m */,
-				A2A5229B15C6AF0C00D65863 /* RootViewController.h */,
-				A2A5229C15C6AF0C00D65863 /* RootViewController.m */,
-				A2A5229E15C6AF0C00D65863 /* DataViewController.h */,
-				A2A5229F15C6AF0C00D65863 /* DataViewController.m */,
-				A2A522A115C6AF0C00D65863 /* ModelController.h */,
-				A2A522A215C6AF0C00D65863 /* ModelController.m */,
 				A2A522A415C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard */,
 				A2ECAC3515DF92D100002E83 /* SampleViewController.h */,
 				A2ECAC3615DF92D100002E83 /* SampleViewController.m */,
@@ -279,9 +255,6 @@
 				A2A5229415C6AF0C00D65863 /* InfoPlist.strings in Resources */,
 				A2A522A615C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard in Resources */,
 				A2A522A915C6AF0C00D65863 /* MainStoryboard_iPad.storyboard in Resources */,
-				A275DF5A15EC5D90001E4731 /* BallIcon-48.png in Resources */,
-				A2BD5C1B15EE1246003FEC40 /* NewNo01.png in Resources */,
-				A29DE84015EE46D800D8DF1F /* BackGroundBar.png in Resources */,
 				A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */,
 				A2ED92F315EF847D0051CD57 /* No01-15@x2.png in Resources */,
 				E6689B0915F253420026CBC3 /* CellBackground.png in Resources */,
@@ -322,9 +295,6 @@
 			files = (
 				A2A5229615C6AF0C00D65863 /* main.m in Sources */,
 				A2A5229A15C6AF0C00D65863 /* AppDelegate.m in Sources */,
-				A2A5229D15C6AF0C00D65863 /* RootViewController.m in Sources */,
-				A2A522A015C6AF0C00D65863 /* DataViewController.m in Sources */,
-				A2A522A315C6AF0C00D65863 /* ModelController.m in Sources */,
 				A2ECAC3715DF92D100002E83 /* SampleViewController.m in Sources */,
 				A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */,
 				A2C0051415F4452E0081A14E /* BuyHistDetailViewController.m in Sources */,
