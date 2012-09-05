@@ -180,15 +180,27 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="T9f-og-IQz" kind="relationship" relationship="viewControllers" id="1GN-9i-erx"/>
                         <segue destination="lCD-9p-hds" kind="relationship" relationship="viewControllers" id="q4j-6u-eMP"/>
                         <segue destination="xWr-OS-iPS" kind="relationship" relationship="viewControllers" id="4ot-mb-jKm"/>
-                        <segue destination="T9f-og-IQz" kind="relationship" relationship="viewControllers" id="1GN-9i-erx"/>
                     </connections>
                 </tabBarController>
             </objects>
             <point key="canvasLocation" x="593" y="150"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="BuyHistDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyHistDetailViewController.h"/>
+        </class>
+        <class className="BuyHistoryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyHistoryViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="buyHistCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="histTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

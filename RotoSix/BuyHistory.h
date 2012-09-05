@@ -10,13 +10,14 @@
 
 @interface BuyHistory : NSObject
 
-@property (nonatomic, strong) NSString *BuySetOne;
-@property (nonatomic, strong) NSString *BuySetTwo;
-@property (nonatomic, strong) NSString *BuySetThree;
-@property (nonatomic, strong) NSString *BuySetFour;
-@property (nonatomic, strong) NSString *BuySetFive;
-@property (nonatomic, strong) NSArray *characters;
-@property (nonatomic, strong) NSString *genre;
-@property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSString *set01;
+@property (nonatomic, strong) NSString *set02;
+@property (nonatomic, strong) NSString *set03;
+@property (nonatomic, strong) NSString *set04;
+@property (nonatomic, strong) NSString *set05;
+@property (nonatomic, assign) NSInteger lotteryNo;
+@property (nonatomic, strong) NSDate *lotteryDate;
+@property (nonatomic, assign) NSInteger unit;
+@property (nonatomic, assign) NSInteger prizeMoney;
 
 @end

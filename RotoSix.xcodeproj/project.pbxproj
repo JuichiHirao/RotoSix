@@ -20,12 +20,11 @@
 		A2A522B315C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
 		A2A522BB15C6AF0C00D65863 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2A522B915C6AF0C00D65863 /* InfoPlist.strings */; };
 		A2A522BE15C6AF0C00D65863 /* RotoSixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A522BD15C6AF0C00D65863 /* RotoSixTests.m */; };
+		A2BE7EEF15F625A900FD98B9 /* BuyHistDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2BE7EEE15F625A900FD98B9 /* BuyHistDataController.m */; };
 		A2C0051415F4452E0081A14E /* BuyHistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */; };
 		A2C0051715F448F30081A14E /* BuyHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051615F448F30081A14E /* BuyHistory.m */; };
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
-		A2ECAC3715DF92D100002E83 /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ECAC3615DF92D100002E83 /* SampleViewController.m */; };
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
-		A2ED92F315EF847D0051CD57 /* No01-15@x2.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F115EF847D0051CD57 /* No01-15@x2.png */; };
 		E61BEDEA15F39A4F00FAF755 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = E61BEDE915F39A4F00FAF755 /* Background.png */; };
 		E6689B0915F253420026CBC3 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E6689B0815F253420026CBC3 /* CellBackground.png */; };
 /* End PBXBuildFile section */
@@ -59,16 +58,15 @@
 		A2A522BA15C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A2A522BC15C6AF0C00D65863 /* RotoSixTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotoSixTests.h; sourceTree = "<group>"; };
 		A2A522BD15C6AF0C00D65863 /* RotoSixTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotoSixTests.m; sourceTree = "<group>"; };
+		A2BE7EED15F625A900FD98B9 /* BuyHistDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistDataController.h; sourceTree = "<group>"; };
+		A2BE7EEE15F625A900FD98B9 /* BuyHistDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistDataController.m; sourceTree = "<group>"; };
 		A2C0051215F4452E0081A14E /* BuyHistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistDetailViewController.h; sourceTree = "<group>"; };
 		A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistDetailViewController.m; sourceTree = "<group>"; };
 		A2C0051515F448F30081A14E /* BuyHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistory.h; sourceTree = "<group>"; };
 		A2C0051615F448F30081A14E /* BuyHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistory.m; sourceTree = "<group>"; };
 		A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistoryViewController.h; sourceTree = "<group>"; };
 		A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistoryViewController.m; sourceTree = "<group>"; };
-		A2ECAC3515DF92D100002E83 /* SampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleViewController.h; sourceTree = "<group>"; };
-		A2ECAC3615DF92D100002E83 /* SampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleViewController.m; sourceTree = "<group>"; };
 		A2ED92F015EF847D0051CD57 /* No01-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15.png"; sourceTree = "<group>"; };
-		A2ED92F115EF847D0051CD57 /* No01-15@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15@x2.png"; sourceTree = "<group>"; };
 		E61BEDE915F39A4F00FAF755 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		E6689B0815F253420026CBC3 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackground.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,12 +131,9 @@
 				E61BEDE915F39A4F00FAF755 /* Background.png */,
 				E6689B0815F253420026CBC3 /* CellBackground.png */,
 				A2ED92F015EF847D0051CD57 /* No01-15.png */,
-				A2ED92F115EF847D0051CD57 /* No01-15@x2.png */,
 				A2A5229815C6AF0C00D65863 /* AppDelegate.h */,
 				A2A5229915C6AF0C00D65863 /* AppDelegate.m */,
 				A2A522A415C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard */,
-				A2ECAC3515DF92D100002E83 /* SampleViewController.h */,
-				A2ECAC3615DF92D100002E83 /* SampleViewController.m */,
 				A2A522A715C6AF0C00D65863 /* MainStoryboard_iPad.storyboard */,
 				A2A5229015C6AF0C00D65863 /* Supporting Files */,
 				A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */,
@@ -147,6 +142,8 @@
 				A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */,
 				A2C0051515F448F30081A14E /* BuyHistory.h */,
 				A2C0051615F448F30081A14E /* BuyHistory.m */,
+				A2BE7EED15F625A900FD98B9 /* BuyHistDataController.h */,
+				A2BE7EEE15F625A900FD98B9 /* BuyHistDataController.m */,
 			);
 			path = RotoSix;
 			sourceTree = "<group>";
@@ -256,7 +253,6 @@
 				A2A522A615C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard in Resources */,
 				A2A522A915C6AF0C00D65863 /* MainStoryboard_iPad.storyboard in Resources */,
 				A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */,
-				A2ED92F315EF847D0051CD57 /* No01-15@x2.png in Resources */,
 				E6689B0915F253420026CBC3 /* CellBackground.png in Resources */,
 				E61BEDEA15F39A4F00FAF755 /* Background.png in Resources */,
 			);
@@ -295,10 +291,10 @@
 			files = (
 				A2A5229615C6AF0C00D65863 /* main.m in Sources */,
 				A2A5229A15C6AF0C00D65863 /* AppDelegate.m in Sources */,
-				A2ECAC3715DF92D100002E83 /* SampleViewController.m in Sources */,
 				A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */,
 				A2C0051415F4452E0081A14E /* BuyHistDetailViewController.m in Sources */,
 				A2C0051715F448F30081A14E /* BuyHistory.m in Sources */,
+				A2BE7EEF15F625A900FD98B9 /* BuyHistDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

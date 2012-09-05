@@ -10,6 +10,6 @@
 
 @implementation BuyHistory
 
-@synthesize BuySetOne, BuySetTwo, BuySetThree, BuySetFour, BuySetFive,characters, genre, date;
+@synthesize set01, set02, set03, set04, set05, lotteryNo, lotteryDate, unit, prizeMoney;
 
 @end

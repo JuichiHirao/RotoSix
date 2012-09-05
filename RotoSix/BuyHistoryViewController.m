@@ -8,12 +8,15 @@
 
 #import "BuyHistoryViewController.h"
 #import "BuyHistDetailViewController.h"
+#import "BuyHistDataController.h"
 
 @interface BuyHistoryViewController ()
 
 @end
 
 @implementation BuyHistoryViewController
+
+@synthesize dataController;
 @synthesize histTableView;
 @synthesize buyHistCell;
 
@@ -30,12 +33,10 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+    BuyHistDataController *data = [[BuyHistDataController alloc] init];
+    dataController = data;
+    NSLog(@"viewDidLoad [%d]", [dataController countOfList]);
+
     histTableView.backgroundColor = [UIColor clearColor];
     UIImageView *imgBg = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 3.0, 15.0, 15.0)];
     
@@ -66,23 +67,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
     return 1;
+//    return [dataController countOfList];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 1;
+//    return 1;
+    NSLog(@"numberOfRowsInSection [%d]", [dataController countOfList]);
+    return [dataController countOfList];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BuyHistCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    //histTableCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     UILabel *lbKaisuu, *lbLotteryDate;
     UIImage *rowBackground;
     UIImageView *imgBar;
@@ -92,10 +92,12 @@
     UIImageView *img4_1, *img4_2, *img4_3, *img4_4, *img4_5, *img4_6;
     UIImageView *img5_1, *img5_2, *img5_3, *img5_4, *img5_5, *img5_6;
     
+    NSLog(@"cellForRowAtIndexPath [%d]", indexPath.row);
+    
     UIBezierPath *aPath;
     
     //if (cell == nil) {
-        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];        
+        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
         lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 0.0, 120.0, 15.0)];
@@ -183,9 +185,7 @@
     img3_2.image = theImage;
     img3_3.image = theImage;
 //    cell.textLabel.text = @"TEST1";
-    
-    // Configure the cell...
-    
+        
     return cell;
 }
 
@@ -246,15 +246,12 @@
 #pragma mark Table view selection
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    /*
-     When a row is selected, the segue creates the detail view controller as the destination.
-     Set the detail view controller's detail item to the item associated with the selected row.
-     */
+
     if ([[segue identifier] isEqualToString:@"BuyHistDetail"]) {
         
         NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
         BuyHistDetailViewController *detailViewController = [segue destinationViewController];
-        detailViewController.buyHist= nil;
+        detailViewController.buyHist= [dataController objectInListAtIndex:selectedRowIndex.row];
     }
 }
 

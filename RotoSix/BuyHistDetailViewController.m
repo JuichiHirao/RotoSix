@@ -14,6 +14,9 @@
 @end
 
 @implementation BuyHistDetailViewController
+
+@synthesize buyHist;
+
 /*
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -23,7 +26,8 @@
     }
     return self;
 }
-
+ */
+/*
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,6 +54,9 @@
     // Update the view with current data before it is displayed.
     [super viewWillAppear:animated];
     
+    NSString *str = buyHist.set01;
+    NSLog(@"str [%@]", str);
+
     // Scroll the table view to the top before it appears
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointZero animated:NO];
