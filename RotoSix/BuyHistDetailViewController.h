@@ -12,6 +12,8 @@
 
 @interface BuyHistDetailViewController : UITableViewController
 
+@property (strong, nonatomic) IBOutlet UITableView *histDetailView;
+
 @property (nonatomic, strong) BuyHistory *buyHist;
 
 @end

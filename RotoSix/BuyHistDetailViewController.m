@@ -15,6 +15,7 @@
 
 @implementation BuyHistDetailViewController
 
+@synthesize histDetailView;
 @synthesize buyHist;
 
 /*
@@ -53,10 +54,27 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Update the view with current data before it is displayed.
     [super viewWillAppear:animated];
+
+/*
+    histDetailView.backgroundColor = [UIColor clearColor];
+    UIImageView *imgBg = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 3.0, 15.0, 15.0)];
     
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"Background" ofType:@"png"];
+    UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+    
+    imgBg.image = theImage;
+    
+    histDetailView.backgroundView = imgBg;
+ */
     NSString *str = buyHist.set01;
     NSLog(@"str [%@]", str);
 
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
+	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+	[outputDateFormatter setDateFormat:outputDateFormatterStr];
+    
+    self.title = [NSString stringWithFormat:@"%@ (第%d回)", [outputDateFormatter stringFromDate:buyHist.lotteryDate], buyHist.lotteryNo];
     // Scroll the table view to the top before it appears
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointZero animated:NO];
@@ -68,24 +86,58 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    NSInteger rows = 0;
+    
+    switch (section) {
+        case 0:
+        case 1:
+            rows = 1;
+            break;
+        case 2:
+            rows = 5;
+            break;
+        default:
+            break;
+    }
+    
+    return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSString *CellIdentifier = @"CellBuyHistDetailLotteryNo";
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    // Configure the cell...
+    NSString *cellText = nil;
+    NSLog(@" cell [%@] [%p]", CellIdentifier, cell);
+    NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
+    
+    switch (indexPath.section) {
+        case 0:
+//            CellIdentifier = @"CellBuyHistDetailLotteryNo";
+            cellText = @"TEST0";
+            break;
+        case 1:
+//            CellIdentifier = @"CellBuyHistDetailPrizeMoney";
+            cellText = @"TEST";
+            break;
+        case 2:
+//            CellIdentifier = @"CellBuyHistDetailSetNo";
+            cellText = @"TEST2";
+            break;
+        default:
+            cellText = @"DEFAULT";
+            break;
+    }
+    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.textLabel.text = cellText;
     
     return cell;
 }
@@ -140,6 +192,14 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    NSLog(@" cell [%p]", cell);
+    NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
 }
 
+- (void)viewDidUnload {
+    [self setHistDetailView:nil];
+    [super viewDidUnload];
+}
 @end

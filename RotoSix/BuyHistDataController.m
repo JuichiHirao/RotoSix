@@ -45,7 +45,7 @@
     buyHist.set02 = @"02,03,05,22,33,41";
     buyHist.set03 = @"02,03,05,22,33,41";
     buyHist.unit = 1;
-    buyHist.lotteryDate = [dateFormatter dateFromString:@"20120601"];
+    buyHist.lotteryDate = [dateFormatter dateFromString:@"20120608"];
     buyHist.lotteryNo = 386;
 
     [listBuyHist addObject:buyHist];
@@ -54,9 +54,9 @@
     buyHist.set01 = @"01,05,08,09,10,12";
     buyHist.set02 = @"02,03,05,22,33,41";
     buyHist.set03 = @"02,03,05,22,33,41";
-    buyHist.unit = 1;
+    buyHist.unit = 2;
     buyHist.lotteryDate = [dateFormatter dateFromString:@"20120601"];
-    buyHist.lotteryNo = 386;
+    buyHist.lotteryNo = 385;
     
     [listBuyHist addObject:buyHist];
     

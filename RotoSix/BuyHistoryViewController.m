@@ -9,6 +9,7 @@
 #import "BuyHistoryViewController.h"
 #import "BuyHistDetailViewController.h"
 #import "BuyHistDataController.h"
+#import "BuyHistory.h"
 
 @interface BuyHistoryViewController ()
 
@@ -46,7 +47,11 @@
     imgBg.image = theImage;
 
     histTableView.backgroundView = imgBg;
+    
+    self.navigationItem.rightBarButtonItem = [self editButtonItem];
 //	imageView.image = [UIImage imageNamed:@"Background.png"];
+    
+    [self createTableCell];
 }
 
 - (void)viewDidUnload
@@ -78,6 +83,87 @@
     return [dataController countOfList];
 }
 
+- (void)createTableCell
+{
+    static NSString *CellIdentifier = @"BuyHistCell";
+    UITableViewCell *cell = nil;
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    UILabel *lbKaisuu, *lbLotteryDate;
+    UIImage *rowBackground;
+    UIImageView *imgBar;
+    UIImageView *img1_1, *img1_2, *img1_3, *img1_4, *img1_5, *img1_6;
+    UIImageView *img2_1, *img2_2, *img2_3, *img2_4, *img2_5, *img2_6;
+    UIImageView *img3_1, *img3_2, *img3_3, *img3_4, *img3_5, *img3_6;
+    UIImageView *img4_1, *img4_2, *img4_3, *img4_4, *img4_5, *img4_6;
+    UIImageView *img5_1, *img5_2, *img5_3, *img5_4, *img5_5, *img5_6;
+    
+    //NSLog(@"cellForRowAtIndexPath [%d]", indexPath.row);
+    
+    UIBezierPath *aPath;
+    
+    //if (cell == nil) {
+    //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    
+    lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 0.0, 120.0, 15.0)];
+    lbLotteryDate.tag = 1;
+    lbLotteryDate.backgroundColor = [UIColor clearColor];
+    lbLotteryDate.font = [UIFont systemFontOfSize:12.0];
+    lbLotteryDate.textAlignment = UITextAlignmentLeft;
+    lbLotteryDate.textColor = [UIColor blackColor];
+    
+    [cell.contentView addSubview:lbLotteryDate];
+    
+    lbKaisuu = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 18.0, 50.0, 15.0)];
+    lbKaisuu.tag = 2;
+    lbKaisuu.backgroundColor = [UIColor clearColor];
+    lbKaisuu.font = [UIFont systemFontOfSize:10.0];
+    lbKaisuu.textAlignment = UITextAlignmentCenter;
+    lbKaisuu.textColor = [UIColor blackColor];
+    
+    [cell.contentView addSubview:lbKaisuu];
+    
+    imgBar = [[UIImageView alloc] initWithFrame:CGRectMake(118.0, 2.0, 123.0, 18.0)];
+    img1_1 = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 3.0, 15.0, 15.0)];
+    img1_2 = [[UIImageView alloc] initWithFrame:CGRectMake(140.0, 3.0, 15.0, 15.0)];
+    img1_3 = [[UIImageView alloc] initWithFrame:CGRectMake(159.0, 3.0, 15.0, 15.0)];
+    img1_4 = [[UIImageView alloc] initWithFrame:CGRectMake(178.0, 3.0, 15.0, 15.0)];
+    img1_5 = [[UIImageView alloc] initWithFrame:CGRectMake(197.0, 3.0, 15.0, 15.0)];
+    img1_6 = [[UIImageView alloc] initWithFrame:CGRectMake(216.0, 3.0, 15.0, 15.0)];
+    img2_1 = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 24.0, 15.0, 15.0)];
+    img2_2 = [[UIImageView alloc] initWithFrame:CGRectMake(143.0, 24.0, 15.0, 15.0)];
+    img2_3 = [[UIImageView alloc] initWithFrame:CGRectMake(165.0, 24.0, 15.0, 15.0)];
+    img3_1 = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 35.0, 15.0, 15.0)];
+    img3_2 = [[UIImageView alloc] initWithFrame:CGRectMake(143.0, 35.0, 15.0, 15.0)];
+    img3_3 = [[UIImageView alloc] initWithFrame:CGRectMake(165.0, 35.0, 15.0, 15.0)];
+    //        img.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
+    
+    [cell.contentView addSubview:imgBar];
+    [cell.contentView addSubview:img1_1];
+    [cell.contentView addSubview:img1_2];
+    [cell.contentView addSubview:img1_3];
+    [cell.contentView addSubview:img1_4];
+    [cell.contentView addSubview:img1_5];
+    [cell.contentView addSubview:img1_6];
+    [cell.contentView addSubview:img2_1];
+    [cell.contentView addSubview:img2_2];
+    [cell.contentView addSubview:img2_3];
+    [cell.contentView addSubview:img3_1];
+    [cell.contentView addSubview:img3_2];
+    [cell.contentView addSubview:img3_3];
+    
+    cell.backgroundView = [[UIImageView alloc] init];
+    //}
+    
+    NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
+    rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
+    //    rowBackground = [UIImage imageNamed:@"CellBackground.png"];
+    
+    ((UIImageView *)cell.backgroundView).image = rowBackground;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BuyHistCell";
@@ -93,14 +179,15 @@
     UIImageView *img5_1, *img5_2, *img5_3, *img5_4, *img5_5, *img5_6;
     
     NSLog(@"cellForRowAtIndexPath [%d]", indexPath.row);
+    BuyHistory *buyHistAtIndex = [dataController objectInListAtIndex:indexPath.row];
     
     UIBezierPath *aPath;
     
-    //if (cell == nil) {
+    //if (indexPath.row == 0) {
         //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
-        lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 0.0, 120.0, 15.0)];
+        lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0.0, 120.0, 15.0)];
         lbLotteryDate.tag = 1;
         lbLotteryDate.backgroundColor = [UIColor clearColor];
         lbLotteryDate.font = [UIFont systemFontOfSize:12.0];
@@ -109,7 +196,7 @@
         
         [cell.contentView addSubview:lbLotteryDate];
 
-        lbKaisuu = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 18.0, 50.0, 15.0)];
+        lbKaisuu = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 15.0, 50.0, 15.0)];
         lbKaisuu.tag = 2;
         lbKaisuu.backgroundColor = [UIColor clearColor];
         lbKaisuu.font = [UIFont systemFontOfSize:10.0];
@@ -156,13 +243,18 @@
     
     ((UIImageView *)cell.backgroundView).image = rowBackground;
 
-    lbLotteryDate.text = @"平成24年12月20日";
-    lbKaisuu.text = @"第689回";
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
+	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+	[outputDateFormatter setDateFormat:outputDateFormatterStr];
+    lbLotteryDate.text = [outputDateFormatter stringFromDate:buyHistAtIndex.lotteryDate];
+    
+    lbKaisuu.text = [NSString stringWithFormat:@"第%d回", buyHistAtIndex.lotteryNo];// @"第689回";
 
-    aPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0.0, 0.0, 100.0, 18.0) byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(10.0, 10.0)];
-    [aPath moveToPoint:CGPointMake(120.0, 2.0)];
-    [[UIColor blackColor] setStroke];
-    [aPath stroke];
+    //aPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0.0, 0.0, 100.0, 18.0) byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(10.0, 10.0)];
+    //[aPath moveToPoint:CGPointMake(120.0, 2.0)];
+    //[[UIColor blackColor] setStroke];
+    //[aPath stroke];
 
     NSString *imageBarPath = [[NSBundle mainBundle] pathForResource:@"BackGroundBar" ofType:@"png"];
     UIImage *theImageBar = [UIImage imageWithContentsOfFile:imageBarPath];
