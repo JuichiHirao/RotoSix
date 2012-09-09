@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @class BuyHistory;
+@class NumberSelectViewController;
 
 @interface BuyHistDetailViewController : UITableViewController
 
 @property (strong, nonatomic) IBOutlet UITableView *histDetailView;
 
 @property (nonatomic, strong) BuyHistory *buyHist;
+
+- (void)btnEditPressed;
 
 @end

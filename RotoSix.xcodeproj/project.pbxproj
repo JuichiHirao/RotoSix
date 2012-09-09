@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A26A3A0515FC35EF00181646 /* No01-20.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A3A0415FC35EF00181646 /* No01-20.png */; };
+		A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A3A3015FC924400181646 /* NumberSelectViewController.m */; };
 		A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
 		A2A5228C15C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
 		A2A5228E15C6AF0C00D65863 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228D15C6AF0C00D65863 /* CoreGraphics.framework */; };
@@ -44,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		A26A3A0415FC35EF00181646 /* No01-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-20.png"; sourceTree = "<group>"; };
+		A26A3A2F15FC924400181646 /* NumberSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectViewController.h; sourceTree = "<group>"; };
+		A26A3A3015FC924400181646 /* NumberSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberSelectViewController.m; sourceTree = "<group>"; };
 		A2A5228515C6AF0C00D65863 /* RotoSix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotoSix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A5228915C6AF0C00D65863 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A2A5228B15C6AF0C00D65863 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -153,6 +156,8 @@
 				A2C0051615F448F30081A14E /* BuyHistory.m */,
 				A2BE7EED15F625A900FD98B9 /* BuyHistDataController.h */,
 				A2BE7EEE15F625A900FD98B9 /* BuyHistDataController.m */,
+				A26A3A2F15FC924400181646 /* NumberSelectViewController.h */,
+				A26A3A3015FC924400181646 /* NumberSelectViewController.m */,
 			);
 			path = RotoSix;
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 				A2C0051415F4452E0081A14E /* BuyHistDetailViewController.m in Sources */,
 				A2C0051715F448F30081A14E /* BuyHistory.m in Sources */,
 				A2BE7EEF15F625A900FD98B9 /* BuyHistDataController.m in Sources */,
+				A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

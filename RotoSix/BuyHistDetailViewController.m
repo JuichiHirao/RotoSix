@@ -8,13 +8,17 @@
 
 #import "BuyHistDetailViewController.h"
 #import "BuyHistory.h"
+#import "NumberSelectViewController.h"
 
 @interface BuyHistDetailViewController ()
+
+@property (nonatomic, strong) NumberSelectViewController *numberSelViewController;
 
 @end
 
 @implementation BuyHistDetailViewController
 
+@synthesize numberSelViewController=_numberSelViewController;
 @synthesize histDetailView;
 @synthesize buyHist;
 
@@ -35,6 +39,15 @@
     
     histDetailView.backgroundView = imgBg;
     */
+        
+    // 編集ボタン
+	UIButton *btn;
+    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn.frame = CGRectMake(250,85,50,25);
+    [btn setTitle:@"編集" forState:UIControlStateNormal];
+	[btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:btn];
+
     NSString *str = buyHist.set01;
     NSLog(@"str [%@]", str);
 
@@ -51,11 +64,54 @@
 //    self.title = play.title;
 }
 
+- (void)btnEditPressed
+{
+    if (self.editing) {
+        [self setEditing:NO animated:YES];
+    }
+    else {
+        [self setEditing:YES animated:YES];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 3;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return (1 == indexPath.section);
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    NSLog(@"編集モード突入");
+
+    [super setEditing:editing animated:YES];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.editing && indexPath.row == 4) {
+        return UITableViewCellEditingStyleInsert;
+    }
+    else {
+        return UITableViewCellEditingStyleDelete;
+    }
+}
+
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleInsert) {
+        NSLog(@"Insert");
+        
+        if (_numberSelViewController == nil) {
+            _numberSelViewController = [[NumberSelectViewController alloc] init];
+        }
+        
+        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController: _numberSelViewController];
+        
+        [[self navigationController] presentModalViewController:navi animated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -64,11 +120,13 @@
     
     switch (section) {
         case 0:
-        case 1:
             rows = 1;
             break;
+        case 1:
+            rows = 5;
+            break;
         case 2:
-            rows = 6;
+            rows = 7;
             break;
         default:
             break;
@@ -82,25 +140,20 @@
     switch (indexPath.section) {
         case 0:
             
-            height = 60.0;
+            height = 40.0;
             break;
         case 1:
-            height = 150.0;
+            height = 25.0;
             break;
         case 2:
-            if (indexPath.row == 0) {
-                height = 30.0;
-            }
-            else {
-                height = 22.0;
-            }
+            height = 25.0;
             break;
         default:
             break;
     }
     return height;
 }
-/*
+
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSString *title;
     
@@ -109,17 +162,21 @@
             title = @"当選番号";
             break;
         case 1:
-            title = @"当選金額";
+            title = @"購入番号";
             break;
         case 2:
-            title = @"購入番号";
+            title = @"当選金額";
             break;
         default:
             break;
     }
     return title;
 }
- */
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30.0;
+}
+
 - (UILabel *) createLabel:(CGFloat)y LabelText:(NSString *)labelText {
     UILabel *lbLottery01Label;
     
@@ -152,23 +209,13 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             
-            lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 3.0, 120.0, 15.0)];
-            lbLotteryDate.tag = 1;
-            lbLotteryDate.backgroundColor = [UIColor clearColor];
-            lbLotteryDate.font = [UIFont systemFontOfSize:16.0];
-            lbLotteryDate.textAlignment = UITextAlignmentLeft;
-            lbLotteryDate.textColor = [UIColor blackColor];
-            lbLotteryDate.text = @"当選番号";
-            
-            [cell.contentView addSubview:lbLotteryDate];
-
-            imgNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(5.0, 24.0, 35.0, 35.0)];
-            imgNo2 = [[UIImageView alloc] initWithFrame:CGRectMake(44.0, 24.0, 35.0, 35.0)];
-            imgNo3 = [[UIImageView alloc] initWithFrame:CGRectMake(83.0, 24.0, 35.0, 35.0)];
-            imgNo4 = [[UIImageView alloc] initWithFrame:CGRectMake(122.0, 24.0, 35.0, 35.0)];
-            imgNo5 = [[UIImageView alloc] initWithFrame:CGRectMake(161.0, 24.0, 35.0, 35.0)];
-            imgNo6 = [[UIImageView alloc] initWithFrame:CGRectMake(200.0, 24.0, 35.0, 35.0)];
-            imgNo7 = [[UIImageView alloc] initWithFrame:CGRectMake(239.0, 24.0, 35.0, 35.0)];
+            imgNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(5.0, 3.0, 35.0, 35.0)];
+            imgNo2 = [[UIImageView alloc] initWithFrame:CGRectMake(44.0, 3.0, 35.0, 35.0)];
+            imgNo3 = [[UIImageView alloc] initWithFrame:CGRectMake(83.0, 3.0, 35.0, 35.0)];
+            imgNo4 = [[UIImageView alloc] initWithFrame:CGRectMake(122.0, 3.0, 35.0, 35.0)];
+            imgNo5 = [[UIImageView alloc] initWithFrame:CGRectMake(161.0, 3.0, 35.0, 35.0)];
+            imgNo6 = [[UIImageView alloc] initWithFrame:CGRectMake(200.0, 3.0, 35.0, 35.0)];
+            imgNo7 = [[UIImageView alloc] initWithFrame:CGRectMake(239.0, 3.0, 35.0, 35.0)];
             [cell.contentView addSubview:imgNo1];
             [cell.contentView addSubview:imgNo2];
             [cell.contentView addSubview:imgNo3];
@@ -181,46 +228,36 @@
 
             break;
         case 1:
+            imgBuyNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 1.5, 20.0, 20.0)];
+            [cell.contentView addSubview:imgBuyNo1];
+            
+            break;
+        case 2:
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             
-            lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 3.0, 120.0, 15.0)];
-            lbLotteryDate.tag = 1;
-            lbLotteryDate.backgroundColor = [UIColor clearColor];
-            lbLotteryDate.font = [UIFont systemFontOfSize:16.0];
-            lbLotteryDate.textAlignment = UITextAlignmentLeft;
-            lbLotteryDate.textColor = [UIColor blackColor];
-            lbLotteryDate.text = @"当選金額";
-            
-            [cell.contentView addSubview:lbLotteryDate];
-//            [cell.contentView addSubview:lbLottery01Label];
-            [cell.contentView addSubview:[self createLabel:24.0 LabelText:@"1等"]];
-            [cell.contentView addSubview:[self createLabel:42.0 LabelText:@"2等"]];
-            [cell.contentView addSubview:[self createLabel:60.0 LabelText:@"3等"]];
-            [cell.contentView addSubview:[self createLabel:78.0 LabelText:@"4等"]];
-            [cell.contentView addSubview:[self createLabel:96.0 LabelText:@"5等"]];
-            [cell.contentView addSubview:[self createLabel:114.0 LabelText:@"販売実績"]];
-            [cell.contentView addSubview:[self createLabel:132.0 LabelText:@"キャリーオーバー"]];
-            
-            //cell.backgroundView = [[UIImageView alloc] init];
-            break;
-        case 2:
             if (indexPath.row == 0) {
-                lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 3.0, 120.0, 15.0)];
-                lbLotteryDate.tag = 1;
-                lbLotteryDate.backgroundColor = [UIColor clearColor];
-                lbLotteryDate.font = [UIFont systemFontOfSize:16.0];
-                lbLotteryDate.textAlignment = UITextAlignmentLeft;
-                lbLotteryDate.textColor = [UIColor blackColor];
-                lbLotteryDate.text = @"購入番号";
-                
-                [cell.contentView addSubview:lbLotteryDate];
+                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"1等"]];
             }
-            else {
-                imgBuyNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 0.5, 20.0, 20.0)];
-                [cell.contentView addSubview:imgBuyNo1];
+            else if (indexPath.row == 1) {
+                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"2等"]];
             }
-
+            else if (indexPath.row == 2) {
+                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"3等"]];
+            }
+            else if (indexPath.row == 3) {
+                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"4等"]];
+            }
+            else if (indexPath.row == 4) {
+                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"5等"]];
+            }
+            else if (indexPath.row == 5) {
+                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"販売実績"]];
+            }
+            else if (indexPath.row == 6) {
+                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"キャリーオーバー"]];
+            }
+            
             //cell.backgroundView = [[UIImageView alloc] init];
             break;
         default:
