@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A26A3A0515FC35EF00181646 /* No01-20.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A3A0415FC35EF00181646 /* No01-20.png */; };
 		A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
 		A2A5228C15C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
 		A2A5228E15C6AF0C00D65863 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228D15C6AF0C00D65863 /* CoreGraphics.framework */; };
@@ -23,6 +24,8 @@
 		A2BE7EEF15F625A900FD98B9 /* BuyHistDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2BE7EEE15F625A900FD98B9 /* BuyHistDataController.m */; };
 		A2C0051415F4452E0081A14E /* BuyHistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */; };
 		A2C0051715F448F30081A14E /* BuyHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051615F448F30081A14E /* BuyHistory.m */; };
+		A2DA1B2115FA270400E036F7 /* DetailImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2015FA270400E036F7 /* DetailImage.png */; };
+		A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2215FA31E600E036F7 /* No03-35.png */; };
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
 		E61BEDEA15F39A4F00FAF755 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = E61BEDE915F39A4F00FAF755 /* Background.png */; };
@@ -40,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A26A3A0415FC35EF00181646 /* No01-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-20.png"; sourceTree = "<group>"; };
 		A2A5228515C6AF0C00D65863 /* RotoSix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotoSix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A5228915C6AF0C00D65863 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A2A5228B15C6AF0C00D65863 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,6 +68,8 @@
 		A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistDetailViewController.m; sourceTree = "<group>"; };
 		A2C0051515F448F30081A14E /* BuyHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistory.h; sourceTree = "<group>"; };
 		A2C0051615F448F30081A14E /* BuyHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistory.m; sourceTree = "<group>"; };
+		A2DA1B2015FA270400E036F7 /* DetailImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DetailImage.png; sourceTree = "<group>"; };
+		A2DA1B2215FA31E600E036F7 /* No03-35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No03-35.png"; sourceTree = "<group>"; };
 		A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistoryViewController.h; sourceTree = "<group>"; };
 		A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistoryViewController.m; sourceTree = "<group>"; };
 		A2ED92F015EF847D0051CD57 /* No01-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15.png"; sourceTree = "<group>"; };
@@ -128,6 +134,9 @@
 		A2A5228F15C6AF0C00D65863 /* RotoSix */ = {
 			isa = PBXGroup;
 			children = (
+				A26A3A0415FC35EF00181646 /* No01-20.png */,
+				A2DA1B2215FA31E600E036F7 /* No03-35.png */,
+				A2DA1B2015FA270400E036F7 /* DetailImage.png */,
 				E61BEDE915F39A4F00FAF755 /* Background.png */,
 				E6689B0815F253420026CBC3 /* CellBackground.png */,
 				A2ED92F015EF847D0051CD57 /* No01-15.png */,
@@ -255,6 +264,9 @@
 				A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */,
 				E6689B0915F253420026CBC3 /* CellBackground.png in Resources */,
 				E61BEDEA15F39A4F00FAF755 /* Background.png in Resources */,
+				A2DA1B2115FA270400E036F7 /* DetailImage.png in Resources */,
+				A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */,
+				A26A3A0515FC35EF00181646 /* No01-20.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
