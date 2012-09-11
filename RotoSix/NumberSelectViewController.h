@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LayerNumberSelect.h"
 
-@interface NumberSelectViewController : UIViewController
+@interface NumberSelectViewController : UIViewController {
+    UIView *selpanelView;
+}
+
+@property (nonatomic, strong) NSString *buyNumbers;
 
 - (void)btnEndPressed;
 

@@ -108,9 +108,20 @@
             _numberSelViewController = [[NumberSelectViewController alloc] init];
         }
         
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController: _numberSelViewController];
+        [self performSegueWithIdentifier:@"NumberInput" sender:self];
+
+//        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController: _numberSelViewController];
+//        [[self navigationController] presentModalViewController:navi animated:YES];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"BuyHistDetail"]) {
         
-        [[self navigationController] presentModalViewController:navi animated:YES];
+        //NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+        NumberSelectViewController *numInputlViewController = [segue destinationViewController];
+        numInputlViewController.buyNumbers = @"1,2,3,4,5,6";
     }
 }
 
