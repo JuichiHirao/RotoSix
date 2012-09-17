@@ -110,10 +110,10 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKg-wN-mEv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController autoresizesArchivedViewToFullSize="NO" id="KqJ-gk-oxf" customClass="NumberSelectViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4ge-ey-S6g">
+                    <view key="view" alpha="0.5" contentMode="scaleToFill" id="4ge-ey-S6g">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
             </objects>

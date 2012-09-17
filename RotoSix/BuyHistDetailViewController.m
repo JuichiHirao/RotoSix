@@ -109,9 +109,6 @@
         }
         
         [self performSegueWithIdentifier:@"NumberInput" sender:self];
-
-//        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController: _numberSelViewController];
-//        [[self navigationController] presentModalViewController:navi animated:YES];
     }
 }
 

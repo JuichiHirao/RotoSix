@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A2008C4F15FE27C50089F0B8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2008C4E15FE27C50089F0B8 /* QuartzCore.framework */; };
 		A2008C5515FE283F0089F0B8 /* LayerNumberSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = A2008C5415FE283F0089F0B8 /* LayerNumberSelect.m */; };
+		A20B00EA16037FD60056F01A /* NumberSelectBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A20B00E916037FD60056F01A /* NumberSelectBackground.png */; };
 		A26A3A0515FC35EF00181646 /* No01-20.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A3A0415FC35EF00181646 /* No01-20.png */; };
 		A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A3A3015FC924400181646 /* NumberSelectViewController.m */; };
 		A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
@@ -50,6 +51,7 @@
 		A2008C4E15FE27C50089F0B8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A2008C5315FE283F0089F0B8 /* LayerNumberSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerNumberSelect.h; sourceTree = "<group>"; };
 		A2008C5415FE283F0089F0B8 /* LayerNumberSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerNumberSelect.m; sourceTree = "<group>"; };
+		A20B00E916037FD60056F01A /* NumberSelectBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NumberSelectBackground.png; path = ../../../NumberSelectBackground.png; sourceTree = "<group>"; };
 		A26A3A0415FC35EF00181646 /* No01-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-20.png"; sourceTree = "<group>"; };
 		A26A3A2F15FC924400181646 /* NumberSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectViewController.h; sourceTree = "<group>"; };
 		A26A3A3015FC924400181646 /* NumberSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberSelectViewController.m; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		A2A5228F15C6AF0C00D65863 /* RotoSix */ = {
 			isa = PBXGroup;
 			children = (
+				A20B00E916037FD60056F01A /* NumberSelectBackground.png */,
 				A2FC5FDC15FCD440009C9F74 /* No01-45.png */,
 				A26A3A0415FC35EF00181646 /* No01-20.png */,
 				A2DA1B2215FA31E600E036F7 /* No03-35.png */,
@@ -285,6 +288,7 @@
 				A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */,
 				A26A3A0515FC35EF00181646 /* No01-20.png in Resources */,
 				A2FC5FDD15FCD441009C9F74 /* No01-45.png in Resources */,
+				A20B00EA16037FD60056F01A /* NumberSelectBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
