@@ -28,51 +28,63 @@
 {
 	int iMaxX = 6;				// X軸のマス目の最大数
 	CGFloat fStartX = 25;		// X軸の開始位置（左マージン10 と 50の中心位置の25を足した値）
-	CGFloat fStartY = 40;		// Y軸の開始位置（適当）
+	CGFloat fStartY = 42;		// Y軸の開始位置（適当）
 	CGFloat fPosY = fStartY;
 	CGFloat fPosX = fStartX;
     
-	///////////////////////
-	// 番号のコントロールの表示
-
-    id obj;
     int cnt = 0;
 	CGFloat fRectSize = 45;                         // マス目の中のサイズ（X,Yは同じで正方形）
     CGFloat intervalY = 5, intervalX = 5;           // 番号の球の間隔
     CGFloat startMarginX = 1.8, startMarginY = 3;   // 先頭に空けるマージン
     
-    for( int idx=1; idx <= 40; idx++)
+    for( int idx=1; idx <= 43; idx++)
     {
 		fPosY = ((cnt / iMaxX) * fRectSize) + (((cnt / iMaxX) % 7) * intervalY) + (fRectSize / 2) + startMarginY;
         fPosX = ((cnt % iMaxX) * fRectSize) + (((idx -1) % iMaxX) * intervalX) + (fRectSize / 2) + startMarginX;
 		//fPosX = (((cnt % iMaxX) + 1) * fRectSize) - fRectSize + fStartX;
 		
-        // 背景のグレイ色の丸画像の表示
-		NSLog(@"%@", [NSString stringWithFormat:@"x %f  y %f", fPosX, fPosY]);
+		//NSLog(@"%@", [NSString stringWithFormat:@"x %f  y %f", fPosX, fPosY]);
+        
 		CALayer *layerBg = [CALayer layer];
 		layerBg.bounds = CGRectMake(0, 0, fRectSize, fRectSize);
-		layerBg.name = [NSString stringWithFormat:@"Bg%@", obj];
+		layerBg.name = [NSString stringWithFormat:@"No%02d", idx];
 		layerBg.position = CGPointMake(fPosX, fPosY);
 		NSString *selected = @"0";
-		//layerBg.contents = (id)[UIImage imageNamed:[self getImageName:selected]].CGImage;
-        layerBg.contents = (id)[UIImage imageNamed:@"No01-45.png"].CGImage;
 		[layerBg setValue:selected forKey:@"selected"];
-        // [self.layer addSublayer:layerBg];
+        layerBg.contents = (id)[UIImage imageNamed:[NSString stringWithFormat:@"No%02dNoSel-45", idx]].CGImage;
+        //layerBg.contents = (id)[UIImage imageNamed:@"No01-45.png"].CGImage;
+        
 		[self addSublayer:layerBg];
 		
-		CALayer *layerNum = [CALayer layer];
-		layerNum.needsDisplayOnBoundsChange = YES;
-		layerNum.bounds = CGRectMake(0, 0, fRectSize, fRectSize);
-		layerNum.name = [NSString stringWithFormat:@"Num%@", obj];
-		layerNum.position = CGPointMake(fPosX, fPosY);
-//		_layerDelegate = [[QuartzTextNumDelegate alloc] init];
-//		_layerDelegate.strNum = obj;
-//		layerNum.delegate = _layerDelegate;
-		
-        // [self.layer addSublayer:layerNum];
-		[self addSublayer:layerNum];
 		cnt++;
 	}
+}
+
+- (UIImage *)applyFiltersToImage:(UIImage *) image {
+    UIImage *result;
+    
+    CIImage *ciImage = [CIImage imageWithCGImage:[image CGImage]];
+    
+    //CIFilter *filter = [CIFilter filterWithName:@"CIColorMonochrome"];
+    CIFilter *filter1 = [CIFilter filterWithName:@"CIExposureAdjust"];
+    CIFilter *filter2 = [CIFilter filterWithName:@"CIColorInvert"];
+    
+    [filter1 setDefaults];
+    [filter1 setValue:[NSNumber numberWithFloat:+2.0] forKey:@"inputEV"];
+    
+    [filter1 setValue:ciImage forKey:kCIInputImageKey];
+    [filter2 setValue:filter1.outputImage forKey:kCIInputImageKey];
+    
+    CIImage *outputImage = filter2.outputImage;
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    
+    CGImageRef cgImage = [context createCGImage:outputImage fromRect:[outputImage extent]];
+    
+    result = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    
+    return result;
 }
 
 - (NSString *)getImageName:(NSString *)selected
