@@ -20,4 +20,6 @@
 @property (nonatomic, assign) NSInteger unit;
 @property (nonatomic, assign) NSInteger prizeMoney;
 
+-(NSString*) getSetNo:(NSInteger)setNoIndex;
+
 @end

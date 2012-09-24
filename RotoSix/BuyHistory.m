@@ -12,4 +12,24 @@
 
 @synthesize set01, set02, set03, set04, set05, lotteryNo, lotteryDate, unit, prizeMoney;
 
+-(NSString*) getSetNo:(NSInteger)setNoIndex {
+    if (setNoIndex==0) {
+        return set01;
+    }
+    else if (setNoIndex==1) {
+        return set02;
+    }
+    else if (setNoIndex==2) {
+        return set03;
+    }
+    else if (setNoIndex==3) {
+        return set04;
+    }
+    else if (setNoIndex==4){
+        return set05;
+    }
+    
+    return @"";
+}
+
 @end

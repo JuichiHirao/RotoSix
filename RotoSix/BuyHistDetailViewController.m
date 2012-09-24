@@ -151,7 +151,7 @@
             height = 40.0;
             break;
         case 1:
-            height = 25.0;
+            height = 30.0;
             break;
         case 2:
             height = 25.0;
@@ -201,43 +201,56 @@
 {
     NSString *CellIdentifier = @"CellBuyHistDetailLotteryNo";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    UIImage *rowBackground;
-    UIImageView *imgNo1, *imgNo2, *imgNo3, *imgNo4, *imgNo5, *imgNo6, *imgNo7;
-    UIImageView *imgBuyNo1, *imgBuyNo2, *imgBuyNo3, *imgBuyNo4, *imgBuyNo5, *imgBuyNo6;
     
     NSString *cellText = nil;
     NSLog(@" cell [%@] [%p]", CellIdentifier, cell);
     NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
     //NSLog(@"cellForRowAtIndexPath before %f,%f",cell.contentView.frame.origin.x,cell.contentView.frame.size.width);
     
-    UILabel *lbLotteryDate;
+    int buySetNo = 0;
+    int idxArrmBuyNo = 0;
+    NSMutableArray* arrmBuyNo = [NSMutableArray array];
+
+    CGFloat x = 10.0;
+    CGFloat y = 2.0;
+    CGFloat width = 23.0;
+    CGFloat height = 23.0;
 
     switch (indexPath.section) {
         case 0:
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+            x = 10.0;
+            y = 2.0;
+            width = 35.0;
+            height = 35.0;
             
-            imgNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(5.0, 3.0, 35.0, 35.0)];
-            imgNo2 = [[UIImageView alloc] initWithFrame:CGRectMake(44.0, 3.0, 35.0, 35.0)];
-            imgNo3 = [[UIImageView alloc] initWithFrame:CGRectMake(83.0, 3.0, 35.0, 35.0)];
-            imgNo4 = [[UIImageView alloc] initWithFrame:CGRectMake(122.0, 3.0, 35.0, 35.0)];
-            imgNo5 = [[UIImageView alloc] initWithFrame:CGRectMake(161.0, 3.0, 35.0, 35.0)];
-            imgNo6 = [[UIImageView alloc] initWithFrame:CGRectMake(200.0, 3.0, 35.0, 35.0)];
-            imgNo7 = [[UIImageView alloc] initWithFrame:CGRectMake(239.0, 3.0, 35.0, 35.0)];
-            [cell.contentView addSubview:imgNo1];
-            [cell.contentView addSubview:imgNo2];
-            [cell.contentView addSubview:imgNo3];
-            [cell.contentView addSubview:imgNo4];
-            [cell.contentView addSubview:imgNo5];
-            [cell.contentView addSubview:imgNo6];
-            [cell.contentView addSubview:imgNo7];
+            for (int idx=0; idx < 7; idx++) {
+                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                x = x + 39.0;
+                [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+            }
 
             //cell.backgroundView = [[UIImageView alloc] init];
 
             break;
         case 1:
-            imgBuyNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 1.5, 20.0, 20.0)];
-            [cell.contentView addSubview:imgBuyNo1];
+            buySetNo = indexPath.row;
+            
+            x = 10.0;
+            y = 2.0;
+            width = 23.0;
+            height = 23.0;
+            
+            for (int idx=0; idx < 6; idx++) {
+                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                x = x + 26;
+                [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+            }
+
+            //imgBuyNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 1.5, 20.0, 20.0)];
+            //[cell.contentView addSubview:imgBuyNo1];
             
             break;
         case 2:
@@ -276,24 +289,39 @@
     //rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
     //((UIImageView *)cell.backgroundView).image = rowBackground;
 
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"No03-35" ofType:@"png"];
-    UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+    if (indexPath.section==0) {
+        NSArray *arrLotteryNo = [@"1,2,8,16,25,40,27" componentsSeparatedByString:@","];
+        
+        for (int idx=0; idx < 7; idx++) {
+            NSString *strNo = [arrLotteryNo objectAtIndex:idx];
+            NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
+            NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
+            UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+            UIImageView *img = [arrmBuyNo objectAtIndex:idx];
+            
+            img.image = theImage;
+            idxArrmBuyNo++;
+        }
+    }
+    else if (indexPath.section==1) {
+        NSString *setNo = [buyHist getSetNo:buySetNo];
+        
+        NSArray *arrBuySingleNo = [setNo componentsSeparatedByString:@","];
+        
+        for (int idx=0; idx < [arrBuySingleNo count]; idx++) {
+            NSString *strNo = [arrBuySingleNo objectAtIndex:idx];
+            NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
+            NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
+            UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+            UIImageView *img = [arrmBuyNo objectAtIndex:idx];
+            
+            img.image = theImage;
+            idxArrmBuyNo++;
+        }
+    }
 
-    NSString *imagePathBuy = [[NSBundle mainBundle] pathForResource:@"No01-20" ofType:@"png"];
-    UIImage *theImageBuy = [UIImage imageWithContentsOfFile:imagePathBuy];
-
-    imgNo1.image = theImage;
-    imgNo2.image = theImage;
-    imgNo3.image = theImage;
-    imgNo4.image = theImage;
-    imgNo5.image = theImage;
-    imgNo6.image = theImage;
-    imgNo7.image = theImage;
-
-    imgBuyNo1.image = theImageBuy;
-
-    NSLog(@"cell.contentView.bounds.size %f,%f",cell.contentView.bounds.size.width,cell.contentView.bounds.size.height);
-    NSLog(@"cell.contentView.frame.size %f,%f",cell.contentView.frame.size.width, cell.contentView.frame.origin.x);
+    //NSLog(@"cell.contentView.bounds.size %f,%f",cell.contentView.bounds.size.width,cell.contentView.bounds.size.height);
+    //NSLog(@"cell.contentView.frame.size %f,%f",cell.contentView.frame.size.width, cell.contentView.frame.origin.x);
     
     return cell;
 }

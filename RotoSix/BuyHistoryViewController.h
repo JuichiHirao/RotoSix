@@ -10,7 +10,11 @@
 
 @class BuyHistDataController;
 
-@interface BuyHistoryViewController : UITableViewController
+@interface BuyHistoryViewController : UITableViewController {
+    BOOL isCellSetting;
+    NSMutableArray *arrmBuyNo;
+    NSInteger cntArrayBuyNo;
+}
 
 @property (nonatomic, strong) BuyHistDataController *dataController;
 
