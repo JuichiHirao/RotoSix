@@ -26,20 +26,25 @@
 //- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)theContext
 - (void)drawInContext:(CGContextRef)theContext
 {
-	int iMaxX = 6;				// X軸のマス目の最大数
-	CGFloat fStartX = 25;		// X軸の開始位置（左マージン10 と 50の中心位置の25を足した値）
-	CGFloat fStartY = 42;		// Y軸の開始位置（適当）
-	CGFloat fPosY = fStartY;
-	CGFloat fPosX = fStartX;
-    
+	CGFloat fPosY = 0.0;
+	CGFloat fPosX = 0.0;
     int cnt = 0;
+/*  初期の７行×６個の設定での表示（番号が42個と勘違い時）
+	int iMaxX = 6;				// X軸のマス目の最大数
 	CGFloat fRectSize = 45;                         // マス目の中のサイズ（X,Yは同じで正方形）
     CGFloat intervalY = 5, intervalX = 5;           // 番号の球の間隔
     CGFloat startMarginX = 1.8, startMarginY = 3;   // 先頭に空けるマージン
+ */
+    
+	int iMaxX = 8;				// X軸のマス目の最大数
+	CGFloat fRectSize = 36;                         // マス目の中のサイズ（X,Yは同じで正方形）
+    CGFloat intervalY = 2.5, intervalX = 2.5;           // 番号の球の間隔
+    CGFloat startMarginX = 0.0, startMarginY = 3;   // 先頭に空けるマージン
     
     for( int idx=1; idx <= 43; idx++)
     {
-		fPosY = ((cnt / iMaxX) * fRectSize) + (((cnt / iMaxX) % 7) * intervalY) + (fRectSize / 2) + startMarginY;
+//		fPosY = ((cnt / iMaxX) * fRectSize) + (((cnt / iMaxX) % 7) * intervalY) + (fRectSize / 2) + startMarginY;
+		fPosY = ((cnt / iMaxX) * fRectSize) + (((cnt / iMaxX) % 6) * intervalY) + (fRectSize / 2) + startMarginY;
         fPosX = ((cnt % iMaxX) * fRectSize) + (((idx -1) % iMaxX) * intervalX) + (fRectSize / 2) + startMarginX;
 		//fPosX = (((cnt % iMaxX) + 1) * fRectSize) - fRectSize + fStartX;
 		
