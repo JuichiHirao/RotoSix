@@ -92,8 +92,20 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.editing && indexPath.row == 4) {
-        return UITableViewCellEditingStyleInsert;
+    //NSLog(@" indexPath.section [%d] indexPath.row [%d] buyHist.getCount [%d]", indexPath.section, indexPath.row, [buyHist getCount] );
+    // 編集モードで最後の行のみ追加モードにする、但し購入が最大の５行以内の場合
+    if (tableView.editing) {
+        if ([buyHist getCount] >= 5) {
+            return UITableViewCellEditingStyleDelete;
+        }
+        else {
+            if ([buyHist getCount] == indexPath.row) {
+                return UITableViewCellEditingStyleInsert;
+            }
+            else {
+                return UITableViewCellEditingStyleDelete;
+            }
+        }
     }
     else {
         return UITableViewCellEditingStyleDelete;
@@ -125,13 +137,20 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger rows = 0;
+    NSInteger cnt = 0;
     
     switch (section) {
         case 0:
             rows = 1;
             break;
         case 1:
-            rows = 5;
+            cnt = [buyHist getCount];
+            if (cnt < 5) {
+                rows = cnt + 1;
+            }
+            else {
+                rows = 5;
+            }
             break;
         case 2:
             rows = 7;
@@ -207,6 +226,8 @@
     NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
     //NSLog(@"cellForRowAtIndexPath before %f,%f",cell.contentView.frame.origin.x,cell.contentView.frame.size.width);
     
+    UIButton *btn;
+    
     int buySetNo = 0;
     int idxArrmBuyNo = 0;
     NSMutableArray* arrmBuyNo = [NSMutableArray array];
@@ -248,6 +269,13 @@
                 x = x + 26;
                 [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
             }
+
+            // 編集ボタン
+//            btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//            btn.frame = CGRectMake(170,2,50,25);
+//            [btn setTitle:@"編集" forState:UIControlStateNormal];
+//            [btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
+//            [cell.contentView addSubview:btn];
 
             //imgBuyNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 1.5, 20.0, 20.0)];
             //[cell.contentView addSubview:imgBuyNo1];

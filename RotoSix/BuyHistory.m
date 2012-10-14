@@ -32,4 +32,25 @@
     return @"";
 }
 
+-(NSInteger) getCount {
+    if ([set01 length] == 0) {
+        return 0;
+    }
+    else if ([set02 length] == 0) {
+        return 1;
+    }
+    else if ([set03 length] == 0) {
+        return 2;
+    }
+    else if ([set04 length] == 0) {
+        return 3;
+    }
+    else if ([set05 length] == 0) {
+        return 4;
+    }
+    else {
+        return 5;
+    }
+}
+
 @end
