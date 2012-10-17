@@ -10,6 +10,8 @@
 
 @implementation LayerNumberSelect
 
+@synthesize arrSelNo;
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"%@", @"LayerSelectPanel touch x %f  y %f");
@@ -41,6 +43,7 @@
     CGFloat intervalY = 2.5, intervalX = 2.5;           // 番号の球の間隔
     CGFloat startMarginX = 0.0, startMarginY = 3;   // 先頭に空けるマージン
     
+    int arrIdx = 0;
     for( int idx=1; idx <= 43; idx++)
     {
 //		fPosY = ((cnt / iMaxX) * fRectSize) + (((cnt / iMaxX) % 7) * intervalY) + (fRectSize / 2) + startMarginY;
@@ -54,10 +57,22 @@
 		layerBg.bounds = CGRectMake(0, 0, fRectSize, fRectSize);
 		layerBg.name = [NSString stringWithFormat:@"No%02d", idx];
 		layerBg.position = CGPointMake(fPosX, fPosY);
+        
+        int value = 0;
+        if ([arrSelNo count] > arrIdx) {
+            value = [[arrSelNo objectAtIndex:arrIdx] intValue];
+        }
+        
 		NSString *selected = @"0";
+        if (idx == value) {
+            NSLog(@"%@", [NSString stringWithFormat:@"arrSelNo[%d] %d", arrIdx, value]);
+            selected = @"1";
+            arrIdx++;
+        }
+        
 		[layerBg setValue:selected forKey:@"selected"];
-        layerBg.contents = (id)[UIImage imageNamed:[NSString stringWithFormat:@"No%02dNoSel-45", idx]].CGImage;
-        //layerBg.contents = (id)[UIImage imageNamed:@"No01-45.png"].CGImage;
+        layerBg.contents = (id)[UIImage imageNamed:[self getImageName:selected SelectNo:idx]].CGImage;
+        //layerBg.contents = (id)[UIImage imageNamed:[NSString stringWithFormat:@"No%02dNoSel-45", idx]].CGImage;
         
 		[self addSublayer:layerBg];
 		
@@ -92,13 +107,13 @@
     return result;
 }
 
-- (NSString *)getImageName:(NSString *)selected
+- (NSString *)getImageName:(NSString *)selected SelectNo:(int)selNo
 {
 	// 未選択[0]の場合
 	if ([selected isEqualToString:@"0"])
-		return @"BallIcon-48.png";
+		return [NSString stringWithFormat:@"No%02dNoSel-45", selNo];
 	
-	return @"circle_green.png";
+	return [NSString stringWithFormat:@"No%02d-45", selNo];
 }
 
 @end

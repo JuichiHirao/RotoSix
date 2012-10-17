@@ -14,6 +14,8 @@
 
 @implementation NumberSelectViewController
 
+@synthesize buyNumbers;
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"%@", @"LayerSelectPanel touch x %f  y %f");
@@ -27,7 +29,9 @@
             NSLog(@"%@", [NSString stringWithFormat:@"LayerSelectPanel touch x %f  y %f", pos.x, pos.y]);
         }
 	}
-    
+
+    NSLog(@"buyNumber %@", buyNumbers);
+
     CALayer *layer = [selpanelView.layer hitTest:pos];
     NSLog(@"%@", [NSString stringWithFormat:@"layer %@", layer.name]);
 
@@ -127,12 +131,21 @@
     selpanelView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
     selpanelView.opaque = YES;
     selpanelView.backgroundColor = [UIColor clearColor];
+
+    NSArray *arrBuyNo = [buyNumbers componentsSeparatedByString:@","];
+    NSMutableArray *marrBuyNo = [[NSMutableArray alloc] init];
     
+    for (int idx=0; idx < [arrBuyNo count]; idx++) {
+        NSString *strNo = [arrBuyNo objectAtIndex:idx];
+        [marrBuyNo addObject:[NSNumber numberWithInt:[strNo intValue]]];
+    }
+
     LayerNumberSelect *selpanel = [LayerNumberSelect layer];
     //selpanel.bounds = CGRectMake(0, 0, 300, 340);
     selpanel.name = @"NumberSelect";
     selpanel.frame = CGRectMake(0, 0, 300, 450);
     selpanel.position = CGPointMake(160, 270);
+    selpanel.arrSelNo = marrBuyNo;
 
 /*  背景画像（表示されない）
     CALayer *bgLayer = [CALayer layer];

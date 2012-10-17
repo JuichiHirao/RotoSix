@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *histDetailView;
 
 @property (nonatomic, strong) BuyHistory *buyHist;
+@property (nonatomic, strong) NSString *selBuyNumbers;
 
 - (void)btnEditPressed;
 

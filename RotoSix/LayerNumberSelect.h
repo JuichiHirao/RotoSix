@@ -13,6 +13,8 @@
     //QuartzTextNumDelegate *_layerDelegate;
 }
 
+@property (nonatomic, strong) NSMutableArray *arrSelNo;
+
 - (NSString *)getImageName:(NSString *)selected;
 
 @end
