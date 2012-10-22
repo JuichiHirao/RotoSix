@@ -40,7 +40,7 @@
     
     histDetailView.backgroundView = imgBg;
     */
-        
+
     // 編集ボタン
 	UIButton *btn;
     btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -172,7 +172,7 @@
             height = 40.0;
             break;
         case 1:
-            height = 30.0;
+            height = 35.0;
             break;
         case 2:
             height = 25.0;
@@ -381,6 +381,15 @@
     }
     
     [self performSegueWithIdentifier:@"NumberInput" sender:self];
+/*  黒の背景を止めたいので、以下の記述したが正しく動作せず
+    iOS View Controller プログラミングガイド120216.pdf P43 リスト2-4 View Controllerをウインドウのルートview Controllerとしてインストール
+    UIWindow *win = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    NumberSelectViewController *numInputlViewController = [[NumberSelectViewController alloc] init];
+    numInputlViewController.buyNumbers = selBuyNumbers;
+    win.rootViewController = numInputlViewController;
+    
+    [win makeKeyAndVisible];
+ */
 }
 
 - (void)viewDidUnload {

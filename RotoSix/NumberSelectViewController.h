@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "LayerNumberSelect.h"
+#import "NumberSelectView.h"
 
 @interface NumberSelectViewController : UIViewController {
-    UIView *selpanelView;
+//    UIView *selpanelView;
+    NumberSelectView *selpanelView;
+    NSInteger selectNoCount;
 }
 
 @property (nonatomic, strong) NSString *buyNumbers;
+@property (nonatomic, strong) UILabel *lblNotice;
 
+- (void)btnCancelPresed;
 - (void)btnEndPressed;
 
 @end

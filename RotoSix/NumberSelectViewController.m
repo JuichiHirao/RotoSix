@@ -15,6 +15,7 @@
 @implementation NumberSelectViewController
 
 @synthesize buyNumbers;
+@synthesize lblNotice;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -31,9 +32,38 @@
 	}
 
     NSLog(@"buyNumber %@", buyNumbers);
-
+    
     CALayer *layer = [selpanelView.layer hitTest:pos];
-    NSLog(@"%@", [NSString stringWithFormat:@"layer %@", layer.name]);
+    NSString *layerPrefix = [layer.name substringWithRange:NSMakeRange(0, 2)];
+	// 未選択[0]の場合
+	if (![layerPrefix isEqualToString:@"No"]) {
+        NSLog(@"%@", [NSString stringWithFormat:@"layer [%@] Not No return", layer.name]);
+		return;
+    }
+
+    NSString *selected = [layer valueForKey:@"selected"];
+    NSLog(@"%@", [NSString stringWithFormat:@"layer %@ selected %@    selectNoCount %d", layer.name, selected, selectNoCount]);
+
+    if ([selected isEqualToString:@"0"]) {
+        if (selectNoCount >= 6) {
+            // エラーメッセージは２秒で自動的に消す
+            lblNotice.text = @"どれかを選択解除してから番号を選択して下さい";
+            lblNotice.hidden = NO;
+            [NSTimer scheduledTimerWithTimeInterval:2
+                                             target:self
+                                           selector:@selector(finishErrorMessage:)
+                                           userInfo:nil
+                                            repeats:NO];
+            return;
+        }
+    }
+    
+    if ([selected isEqualToString:@"1"])
+        selectNoCount--;
+    else
+        selectNoCount++;
+    
+    NSLog(@"%@", [NSString stringWithFormat:@"selectNoCount %d", selectNoCount]);
 
     // y軸で回転のアニメーションをする
     //   iOS Core Frameworks Chapter 8.4.3 参照
@@ -49,6 +79,11 @@
     layer.transform = pers;
     
     [layer addAnimation:anim forKey:@"rotation.y"];
+}
+
+- (void)finishErrorMessage:(NSTimer *)timer
+{
+	lblNotice.hidden = YES;
 }
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
@@ -70,6 +105,7 @@
 
     // 取得した逆の値からイメージファイル名を取得、同画像を表示設定する
     findlayer.contents = (id)[UIImage imageNamed:[self getImageName:chgSelected layername:findlayer.name]].CGImage;
+    
 }
 
 - (NSString *)getImageName:(NSString *)selected layername:(NSString *)layername
@@ -128,10 +164,13 @@
 
 - (void)loadView {
 
-    selpanelView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
-    selpanelView.opaque = YES;
+    selpanelView = [[NumberSelectView alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
+//    selpanelView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
+//    selpanelView = [[UIView alloc] initWithFrame:self.view.frame]; // 落ちる
+    selpanelView.opaque = NO;
+//    selpanelView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
     selpanelView.backgroundColor = [UIColor clearColor];
-
+    
     NSArray *arrBuyNo = [buyNumbers componentsSeparatedByString:@","];
     NSMutableArray *marrBuyNo = [[NSMutableArray alloc] init];
     
@@ -139,6 +178,8 @@
         NSString *strNo = [arrBuyNo objectAtIndex:idx];
         [marrBuyNo addObject:[NSNumber numberWithInt:[strNo intValue]]];
     }
+    
+    selectNoCount = [arrBuyNo count];
 
     LayerNumberSelect *selpanel = [LayerNumberSelect layer];
     //selpanel.bounds = CGRectMake(0, 0, 300, 340);
@@ -157,26 +198,24 @@
     
     [selpanelView.layer addSublayer:bgLayer];
  */
-    
     // 背景色の設定
     CGColorSpaceRef rgbColorspace = CGColorSpaceCreateDeviceRGB();
     // R, G, B, Alpha
-    CGFloat values[4] = {0.0, 0.0, 0.0, 0.0};
-//    CGFloat values[4] = {1.0, 1.0, 1.0, 1.0};
+//    CGFloat values[4] = {0.0, 0.0, 0.0, 0.0}; // black
+    CGFloat values[4] = {1.0, 1.0, 1.0, 1.0}; // white
     CGColorRef red = CGColorCreate(rgbColorspace, values);
     selpanel.backgroundColor = red;
     selpanel.opacity = YES;
 
     [selpanel setNeedsDisplay];
     [selpanelView.layer addSublayer:selpanel];
-    
 //    [self.view clearsContextBeforeDrawing];
     self.view = selpanelView;
+
 }
+
 - (void)viewDidLoad
 {
-    UIImageView *img1_1, *img1_2, *img1_3, *img1_4, *img1_5, *img1_6;
-
 /*
     img1_1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 5.0, 45.0, 45.0)];
     [super viewDidLoad];
@@ -191,36 +230,53 @@
     [self.view addSubview:selpanelView];
   */
 
+    int viewCnt = 0;
+    for (UIView *subView in [self.view subviews]) {
+        viewCnt++;
+        NSLog(@"%@", [NSString stringWithFormat:@"subView %d", viewCnt]);
+    }
+
+    self.view.opaque = NO;
+    self.view.backgroundColor = [UIColor clearColor];
+//    selpanelView.opaque = NO;
+//    selpanelView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+
 	// Do any additional setup after loading the view.
     // 決定ボタン
 	UIButton *btn;
     btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(230,420,70,30);
+    btn.frame = CGRectMake(230,430,70,30);
     [btn setFont:[UIFont systemFontOfSize:14.0]];
     [btn setTitle:@"選択" forState:UIControlStateNormal];
 	[btn addTarget:self action:@selector(btnEndPressed) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:btn];
 
     btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(155,420,70,30);
+    btn.frame = CGRectMake(155,430,70,30);
     [btn setFont:[UIFont systemFontOfSize:12.0]];
     [btn setTitle:@"キャンセル" forState:UIControlStateNormal];
-	[btn addTarget:self action:@selector(btnEndPressed) forControlEvents:UIControlEventTouchUpInside];
+	[btn addTarget:self action:@selector(btnCancelPressed) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:btn];
-
+    
+    lblNotice = [[UILabel alloc] initWithFrame:CGRectMake(90.0, 420, 200.0, 10.0)];
+//    lbl.backgroundColor = [UIColor clearColor];
+    lblNotice.font = [UIFont systemFontOfSize:11.0];
+//    lbl.textAlignment = UITextAlignmentRight;
+    lblNotice.textColor = [UIColor blackColor];
+    lblNotice.text = @"これはテストだよ、12345678903434535";
+    lblNotice.hidden = YES;
+//    lbl.opaque = 1.0;
+    [self.view addSubview:lblNotice];
+  
+/*
     btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn.frame = CGRectMake(15,420,70,30);
     [btn setFont:[UIFont systemFontOfSize:12.0]];
     [btn setTitle:@"元に戻す" forState:UIControlStateNormal];
 	[btn addTarget:self action:@selector(btnEndPressed) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:btn];
-
+ */
 //    [self.view addSubview:img1_1];
-    
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"No01-45" ofType:@"png"];
-    UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-    
-    img1_1.image = theImage;
 }
 
 - (void)viewDidUnload
@@ -235,6 +291,10 @@
 }
 
 - (void)btnEndPressed {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)btnCancelPressed {
     [self dismissModalViewControllerAnimated:YES];
 }
 

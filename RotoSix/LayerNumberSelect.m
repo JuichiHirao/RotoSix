@@ -31,23 +31,25 @@
 	CGFloat fPosY = 0.0;
 	CGFloat fPosX = 0.0;
     int cnt = 0;
-/*  初期の７行×６個の設定での表示（番号が42個と勘違い時）
+/*  1列に6個表示の設定で表示（No43のみ8行目） */
 	int iMaxX = 6;				// X軸のマス目の最大数
+    int iMaxY = 8;              // Y軸のマス目の最大数（8行目は1個のみ表示）
 	CGFloat fRectSize = 45;                         // マス目の中のサイズ（X,Yは同じで正方形）
     CGFloat intervalY = 5, intervalX = 5;           // 番号の球の間隔
     CGFloat startMarginX = 1.8, startMarginY = 3;   // 先頭に空けるマージン
- */
-    
+
+/*
 	int iMaxX = 8;				// X軸のマス目の最大数
 	CGFloat fRectSize = 36;                         // マス目の中のサイズ（X,Yは同じで正方形）
     CGFloat intervalY = 2.5, intervalX = 2.5;           // 番号の球の間隔
     CGFloat startMarginX = 0.0, startMarginY = 3;   // 先頭に空けるマージン
+ */
     
     int arrIdx = 0;
     for( int idx=1; idx <= 43; idx++)
     {
 //		fPosY = ((cnt / iMaxX) * fRectSize) + (((cnt / iMaxX) % 7) * intervalY) + (fRectSize / 2) + startMarginY;
-		fPosY = ((cnt / iMaxX) * fRectSize) + (((cnt / iMaxX) % 6) * intervalY) + (fRectSize / 2) + startMarginY;
+		fPosY = ((cnt / iMaxX) * fRectSize) + (((cnt / iMaxX) % iMaxY) * intervalY) + (fRectSize / 2) + startMarginY;
         fPosX = ((cnt % iMaxX) * fRectSize) + (((idx -1) % iMaxX) * intervalX) + (fRectSize / 2) + startMarginX;
 		//fPosX = (((cnt % iMaxX) + 1) * fRectSize) - fRectSize + fStartX;
 		

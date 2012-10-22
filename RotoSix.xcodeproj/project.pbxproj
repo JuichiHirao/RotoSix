@@ -122,6 +122,7 @@
 		E66BC18716153BC200056B40 /* No43-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18516153BC200056B40 /* No43-45.png */; };
 		E66BC18816153BC200056B40 /* No43NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18616153BC200056B40 /* No43NoSel-45.png */; };
 		E66BC18B161540B600056B40 /* No42NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18A161540B600056B40 /* No42NoSel-45.png */; };
+		E6E416EA1631579F00F14725 /* NumberSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E416E91631579F00F14725 /* NumberSelectView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +262,8 @@
 		E66BC18516153BC200056B40 /* No43-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No43-45.png"; sourceTree = "<group>"; };
 		E66BC18616153BC200056B40 /* No43NoSel-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No43NoSel-45.png"; sourceTree = "<group>"; };
 		E66BC18A161540B600056B40 /* No42NoSel-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No42NoSel-45.png"; sourceTree = "<group>"; };
+		E6E416E81631579F00F14725 /* NumberSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectView.h; sourceTree = "<group>"; };
+		E6E416E91631579F00F14725 /* NumberSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberSelectView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,6 +454,8 @@
 				A26A3A3015FC924400181646 /* NumberSelectViewController.m */,
 				A2008C5315FE283F0089F0B8 /* LayerNumberSelect.h */,
 				A2008C5415FE283F0089F0B8 /* LayerNumberSelect.m */,
+				E6E416E81631579F00F14725 /* NumberSelectView.h */,
+				E6E416E91631579F00F14725 /* NumberSelectView.m */,
 			);
 			path = RotoSix;
 			sourceTree = "<group>";
@@ -695,6 +700,7 @@
 				A2BE7EEF15F625A900FD98B9 /* BuyHistDataController.m in Sources */,
 				A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */,
 				A2008C5515FE283F0089F0B8 /* LayerNumberSelect.m in Sources */,
+				E6E416EA1631579F00F14725 /* NumberSelectView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
