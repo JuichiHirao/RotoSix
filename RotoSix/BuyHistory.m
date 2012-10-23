@@ -32,6 +32,26 @@
     return @"";
 }
 
+-(NSString*) changeSetNo:(NSInteger)setNoIndex SetNo:(NSString *)setNo {
+    if (setNoIndex==0) {
+        set01 = setNo;
+    }
+    else if (setNoIndex==1) {
+        set02 = setNo;
+    }
+    else if (setNoIndex==2) {
+        set03 = setNo;
+    }
+    else if (setNoIndex==3) {
+        set04 = setNo;
+    }
+    else if (setNoIndex==4){
+        set05 = setNo;
+    }
+    
+    return @"";
+}
+
 -(NSInteger) getCount {
     if ([set01 length] == 0) {
         return 0;

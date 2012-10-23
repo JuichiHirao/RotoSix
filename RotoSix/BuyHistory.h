@@ -21,6 +21,7 @@
 @property (nonatomic, assign) NSInteger prizeMoney;
 
 -(NSString*) getSetNo:(NSInteger)setNoIndex;
+-(NSString*) changeSetNo:(NSInteger)setNoIndex SetNo:(NSString *)setNo;
 -(NSInteger) getCount;
 
 @end

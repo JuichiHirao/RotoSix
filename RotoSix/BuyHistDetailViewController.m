@@ -22,13 +22,23 @@
 @synthesize histDetailView;
 @synthesize buyHist;
 @synthesize selBuyNumbers;
+@synthesize selBuyNo;
+
+-(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
+    NSString *beforeNo = [buyHist getSetNo:selBuyNo];
+
+    [buyHist changeSetNo:selBuyNo SetNo:name];
+    NSLog(@"NumberSelectBtnEnd beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
+    NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selBuyNo inSection:1];
+    NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+    [histDetailView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     // Update the view with current data before it is displayed.
     [super viewWillAppear:animated];
 
 //    histDetailView.backgroundColor = [UIColor clearColor];
-    UIImageView *imgBg = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 3.0, 15.0, 15.0)];
     
     NSInteger a = self.navigationController.navigationBar.frame.size.height;
     NSLog(@"navigationBar.frame.size.height [%d]", a);
@@ -133,6 +143,7 @@
         //NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
         NumberSelectViewController *numInputlViewController = [segue destinationViewController];
         numInputlViewController.buyNumbers = selBuyNumbers;
+        numInputlViewController.delegate = self;
     }
 }
 
@@ -227,8 +238,6 @@
     NSLog(@" cell [%@] [%p]", CellIdentifier, cell);
     NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
     //NSLog(@"cellForRowAtIndexPath before %f,%f",cell.contentView.frame.origin.x,cell.contentView.frame.size.width);
-    
-    UIButton *btn;
     
     int buySetNo = 0;
     int idxArrmBuyNo = 0;
@@ -378,6 +387,7 @@
     
     if (indexPath.section==1) {
         selBuyNumbers = [buyHist getSetNo:indexPath.row];
+        selBuyNo = indexPath.row;
     }
     
     [self performSegueWithIdentifier:@"NumberInput" sender:self];

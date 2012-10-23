@@ -10,16 +10,26 @@
 #import "LayerNumberSelect.h"
 #import "NumberSelectView.h"
 
+@protocol NumberSelectDelegate;
+
 @interface NumberSelectViewController : UIViewController {
 //    UIView *selpanelView;
     NumberSelectView *selpanelView;
     NSInteger selectNoCount;
+    id <NumberSelectDelegate> delegate;
 }
 
 @property (nonatomic, strong) NSString *buyNumbers;
 @property (nonatomic, strong) UILabel *lblNotice;
+@property (weak, nonatomic) id <NumberSelectDelegate> delegate;
 
 - (void)btnCancelPresed;
 - (void)btnEndPressed;
+
+@end
+
+@protocol NumberSelectDelegate <NSObject>
+
+- (void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name;
 
 @end

@@ -16,6 +16,7 @@
 
 @synthesize buyNumbers;
 @synthesize lblNotice;
+@synthesize delegate = _delegate;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -246,14 +247,15 @@
 	UIButton *btn;
     btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn.frame = CGRectMake(230,430,70,30);
-    [btn setFont:[UIFont systemFontOfSize:14.0]];
+    //[btn setFont:[UIFont systemFontOfSize:14.0]];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
     [btn setTitle:@"選択" forState:UIControlStateNormal];
 	[btn addTarget:self action:@selector(btnEndPressed) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:btn];
 
     btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn.frame = CGRectMake(155,430,70,30);
-    [btn setFont:[UIFont systemFontOfSize:12.0]];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:12.0]];
     [btn setTitle:@"キャンセル" forState:UIControlStateNormal];
 	[btn addTarget:self action:@selector(btnCancelPressed) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:btn];
@@ -291,11 +293,50 @@
 }
 
 - (void)btnEndPressed {
+    NSString *selNo = [self getSelectNumber];
+    
+    if (selNo.length < 17) {
+        lblNotice.text = @"6個の数字を選択して下さい";
+        lblNotice.hidden = NO;
+        [NSTimer scheduledTimerWithTimeInterval:2
+                                         target:self
+                                       selector:@selector(finishErrorMessage:)
+                                       userInfo:nil
+                                        repeats:NO];
+        return;
+    }
+
+    [[self delegate] NumberSelectBtnEnd:self SelectNumber:selNo];
     [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)btnCancelPressed {
     [self dismissModalViewControllerAnimated:YES];
 }
+
+- (NSString *)getSelectNumber
+{
+    NSString *selNum = @"";
+	for(CALayer *layer in selpanelView.layer.sublayers) {
+		if([[layer name] isEqualToString:@"NumberSelect"]) {
+            for(CALayer *layerSub in layer.sublayers) {
+                NSString *selected = [layerSub valueForKey:@"selected"];
+                //NSLog(@"%@", [NSString stringWithFormat:@"getSelectNumber layername %@", [layerSub name]]);
+                
+                if ([selected isEqualToString:@"1"]) {
+                    NSString *layerNo = [NSString stringWithFormat:@",%@", [layerSub.name substringWithRange:NSMakeRange(2, 2)]];
+                    //NSLog(@"%@", [NSString stringWithFormat:@"getSelectNumber layerNo %@", layerNo]);
+                    selNum = [NSString stringWithFormat:@"%@%@", selNum, layerNo];
+                }
+            }
+		}
+	}
+    selNum = [selNum substringFromIndex:1];
+    
+    NSLog(@"%@", [NSString stringWithFormat:@"getSelectNumber %@", selNum]);
+    
+	return selNum;
+}
+
 
 @end

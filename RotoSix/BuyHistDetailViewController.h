@@ -7,16 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NumberSelectViewController.h"
 
 @class BuyHistory;
 @class NumberSelectViewController;
 
-@interface BuyHistDetailViewController : UITableViewController
+@interface BuyHistDetailViewController : UITableViewController <NumberSelectDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *histDetailView;
 
 @property (nonatomic, strong) BuyHistory *buyHist;
 @property (nonatomic, strong) NSString *selBuyNumbers;
+@property (nonatomic) NSInteger selBuyNo;
 
 - (void)btnEditPressed;
 
