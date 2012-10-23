@@ -30,7 +30,6 @@
 		A2BE5ECA1607630300162DCB /* No01NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BE5E761607630200162DCB /* No01NoSel-45.png */; };
 		A2BE5ECB1607630300162DCB /* No02-45.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BE5E771607630200162DCB /* No02-45.png */; };
 		A2BE5ECC1607630300162DCB /* No02NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BE5E781607630200162DCB /* No02NoSel-45.png */; };
-		A2BE5ECD1607630300162DCB /* No03-35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BE5E791607630200162DCB /* No03-35.png */; };
 		A2BE5ECE1607630300162DCB /* No03-45.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BE5E7A1607630200162DCB /* No03-45.png */; };
 		A2BE5ECF1607630300162DCB /* No03NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BE5E7B1607630200162DCB /* No03NoSel-45.png */; };
 		A2BE5ED01607630300162DCB /* No04-45.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BE5E7C1607630200162DCB /* No04-45.png */; };
@@ -535,7 +534,7 @@
 		A2A5227C15C6AF0C00D65863 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Juuichi Hirao";
 			};
 			buildConfigurationList = A2A5227F15C6AF0C00D65863 /* Build configuration list for PBXProject "RotoSix" */;
@@ -575,7 +574,6 @@
 				A2BE5ECA1607630300162DCB /* No01NoSel-45.png in Resources */,
 				A2BE5ECB1607630300162DCB /* No02-45.png in Resources */,
 				A2BE5ECC1607630300162DCB /* No02NoSel-45.png in Resources */,
-				A2BE5ECD1607630300162DCB /* No03-35.png in Resources */,
 				A2BE5ECE1607630300162DCB /* No03-45.png in Resources */,
 				A2BE5ECF1607630300162DCB /* No03NoSel-45.png in Resources */,
 				A2BE5ED01607630300162DCB /* No04-45.png in Resources */,
