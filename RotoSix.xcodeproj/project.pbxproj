@@ -10,6 +10,13 @@
 		A2008C4F15FE27C50089F0B8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2008C4E15FE27C50089F0B8 /* QuartzCore.framework */; };
 		A2008C5515FE283F0089F0B8 /* LayerNumberSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = A2008C5415FE283F0089F0B8 /* LayerNumberSelect.m */; };
 		A20B00EA16037FD60056F01A /* NumberSelectBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A20B00E916037FD60056F01A /* NumberSelectBackground.png */; };
+		A214F29A1636D12500AE0C36 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A214F2991636D12500AE0C36 /* libsqlite3.0.dylib */; };
+		A214F2A61636D19A00AE0C36 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F29D1636D19900AE0C36 /* FMDatabase.m */; };
+		A214F2A71636D19A00AE0C36 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F29F1636D19900AE0C36 /* FMDatabaseAdditions.m */; };
+		A214F2A81636D19A00AE0C36 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F2A11636D19A00AE0C36 /* FMDatabasePool.m */; };
+		A214F2A91636D19A00AE0C36 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F2A31636D19A00AE0C36 /* FMDatabaseQueue.m */; };
+		A214F2AA1636D19A00AE0C36 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F2A51636D19A00AE0C36 /* FMResultSet.m */; };
+		A214F2AC1636D3BD00AE0C36 /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
 		A21675541606F3B8001A7C03 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21675531606F3B7001A7C03 /* CoreImage.framework */; };
 		A26A3A0515FC35EF00181646 /* No01-20.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A3A0415FC35EF00181646 /* No01-20.png */; };
 		A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A3A3015FC924400181646 /* NumberSelectViewController.m */; };
@@ -139,6 +146,18 @@
 		A2008C5315FE283F0089F0B8 /* LayerNumberSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerNumberSelect.h; sourceTree = "<group>"; };
 		A2008C5415FE283F0089F0B8 /* LayerNumberSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerNumberSelect.m; sourceTree = "<group>"; };
 		A20B00E916037FD60056F01A /* NumberSelectBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NumberSelectBackground.png; path = ../../../NumberSelectBackground.png; sourceTree = "<group>"; };
+		A214F2991636D12500AE0C36 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		A214F29C1636D19900AE0C36 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		A214F29D1636D19900AE0C36 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		A214F29E1636D19900AE0C36 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		A214F29F1636D19900AE0C36 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		A214F2A01636D19A00AE0C36 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		A214F2A11636D19A00AE0C36 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		A214F2A21636D19A00AE0C36 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		A214F2A31636D19A00AE0C36 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		A214F2A41636D19A00AE0C36 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		A214F2A51636D19A00AE0C36 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		A214F2AB1636D3BD00AE0C36 /* mst.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = mst.db; sourceTree = "<group>"; };
 		A21675531606F3B7001A7C03 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		A26A3A0415FC35EF00181646 /* No01-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-20.png"; sourceTree = "<group>"; };
 		A26A3A2F15FC924400181646 /* NumberSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectViewController.h; sourceTree = "<group>"; };
@@ -270,6 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A214F29A1636D12500AE0C36 /* libsqlite3.0.dylib in Frameworks */,
 				A21675541606F3B8001A7C03 /* CoreImage.framework in Frameworks */,
 				A2008C4F15FE27C50089F0B8 /* QuartzCore.framework in Frameworks */,
 				A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */,
@@ -396,6 +416,7 @@
 		A2A5227A15C6AF0C00D65863 = {
 			isa = PBXGroup;
 			children = (
+				A214F2991636D12500AE0C36 /* libsqlite3.0.dylib */,
 				A21675531606F3B7001A7C03 /* CoreImage.framework */,
 				A2008C4E15FE27C50089F0B8 /* QuartzCore.framework */,
 				A2A5228F15C6AF0C00D65863 /* RotoSix */,
@@ -428,6 +449,17 @@
 		A2A5228F15C6AF0C00D65863 /* RotoSix */ = {
 			isa = PBXGroup;
 			children = (
+				A214F2AB1636D3BD00AE0C36 /* mst.db */,
+				A214F29C1636D19900AE0C36 /* FMDatabase.h */,
+				A214F29D1636D19900AE0C36 /* FMDatabase.m */,
+				A214F29E1636D19900AE0C36 /* FMDatabaseAdditions.h */,
+				A214F29F1636D19900AE0C36 /* FMDatabaseAdditions.m */,
+				A214F2A01636D19A00AE0C36 /* FMDatabasePool.h */,
+				A214F2A11636D19A00AE0C36 /* FMDatabasePool.m */,
+				A214F2A21636D19A00AE0C36 /* FMDatabaseQueue.h */,
+				A214F2A31636D19A00AE0C36 /* FMDatabaseQueue.m */,
+				A214F2A41636D19A00AE0C36 /* FMResultSet.h */,
+				A214F2A51636D19A00AE0C36 /* FMResultSet.m */,
 				A226947116075F1E00A930EA /* ResourceImage */,
 				A20B00E916037FD60056F01A /* NumberSelectBackground.png */,
 				A26A3A0415FC35EF00181646 /* No01-20.png */,
@@ -664,6 +696,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2A522BB15C6AF0C00D65863 /* InfoPlist.strings in Resources */,
+				A214F2AC1636D3BD00AE0C36 /* mst.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +732,11 @@
 				A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */,
 				A2008C5515FE283F0089F0B8 /* LayerNumberSelect.m in Sources */,
 				E6E416EA1631579F00F14725 /* NumberSelectView.m in Sources */,
+				A214F2A61636D19A00AE0C36 /* FMDatabase.m in Sources */,
+				A214F2A71636D19A00AE0C36 /* FMDatabaseAdditions.m in Sources */,
+				A214F2A81636D19A00AE0C36 /* FMDatabasePool.m in Sources */,
+				A214F2A91636D19A00AE0C36 /* FMDatabaseQueue.m in Sources */,
+				A214F2AA1636D19A00AE0C36 /* FMResultSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

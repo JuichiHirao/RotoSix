@@ -14,5 +14,6 @@
 
 - (unsigned)countOfList;
 - (BuyHistory *)objectInListAtIndex:(unsigned)theIndex;
+- (void) createDemoFromDb;
 
 @end

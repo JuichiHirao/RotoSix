@@ -37,6 +37,7 @@
     BuyHistDataController *data = [[BuyHistDataController alloc] init];
     dataController = data;
     NSLog(@"viewDidLoad [%d]", [dataController countOfList]);
+    //[data createDemoFromDb];
 
     histTableView.backgroundColor = [UIColor clearColor];
     UIImageView *imgBg = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 3.0, 15.0, 15.0)];

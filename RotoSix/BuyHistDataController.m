@@ -8,10 +8,12 @@
 
 #import "BuyHistDataController.h"
 #import "BuyHistory.h"
+#import "FMDatabase.h"
 
 @interface BuyHistDataController()
 @property (nonatomic, copy, readwrite) NSMutableArray *list;
 - (void)createDemoData;
+- (void)testdb;
 @end
 
 @implementation BuyHistDataController
@@ -20,7 +22,7 @@
 
 -(id)init {
     if (self = [super init]) {
-        [self createDemoData];
+        [self createDemoFromDb];
     }
     return self;
 }
@@ -65,4 +67,68 @@
     list = listBuyHist;
 
 }
+
+-(void)createDemoFromDb {
+    //呼び出したいメソッドで下記を実行
+    NSError *error;
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
+    NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", writableDBPath]);
+
+    
+    BOOL result_flag = [fm fileExistsAtPath:writableDBPath];
+    if(!result_flag){
+        //dbが存在してなかったらここが呼ばれて、作成したDBをコピー
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"mst.db"];
+        NSLog(@"%@", [NSString stringWithFormat:@"defaultDBPath [%@]", defaultDBPath]);
+        
+        BOOL copy_result_flag = [fm copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+        if(!copy_result_flag){
+            //失敗したらここ
+            NSLog(@"%@", [NSString stringWithFormat:@"copy failed"]);
+        }
+    }
+    
+    NSMutableArray *listBuyHist = [[NSMutableArray alloc] init];
+
+    //作成したテーブルからデータを取得
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        FMResultSet *rs = [db executeQuery:@"SELECT lottery_no, set01, set02, set03, set04, set05, lottery_amount, lottery_date FROM buy_history order by lottery_no desc"];
+        while ([rs next]) {
+            BuyHistory *buyHist;
+
+            buyHist = [[BuyHistory alloc]init];
+            buyHist.set01 = [rs stringForColumn:@"set01"];
+            buyHist.set02 = [rs stringForColumn:@"set02"];
+            buyHist.set03 = [rs stringForColumn:@"set03"];
+            buyHist.set04 = [rs stringForColumn:@"set04"];
+            buyHist.set05 = [rs stringForColumn:@"set05"];
+            buyHist.lotteryDate = [rs dateForColumn:@"lottery_date"];
+//            buyHist.unit = 2;
+//            buyHist.lotteryDate = [dateFormatter dateFromString:@"20120601"];
+            buyHist.lotteryNo = [rs intForColumn:@"lottery_no"];
+            
+            [listBuyHist addObject:buyHist];
+
+            //ここでデータを展開
+            NSLog(@"%d %@ %@ %@ %@ %@ %d %@", [rs intForColumn:@"lottery_no"], [rs stringForColumn:@"set01"]
+                  , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
+                  , [rs stringForColumn:@"set05"], [rs intForColumn:@"lottery_amount"], [rs dateForColumn:@"lottery_date"]);
+        }
+        [rs close];
+        [db close];
+        
+        list = listBuyHist;
+    }else{
+        //DBが開けなかったらここ
+    }    
+}
+
 @end
