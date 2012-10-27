@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString *selBuyNumbers;
 @property (nonatomic) NSInteger selBuyNo;
 
+- (void)btnSavePressed;
 - (void)btnEditPressed;
 
 @end

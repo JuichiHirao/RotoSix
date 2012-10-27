@@ -17,6 +17,7 @@
 		A214F2A91636D19A00AE0C36 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F2A31636D19A00AE0C36 /* FMDatabaseQueue.m */; };
 		A214F2AA1636D19A00AE0C36 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F2A51636D19A00AE0C36 /* FMResultSet.m */; };
 		A214F2AC1636D3BD00AE0C36 /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
+		A2164752163966C200200BF9 /* StatusUpdate35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2164751163966C200200BF9 /* StatusUpdate35.png */; };
 		A21675541606F3B8001A7C03 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21675531606F3B7001A7C03 /* CoreImage.framework */; };
 		A26A3A0515FC35EF00181646 /* No01-20.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A3A0415FC35EF00181646 /* No01-20.png */; };
 		A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A3A3015FC924400181646 /* NumberSelectViewController.m */; };
@@ -123,6 +124,7 @@
 		A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2215FA31E600E036F7 /* No03-35.png */; };
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
+		A2F1426C163C01C500D6385D /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
 		E61BEDEA15F39A4F00FAF755 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = E61BEDE915F39A4F00FAF755 /* Background.png */; };
 		E6689B0915F253420026CBC3 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E6689B0815F253420026CBC3 /* CellBackground.png */; };
 		E66BC18716153BC200056B40 /* No43-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18516153BC200056B40 /* No43-45.png */; };
@@ -158,6 +160,7 @@
 		A214F2A41636D19A00AE0C36 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		A214F2A51636D19A00AE0C36 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		A214F2AB1636D3BD00AE0C36 /* mst.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = mst.db; sourceTree = "<group>"; };
+		A2164751163966C200200BF9 /* StatusUpdate35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusUpdate35.png; sourceTree = "<group>"; };
 		A21675531606F3B7001A7C03 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		A26A3A0415FC35EF00181646 /* No01-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-20.png"; sourceTree = "<group>"; };
 		A26A3A2F15FC924400181646 /* NumberSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectViewController.h; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 		A226947116075F1E00A930EA /* ResourceImage */ = {
 			isa = PBXGroup;
 			children = (
+				A2164751163966C200200BF9 /* StatusUpdate35.png */,
 				A226947216075F2A00A930EA /* NoXX-45 */,
 			);
 			name = ResourceImage;
@@ -416,10 +420,10 @@
 		A2A5227A15C6AF0C00D65863 = {
 			isa = PBXGroup;
 			children = (
+				A2A5228F15C6AF0C00D65863 /* RotoSix */,
 				A214F2991636D12500AE0C36 /* libsqlite3.0.dylib */,
 				A21675531606F3B7001A7C03 /* CoreImage.framework */,
 				A2008C4E15FE27C50089F0B8 /* QuartzCore.framework */,
-				A2A5228F15C6AF0C00D65863 /* RotoSix */,
 				A2A522B615C6AF0C00D65863 /* RotoSixTests */,
 				A2A5228815C6AF0C00D65863 /* Frameworks */,
 				A2A5228615C6AF0C00D65863 /* Products */,
@@ -592,6 +596,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2F1426C163C01C500D6385D /* mst.db in Resources */,
 				A2A5229415C6AF0C00D65863 /* InfoPlist.strings in Resources */,
 				A2A522A615C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard in Resources */,
 				A2A522A915C6AF0C00D65863 /* MainStoryboard_iPad.storyboard in Resources */,
@@ -688,6 +693,7 @@
 				E66BC18716153BC200056B40 /* No43-45.png in Resources */,
 				E66BC18816153BC200056B40 /* No43NoSel-45.png in Resources */,
 				E66BC18B161540B600056B40 /* No42NoSel-45.png in Resources */,
+				A2164752163966C200200BF9 /* StatusUpdate35.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

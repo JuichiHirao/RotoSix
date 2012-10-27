@@ -78,19 +78,20 @@
     
     NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
     NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", writableDBPath]);
-
     
     BOOL result_flag = [fm fileExistsAtPath:writableDBPath];
-    if(!result_flag){
-        //dbが存在してなかったらここが呼ばれて、作成したDBをコピー
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"mst.db"];
-        NSLog(@"%@", [NSString stringWithFormat:@"defaultDBPath [%@]", defaultDBPath]);
-        
-        BOOL copy_result_flag = [fm copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-        if(!copy_result_flag){
-            //失敗したらここ
-            NSLog(@"%@", [NSString stringWithFormat:@"copy failed"]);
-        }
+    if(result_flag){
+        [fm removeItemAtPath:writableDBPath error:nil];
+    }
+    
+    //dbが存在してなかったらここが呼ばれて、作成したDBをコピー
+    NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"mst.db"];
+    NSLog(@"%@", [NSString stringWithFormat:@"defaultDBPath [%@]", defaultDBPath]);
+    
+    BOOL copy_result_flag = [fm copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    if(!copy_result_flag){
+        //失敗したらここ
+        NSLog(@"%@", [NSString stringWithFormat:@"copy failed"]);
     }
     
     NSMutableArray *listBuyHist = [[NSMutableArray alloc] init];

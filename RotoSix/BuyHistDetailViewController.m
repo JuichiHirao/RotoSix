@@ -24,11 +24,17 @@
 @synthesize selBuyNumbers;
 @synthesize selBuyNo;
 
+// DELEGATE 
 -(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
     NSString *beforeNo = [buyHist getSetNo:selBuyNo];
 
     [buyHist changeSetNo:selBuyNo SetNo:name];
-    NSLog(@"NumberSelectBtnEnd beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
+    
+    if (![beforeNo isEqualToString:name]) {
+        [buyHist setUpdate:selBuyNo];
+        NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
+    }
+    
     NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selBuyNo inSection:1];
     NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
     [histDetailView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -49,10 +55,17 @@
     imgBg.image = theImage;
     
     histDetailView.backgroundView = imgBg;
-    */
+ */
+
+    // 保存ボタン
+	UIButton *btn;
+    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn.frame = CGRectMake(190,85,50,25);
+    [btn setTitle:@"保存" forState:UIControlStateNormal];
+	[btn addTarget:self action:@selector(btnSavePressed) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:btn];
 
     // 編集ボタン
-	UIButton *btn;
     btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn.frame = CGRectMake(250,85,50,25);
     [btn setTitle:@"編集" forState:UIControlStateNormal];
@@ -83,6 +96,11 @@
     else {
         [self setEditing:YES animated:YES];
     }
+}
+
+- (void)btnSavePressed
+{
+    [buyHist save];
 }
 
 #pragma mark - Table view data source
@@ -240,7 +258,6 @@
     //NSLog(@"cellForRowAtIndexPath before %f,%f",cell.contentView.frame.origin.x,cell.contentView.frame.size.width);
     
     int buySetNo = 0;
-    int idxArrmBuyNo = 0;
     NSMutableArray* arrmBuyNo = [NSMutableArray array];
 
     CGFloat x = 10.0;
@@ -264,7 +281,7 @@
                 x = x + 39.0;
                 [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
             }
-
+            
             //cell.backgroundView = [[UIImageView alloc] init];
 
             break;
@@ -281,6 +298,11 @@
                 x = x + 26;
                 [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
             }
+
+            // ステータスの表示用
+            x = x + 26;
+            [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+            [cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
 
             // 編集ボタン
 //            btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -342,7 +364,6 @@
             UIImageView *img = [arrmBuyNo objectAtIndex:idx];
             
             img.image = theImage;
-            idxArrmBuyNo++;
         }
     }
     else if (indexPath.section==1) {
@@ -358,7 +379,14 @@
             UIImageView *img = [arrmBuyNo objectAtIndex:idx];
             
             img.image = theImage;
-            idxArrmBuyNo++;
+        }
+        
+        if ([buyHist isUpdate:buySetNo]) {
+            NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"StatusUpdate35" ofType:@"png"];
+            UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+            UIImageView *img = [arrmBuyNo objectAtIndex:6];
+            
+            img.image = theImage;
         }
     }
 

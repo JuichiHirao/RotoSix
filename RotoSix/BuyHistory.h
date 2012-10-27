@@ -20,8 +20,17 @@
 @property (nonatomic, assign) NSInteger unit;
 @property (nonatomic, assign) NSInteger prizeMoney;
 
+@property (nonatomic, assign) NSInteger isSet01Update;
+@property (nonatomic, assign) NSInteger isSet02Update;
+@property (nonatomic, assign) NSInteger isSet03Update;
+@property (nonatomic, assign) NSInteger isSet04Update;
+@property (nonatomic, assign) NSInteger isSet05Update;
+
 -(NSString*) getSetNo:(NSInteger)setNoIndex;
 -(NSString*) changeSetNo:(NSInteger)setNoIndex SetNo:(NSString *)setNo;
 -(NSInteger) getCount;
+-(BOOL) isUpdate:(NSInteger)selBuyNo;
+-(void) setUpdate:(NSInteger)selBuyNo;
+-(void) save;
 
 @end
