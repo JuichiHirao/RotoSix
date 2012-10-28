@@ -78,7 +78,7 @@
     
     NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
     NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", writableDBPath]);
-    
+/*  本来のマスタの処理としては正しいが、mst.dbを変更dbとして使用するので一時的にコメントアウト
     BOOL result_flag = [fm fileExistsAtPath:writableDBPath];
     if(result_flag){
         [fm removeItemAtPath:writableDBPath error:nil];
@@ -93,6 +93,7 @@
         //失敗したらここ
         NSLog(@"%@", [NSString stringWithFormat:@"copy failed"]);
     }
+ */
     
     NSMutableArray *listBuyHist = [[NSMutableArray alloc] init];
 
@@ -101,11 +102,12 @@
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         
-        FMResultSet *rs = [db executeQuery:@"SELECT lottery_no, set01, set02, set03, set04, set05, lottery_amount, lottery_date FROM buy_history order by lottery_no desc"];
+        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_no, set01, set02, set03, set04, set05, lottery_amount, lottery_date FROM buy_history order by lottery_no desc"];
         while ([rs next]) {
             BuyHistory *buyHist;
 
             buyHist = [[BuyHistory alloc]init];
+            buyHist.dbId = [rs intForColumn:@"id"];
             buyHist.set01 = [rs stringForColumn:@"set01"];
             buyHist.set02 = [rs stringForColumn:@"set02"];
             buyHist.set03 = [rs stringForColumn:@"set03"];

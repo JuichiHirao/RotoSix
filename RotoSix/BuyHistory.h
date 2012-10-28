@@ -10,6 +10,7 @@
 
 @interface BuyHistory : NSObject
 
+@property (nonatomic, assign) NSInteger dbId;
 @property (nonatomic, strong) NSString *set01;
 @property (nonatomic, strong) NSString *set02;
 @property (nonatomic, strong) NSString *set03;
@@ -30,7 +31,7 @@
 -(NSString*) changeSetNo:(NSInteger)setNoIndex SetNo:(NSString *)setNo;
 -(NSInteger) getCount;
 -(BOOL) isUpdate:(NSInteger)selBuyNo;
--(void) setUpdate:(NSInteger)selBuyNo;
+-(void) setUpdate:(NSInteger)selBuyNo Status:(NSInteger)status;
 -(void) save;
 
 @end

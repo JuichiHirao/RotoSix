@@ -31,7 +31,7 @@
     [buyHist changeSetNo:selBuyNo SetNo:name];
     
     if (![beforeNo isEqualToString:name]) {
-        [buyHist setUpdate:selBuyNo];
+        [buyHist setUpdate:selBuyNo Status:1];
         NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
     }
     
@@ -101,6 +101,17 @@
 - (void)btnSavePressed
 {
     [buyHist save];
+
+    for (int idx=0; idx < 5; idx++) {
+        
+        if ([buyHist isUpdate:idx]) {
+            [buyHist setUpdate:idx Status:0];
+            
+            NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:idx inSection:1];
+            NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+            [histDetailView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
 }
 
 #pragma mark - Table view data source
