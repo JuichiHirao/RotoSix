@@ -11,6 +11,7 @@
 @interface BuyHistory : NSObject
 
 @property (nonatomic, assign) NSInteger dbId;
+@property (nonatomic, assign) NSInteger isDbUpdate;
 @property (nonatomic, strong) NSString *set01;
 @property (nonatomic, strong) NSString *set02;
 @property (nonatomic, strong) NSString *set03;

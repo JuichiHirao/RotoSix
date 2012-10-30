@@ -18,6 +18,7 @@
 
 @implementation BuyHistDataController
 
+@synthesize dbmstPath;
 @synthesize list;
 
 -(id)init {
@@ -70,14 +71,14 @@
 
 -(void)createDemoFromDb {
     //呼び出したいメソッドで下記を実行
-    NSError *error;
-    NSFileManager *fm = [NSFileManager defaultManager];
+    //NSError *error;
+    //NSFileManager *fm = [NSFileManager defaultManager];
     
     NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
-    NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", writableDBPath]);
+    dbmstPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
+    NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", dbmstPath]);
 /*  本来のマスタの処理としては正しいが、mst.dbを変更dbとして使用するので一時的にコメントアウト
     BOOL result_flag = [fm fileExistsAtPath:writableDBPath];
     if(result_flag){
@@ -98,7 +99,7 @@
     NSMutableArray *listBuyHist = [[NSMutableArray alloc] init];
 
     //作成したテーブルからデータを取得
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    FMDatabase* db = [FMDatabase databaseWithPath:dbmstPath];
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         
@@ -132,6 +133,54 @@
     }else{
         //DBが開けなかったらここ
     }    
+}
+-(void)reload:(NSInteger)idx {
+    BuyHistory *buyHist = [list objectAtIndex:idx];
+    
+    // このフラグのチェックにより初期表示時のviewWillAppearの呼び出しを無視する
+    if (buyHist.isDbUpdate != 1) {
+        return;
+    }
+    
+    //作成したテーブルからデータを取得
+    FMDatabase* db = [FMDatabase databaseWithPath:dbmstPath];
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        FMResultSet *rs = [db executeQuery:@"SELECT set01, set02, set03, set04, set05 FROM buy_history WHERE id = ?", [NSNumber numberWithInteger:buyHist.dbId]];
+        while ([rs next]) {
+            buyHist.set01 = [rs stringForColumn:@"set01"];
+            buyHist.set02 = [rs stringForColumn:@"set02"];
+            buyHist.set03 = [rs stringForColumn:@"set03"];
+            buyHist.set04 = [rs stringForColumn:@"set04"];
+            buyHist.set05 = [rs stringForColumn:@"set05"];
+
+            [list replaceObjectAtIndex:idx withObject:buyHist];
+            
+            //ここでデータを展開
+            NSLog(@"%d 01[%@] 02[%@] 03[%@] 04[%@] 05[%@]", buyHist.dbId, [rs stringForColumn:@"set01"]
+                  , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
+                  , [rs stringForColumn:@"set05"]);
+        }
+        [rs close];
+        [db close];
+    }else{
+        //DBが開けなかったらここ
+    }    
+}
+
+- (NSInteger) isDbUpdate:(NSInteger)idx {
+    BuyHistory *buyHist = [list objectAtIndex:idx];
+    
+    return buyHist.isDbUpdate;
+}
+
+- (void) setDbUpdate:(NSInteger)idx {
+    BuyHistory *buyHist = [list objectAtIndex:idx];
+    
+    buyHist.isDbUpdate = 0;
+
+    return;
 }
 
 @end

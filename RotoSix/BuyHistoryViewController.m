@@ -30,6 +30,26 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+
+    // super viewWillAppearをcallするとindexPathForSelectedRowがクリアされるので、その前に取得
+    NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+    NSLog(@"viewWillAppear animated[%d] row [%d]", animated, selectedRowIndex.row);
+    
+    [super viewWillAppear:animated];
+    
+    // 更新した行だけをリロード、セル再表示する
+    if ([dataController isDbUpdate:selectedRowIndex.row]) {
+        [dataController reload:selectedRowIndex.row];
+        
+        NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selectedRowIndex.row inSection:0];
+        NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+        [histTableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [dataController setDbUpdate:selectedRowIndex.row];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

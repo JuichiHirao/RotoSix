@@ -110,8 +110,11 @@
             NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:idx inSection:1];
             NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
             [histDetailView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+            NSLog(@"reloadRowsAtIndexPaths [%d]", idx);            
         }
     }
+    buyHist.isDbUpdate = 1;
+    //sleep(5);
 }
 
 #pragma mark - Table view data source
@@ -264,8 +267,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     NSString *cellText = nil;
-    NSLog(@" cell [%@] [%p]", CellIdentifier, cell);
-    NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
+    //NSLog(@" cell [%@] [%p]", CellIdentifier, cell);
+    //NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
     //NSLog(@"cellForRowAtIndexPath before %f,%f",cell.contentView.frame.origin.x,cell.contentView.frame.size.width);
     
     int buySetNo = 0;

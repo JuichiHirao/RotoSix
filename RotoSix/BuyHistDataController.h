@@ -12,8 +12,13 @@
 
 @interface BuyHistDataController : NSObject
 
+@property (nonatomic, copy, readwrite) NSString *dbmstPath;
+
 - (unsigned)countOfList;
 - (BuyHistory *)objectInListAtIndex:(unsigned)theIndex;
 - (void) createDemoFromDb;
+- (void) reload:(NSInteger)idx;
+- (NSInteger) isDbUpdate:(NSInteger)idx;
+- (void) setDbUpdate:(NSInteger)idx;
 
 @end

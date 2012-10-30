@@ -11,7 +11,7 @@
 
 @implementation BuyHistory
 
-@synthesize dbId, set01, set02, set03, set04, set05, lotteryNo, lotteryDate, unit, prizeMoney, isSet01Update, isSet02Update, isSet03Update, isSet04Update, isSet05Update;
+@synthesize dbId, isDbUpdate, set01, set02, set03, set04, set05, lotteryNo, lotteryDate, unit, prizeMoney, isSet01Update, isSet02Update, isSet03Update, isSet04Update, isSet05Update;
 
 -(BOOL) isUpdate:(NSInteger)selBuyNo {
     if (selBuyNo==0) {
@@ -134,10 +134,11 @@
         for (int idx=0; idx < 5; idx++) {
             
             if ([self isUpdate:idx]) {
-                NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d =  WHERE id = ? [dbId:%d]", idx+1, dbId];
-                NSLog(@"UPDATE SQL [%@]", strSql);
+//                NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?  WHERE id = ? [dbId:%d]", idx+1, dbId];
+                NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?  WHERE id = ?", idx+1];
+                NSLog(@"UPDATE buy_history set set%02d = ? [set%02d:%@]  WHERE id = ? [dbId:%d] ", idx+1, idx+1, [self getSetNo:idx], dbId);
                 
-                [db executeUpdate:strSql, [NSNumber numberWithInteger:dbId]];
+                [db executeUpdate:strSql, [self getSetNo:idx], [NSNumber numberWithInteger:dbId]];
             }
         }
 
