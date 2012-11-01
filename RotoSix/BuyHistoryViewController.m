@@ -118,60 +118,58 @@
     
     NSLog(@"cellForRowAtIndexPath [%d]", indexPath.row);
     BuyHistory *buyHistAtIndex = [dataController objectInListAtIndex:indexPath.row];
-    
-    //if (indexPath.row == 0) {
-        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
-    if (isCellSetting==YES) {
-        NSLog(@"%@", [NSString stringWithFormat:@"cellForRowAtIndexPath isCellSetting YES"]);
-    }
-    else {
-        NSLog(@"%@", [NSString stringWithFormat:@"cellForRowAtIndexPath isCellSetting NO"]);
-    }
-    
-    cntArrayBuyNo = 0;
-    lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0.0, 120.0, 15.0)];
-    lbLotteryDate.tag = 1;
-    lbLotteryDate.backgroundColor = [UIColor clearColor];
-    lbLotteryDate.font = [UIFont systemFontOfSize:12.0];
-    lbLotteryDate.textAlignment = UITextAlignmentLeft;
-    lbLotteryDate.textColor = [UIColor blackColor];
-    
-    [cell.contentView addSubview:lbLotteryDate];
-    
-    lbKaisuu = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 15.0, 50.0, 15.0)];
-    lbKaisuu.tag = 2;
-    lbKaisuu.backgroundColor = [UIColor clearColor];
-    lbKaisuu.font = [UIFont systemFontOfSize:10.0];
-    lbKaisuu.textAlignment = UITextAlignmentCenter;
-    lbKaisuu.textColor = [UIColor blackColor];
-    
-    [cell.contentView addSubview:lbKaisuu];
-    
-    arrmBuyNo = [NSMutableArray array];
-    
-    CGFloat x = 121.0;
-    CGFloat y = 3.0;
-    CGFloat width = 20.0;
-    CGFloat height = 20.0;
-    
-    for (int idx=0; idx < 5; idx++ ) {
-        x = 121.0;
-        for (int idxSub=0; idxSub < 6; idxSub++) {
-            [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-            x = x + 26;
-            cntArrayBuyNo++;
-        }
-        y = y + 22;
-    }
-    
-    for (int idx=0; idx < cntArrayBuyNo; idx++) {
-        [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
-    }
-    
-    cell.backgroundView = [[UIImageView alloc] init];
+    //if (indexPath.row == 0) {
+    //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+    UILabel *lbl = (UILabel*)[cell.contentView viewWithTag:1];
+
+    if (lbl==nil) {
         
+        cntArrayBuyNo = 0;
+        lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0.0, 120.0, 15.0)];
+        lbLotteryDate.tag = 1;
+        lbLotteryDate.backgroundColor = [UIColor clearColor];
+        lbLotteryDate.font = [UIFont systemFontOfSize:12.0];
+        lbLotteryDate.textAlignment = UITextAlignmentLeft;
+        lbLotteryDate.textColor = [UIColor blackColor];
+        
+        [cell.contentView addSubview:lbLotteryDate];
+        
+        lbKaisuu = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 15.0, 50.0, 15.0)];
+        lbKaisuu.tag = 2;
+        lbKaisuu.backgroundColor = [UIColor clearColor];
+        lbKaisuu.font = [UIFont systemFontOfSize:10.0];
+        lbKaisuu.textAlignment = UITextAlignmentCenter;
+        lbKaisuu.textColor = [UIColor blackColor];
+
+        [cell.contentView addSubview:lbKaisuu];
+        
+        arrmBuyNo = [NSMutableArray array];
+        
+        CGFloat x = 121.0;
+        CGFloat y = 3.0;
+        CGFloat width = 20.0;
+        CGFloat height = 20.0;
+        
+        for (int idx=0; idx < 5; idx++ ) {
+            x = 121.0;
+            for (int idxSub=0; idxSub < 6; idxSub++) {
+                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                x = x + 26;
+                cntArrayBuyNo++;
+            }
+            y = y + 22;
+        }
+        
+        for (int idx=0; idx < cntArrayBuyNo; idx++) {
+            [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+        }
+
+        cell.backgroundView = [[UIImageView alloc] init];
+    }
+    
     NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
     rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
 //    rowBackground = [UIImage imageNamed:@"CellBackground.png"];
@@ -237,6 +235,7 @@
      */
     //[self performSegueWithIdentifier:@"BuyHistDetail" sender:self];
     //BuyHistDetailViewController *detailViewController = [[BuyHistDetailViewController alloc] initWithStyle:<#(UITableViewStyle)#>]
+    //[self performSegueWithIdentifier:@"BuyHistDetail" sender:self];
 }
 
 #pragma mark Table view selection

@@ -35,9 +35,11 @@
         NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
     }
     
+    [histDetailView beginUpdates];
     NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selBuyNo inSection:1];
     NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
     [histDetailView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+    [histDetailView endUpdates];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,6 +65,7 @@
     btn.frame = CGRectMake(190,85,50,25);
     [btn setTitle:@"保存" forState:UIControlStateNormal];
 	[btn addTarget:self action:@selector(btnSavePressed) forControlEvents:UIControlEventTouchUpInside];
+    btn.tag = 101;
 	[self.view addSubview:btn];
 
     // 編集ボタン
@@ -70,6 +73,7 @@
     btn.frame = CGRectMake(250,85,50,25);
     [btn setTitle:@"編集" forState:UIControlStateNormal];
 	[btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
+    btn.tag = 102;
 	[self.view addSubview:btn];
 
     NSString *str = buyHist.set01;
@@ -102,6 +106,7 @@
 {
     [buyHist save];
 
+    [histDetailView beginUpdates];
     for (int idx=0; idx < 5; idx++) {
         
         if ([buyHist isUpdate:idx]) {
@@ -110,10 +115,11 @@
             NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:idx inSection:1];
             NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
             [histDetailView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
-            NSLog(@"reloadRowsAtIndexPaths [%d]", idx);            
+            NSLog(@"reloadRowsAtIndexPaths [%d]", idx);
         }
     }
     buyHist.isDbUpdate = 1;
+    [histDetailView endUpdates];
     //sleep(5);
 }
 
@@ -263,16 +269,14 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier = @"CellBuyHistDetailLotteryNo";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSString *CellIdentifier;
+    UITableViewCell *cell;
     
     NSString *cellText = nil;
-    //NSLog(@" cell [%@] [%p]", CellIdentifier, cell);
-    //NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
+    NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
     //NSLog(@"cellForRowAtIndexPath before %f,%f",cell.contentView.frame.origin.x,cell.contentView.frame.size.width);
     
-    int buySetNo = 0;
-    NSMutableArray* arrmBuyNo = [NSMutableArray array];
+    int buySetNo = -1;
 
     CGFloat x = 10.0;
     CGFloat y = 2.0;
@@ -281,83 +285,114 @@
 
     switch (indexPath.section) {
         case 0:
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-
-            x = 10.0;
-            y = 2.0;
-            width = 35.0;
-            height = 35.0;
+            NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+            CellIdentifier = @"CellBuyHistDetailSection00";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
-            for (int idx=0; idx < 7; idx++) {
-                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-                x = x + 39.0;
-                [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+            if (cell==nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+                
+                x = 10.0;
+                y = 2.0;
+                width = 35.0;
+                height = 35.0;
+                
+                for (int idx=0; idx < 7; idx++) {
+                    //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                    img.tag = idx+1;
+                    x = x + 39.0;
+                    //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+                    [cell.contentView addSubview:img];
+                }
+                
+                //cell.backgroundView = [[UIImageView alloc] init];
             }
-            
-            //cell.backgroundView = [[UIImageView alloc] init];
 
             break;
         case 1:
+            CellIdentifier = @"CellBuyHistDetailSection01";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
             buySetNo = indexPath.row;
-            
-            x = 10.0;
-            y = 2.0;
-            width = 23.0;
-            height = 23.0;
-            
-            for (int idx=0; idx < 6; idx++) {
-                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+
+            if (cell==nil) {
+                NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                x = 10.0;
+                y = 2.0;
+                width = 23.0;
+                height = 23.0;
+                
+                int idx=0;
+                for (idx=0; idx < 6; idx++) {
+                    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                    //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                    img.tag = idx+1;
+                    x = x + 26;
+                    [cell.contentView addSubview:img];
+                    //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+                }
+                
+                // ステータスの表示用
                 x = x + 26;
-                [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
+                img.tag = idx+1;
+                [cell.contentView addSubview:img];
+                
+                // 編集ボタン
+                // btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                // btn.frame = CGRectMake(170,2,50,25);
+                // [btn setTitle:@"編集" forState:UIControlStateNormal];
+                // [btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
+                // [cell.contentView addSubview:btn];
+                
+                //imgBuyNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 1.5, 20.0, 20.0)];
+                //[cell.contentView addSubview:imgBuyNo1];
+                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             }
-
-            // ステータスの表示用
-            x = x + 26;
-            [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-            [cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
-
-            // 編集ボタン
-//            btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//            btn.frame = CGRectMake(170,2,50,25);
-//            [btn setTitle:@"編集" forState:UIControlStateNormal];
-//            [btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
-//            [cell.contentView addSubview:btn];
-
-            //imgBuyNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 1.5, 20.0, 20.0)];
-            //[cell.contentView addSubview:imgBuyNo1];
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             
             break;
         case 2:
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            CellIdentifier = @"CellBuyHistDetailSection02";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
-            if (indexPath.row == 0) {
-                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"1等"]];
+            if (cell==nil) {
+                NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+                
+                if (indexPath.row == 0) {
+                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"1等"]];
+                }
+                else if (indexPath.row == 1) {
+                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"2等"]];
+                }
+                else if (indexPath.row == 2) {
+                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"3等"]];
+                }
+                else if (indexPath.row == 3) {
+                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"4等"]];
+                }
+                else if (indexPath.row == 4) {
+                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"5等"]];
+                }
+                else if (indexPath.row == 5) {
+                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"販売実績"]];
+                }
+                else if (indexPath.row == 6) {
+                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"キャリーオーバー"]];
+                }
+                
+                //cell.backgroundView = [[UIImageView alloc] init];
             }
-            else if (indexPath.row == 1) {
-                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"2等"]];
-            }
-            else if (indexPath.row == 2) {
-                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"3等"]];
-            }
-            else if (indexPath.row == 3) {
-                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"4等"]];
-            }
-            else if (indexPath.row == 4) {
-                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"5等"]];
-            }
-            else if (indexPath.row == 5) {
-                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"販売実績"]];
-            }
-            else if (indexPath.row == 6) {
-                [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"キャリーオーバー"]];
-            }
-            
-            //cell.backgroundView = [[UIImageView alloc] init];
             break;
         default:
             cellText = @"DEFAULT";
@@ -375,7 +410,8 @@
             NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
             UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-            UIImageView *img = [arrmBuyNo objectAtIndex:idx];
+            //UIImageView *img = [arrmBuyNo objectAtIndex:idx];
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idx+1];
             
             img.image = theImage;
         }
@@ -390,16 +426,22 @@
             NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
             UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-            UIImageView *img = [arrmBuyNo objectAtIndex:idx];
-            
+            //UIImageView *img = [arrmBuyNo objectAtIndex:idx];
+            //img.image = theImage;
+
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idx+1];
             img.image = theImage;
+            NSLog(@"cell Sec01 idx[%d]", idx);
+
         }
         
         if ([buyHist isUpdate:buySetNo]) {
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"StatusUpdate35" ofType:@"png"];
             UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-            UIImageView *img = [arrmBuyNo objectAtIndex:6];
+            //UIImageView *img = [arrmBuyNo objectAtIndex:6];
+            //img.image = theImage;
             
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:7];
             img.image = theImage;
         }
     }
