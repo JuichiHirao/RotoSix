@@ -13,6 +13,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    //if ([[UIScreen mainScreen] bounds].size.height == 568) {
+    //    self.window.frame = CGRectMake(0, 0, 320, 568);
+    //}
     return YES;
 }
 

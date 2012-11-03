@@ -19,6 +19,7 @@
 		A214F2AC1636D3BD00AE0C36 /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
 		A2164752163966C200200BF9 /* StatusUpdate35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2164751163966C200200BF9 /* StatusUpdate35.png */; };
 		A21675541606F3B8001A7C03 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21675531606F3B7001A7C03 /* CoreImage.framework */; };
+		A260B5041642A8BE001032EB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A260B5031642A8BE001032EB /* Default-568h@2x.png */; };
 		A26A3A0515FC35EF00181646 /* No01-20.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A3A0415FC35EF00181646 /* No01-20.png */; };
 		A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A3A3015FC924400181646 /* NumberSelectViewController.m */; };
 		A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
@@ -120,6 +121,8 @@
 		A2BE7EEF15F625A900FD98B9 /* BuyHistDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2BE7EEE15F625A900FD98B9 /* BuyHistDataController.m */; };
 		A2C0051415F4452E0081A14E /* BuyHistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */; };
 		A2C0051715F448F30081A14E /* BuyHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051615F448F30081A14E /* BuyHistory.m */; };
+		A2C03C691642B4A4000A03B0 /* Lottery.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C03C681642B4A4000A03B0 /* Lottery.m */; };
+		A2C03C6D1642B4CB000A03B0 /* LotteryDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C03C6C1642B4CB000A03B0 /* LotteryDataController.m */; };
 		A2DA1B2115FA270400E036F7 /* DetailImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2015FA270400E036F7 /* DetailImage.png */; };
 		A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2215FA31E600E036F7 /* No03-35.png */; };
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
@@ -162,6 +165,7 @@
 		A214F2AB1636D3BD00AE0C36 /* mst.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = mst.db; sourceTree = "<group>"; };
 		A2164751163966C200200BF9 /* StatusUpdate35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusUpdate35.png; sourceTree = "<group>"; };
 		A21675531606F3B7001A7C03 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		A260B5031642A8BE001032EB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A26A3A0415FC35EF00181646 /* No01-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-20.png"; sourceTree = "<group>"; };
 		A26A3A2F15FC924400181646 /* NumberSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectViewController.h; sourceTree = "<group>"; };
 		A26A3A3015FC924400181646 /* NumberSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberSelectViewController.m; sourceTree = "<group>"; };
@@ -273,6 +277,10 @@
 		A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistDetailViewController.m; sourceTree = "<group>"; };
 		A2C0051515F448F30081A14E /* BuyHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistory.h; sourceTree = "<group>"; };
 		A2C0051615F448F30081A14E /* BuyHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistory.m; sourceTree = "<group>"; };
+		A2C03C671642B4A3000A03B0 /* Lottery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lottery.h; sourceTree = "<group>"; };
+		A2C03C681642B4A4000A03B0 /* Lottery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lottery.m; sourceTree = "<group>"; };
+		A2C03C6B1642B4CB000A03B0 /* LotteryDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LotteryDataController.h; sourceTree = "<group>"; };
+		A2C03C6C1642B4CB000A03B0 /* LotteryDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LotteryDataController.m; sourceTree = "<group>"; };
 		A2DA1B2015FA270400E036F7 /* DetailImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DetailImage.png; sourceTree = "<group>"; };
 		A2DA1B2215FA31E600E036F7 /* No03-35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No03-35.png"; sourceTree = "<group>"; };
 		A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistoryViewController.h; sourceTree = "<group>"; };
@@ -420,6 +428,7 @@
 		A2A5227A15C6AF0C00D65863 = {
 			isa = PBXGroup;
 			children = (
+				A260B5031642A8BE001032EB /* Default-568h@2x.png */,
 				A2A5228F15C6AF0C00D65863 /* RotoSix */,
 				A214F2991636D12500AE0C36 /* libsqlite3.0.dylib */,
 				A21675531606F3B7001A7C03 /* CoreImage.framework */,
@@ -481,6 +490,10 @@
 				A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */,
 				A2C0051215F4452E0081A14E /* BuyHistDetailViewController.h */,
 				A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */,
+				A2C03C671642B4A3000A03B0 /* Lottery.h */,
+				A2C03C681642B4A4000A03B0 /* Lottery.m */,
+				A2C03C6B1642B4CB000A03B0 /* LotteryDataController.h */,
+				A2C03C6C1642B4CB000A03B0 /* LotteryDataController.m */,
 				A2C0051515F448F30081A14E /* BuyHistory.h */,
 				A2C0051615F448F30081A14E /* BuyHistory.m */,
 				A2BE7EED15F625A900FD98B9 /* BuyHistDataController.h */,
@@ -694,6 +707,7 @@
 				E66BC18816153BC200056B40 /* No43NoSel-45.png in Resources */,
 				E66BC18B161540B600056B40 /* No42NoSel-45.png in Resources */,
 				A2164752163966C200200BF9 /* StatusUpdate35.png in Resources */,
+				A260B5041642A8BE001032EB /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +757,8 @@
 				A214F2A81636D19A00AE0C36 /* FMDatabasePool.m in Sources */,
 				A214F2A91636D19A00AE0C36 /* FMDatabaseQueue.m in Sources */,
 				A214F2AA1636D19A00AE0C36 /* FMResultSet.m in Sources */,
+				A2C03C691642B4A4000A03B0 /* Lottery.m in Sources */,
+				A2C03C6D1642B4CB000A03B0 /* LotteryDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

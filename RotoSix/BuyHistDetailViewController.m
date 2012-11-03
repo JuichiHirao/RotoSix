@@ -9,6 +9,7 @@
 #import "BuyHistDetailViewController.h"
 #import "BuyHistory.h"
 #import "NumberSelectViewController.h"
+#import "LotteryDataController.h"
 
 @interface BuyHistDetailViewController ()
 
@@ -21,6 +22,7 @@
 @synthesize numberSelViewController=_numberSelViewController;
 @synthesize histDetailView;
 @synthesize buyHist;
+@synthesize lottery;
 @synthesize selBuyNumbers;
 @synthesize selBuyNo;
 
@@ -78,6 +80,9 @@
 
     NSString *str = buyHist.set01;
     NSLog(@"str [%@]", str);
+
+    // 当選情報をsqliteから取得する
+    lottery = [LotteryDataController getTimes:[buyHist lotteryNo]];
 
     // 詳細画面のタイトルを設定、表示（抽選日と回数を表示）
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
@@ -204,7 +209,10 @@
             }
             break;
         case 2:
-            rows = 7;
+            if (lottery == nil)
+                rows = 1;
+            else
+                rows = 7;
             break;
         default:
             break;
@@ -267,6 +275,107 @@
     
     return lbLottery01Label;
 }
+
+- (void) createLabelLotteryMessage:(UIView *)view LabelText:(NSString *)labelText {
+    UILabel *lbl;
+    
+    lbl = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, 260, 15)];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.font = [UIFont systemFontOfSize:11.0];
+    lbl.textAlignment = UITextAlignmentCenter;
+    lbl.textColor = [UIColor blackColor];
+    lbl.text = labelText;
+    [view addSubview:lbl];
+    
+    return;
+}
+
+- (void) createLabelLotteryNumber:(UIView *)view LabelText:(NSString *)labelText Unit:(NSInteger)unit Amount:(NSInteger) amount {
+    UILabel *lbl;
+    
+    lbl = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, 60, 15)];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.font = [UIFont systemFontOfSize:11.0];
+    lbl.textAlignment = UITextAlignmentRight;
+    lbl.textColor = [UIColor blackColor];
+    lbl.text = labelText;
+    [view addSubview:lbl];
+
+    lbl = [[UILabel alloc] initWithFrame:CGRectMake(80, 4, 70, 15)];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.font = [UIFont systemFontOfSize:11.0];
+    lbl.textAlignment = UITextAlignmentRight;
+    lbl.textColor = [UIColor blackColor];
+    NSNumberFormatter *fmtNum = [[NSNumberFormatter alloc]init];
+    [fmtNum setPositiveFormat:@"###,###,###,##0"];
+    NSString *dispText = [NSString stringWithFormat:@"%@口", [fmtNum stringFromNumber:[NSNumber numberWithInt:unit]]];
+    lbl.text = dispText;
+    [view addSubview:lbl];
+
+    lbl = [[UILabel alloc] initWithFrame:CGRectMake(160, 4, 120, 15)];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.font = [UIFont systemFontOfSize:11.0];
+    lbl.textAlignment = UITextAlignmentRight;
+    lbl.textColor = [UIColor blackColor];
+    dispText = [NSString stringWithFormat:@"%@円", [fmtNum stringFromNumber:[NSNumber numberWithInt:amount]]];
+    lbl.text = dispText;
+    [view addSubview:lbl];
+
+    return;
+}
+
+- (void) createLabelLotteryInfo:(UIView *)view LabelText:(NSString *)labelText Amount:(NSInteger) amount {
+    UILabel *lbl;
+    
+    lbl = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, 90, 15)];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.font = [UIFont systemFontOfSize:11.0];
+    lbl.textAlignment = UITextAlignmentRight;
+    lbl.textColor = [UIColor blackColor];
+    lbl.text = labelText;
+    [view addSubview:lbl];
+
+    NSNumberFormatter *fmtNum = [[NSNumberFormatter alloc]init];
+    [fmtNum setPositiveFormat:@"###,###,###,##0"];
+
+    lbl = [[UILabel alloc] initWithFrame:CGRectMake(110, 4, 150, 15)];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.font = [UIFont systemFontOfSize:11.0];
+    lbl.textAlignment = UITextAlignmentRight;
+    lbl.textColor = [UIColor blackColor];
+    NSString *dispText = [NSString stringWithFormat:@"%@円", [fmtNum stringFromNumber:[NSNumber numberWithInt:amount]]];
+    lbl.text = dispText;
+    [view addSubview:lbl];
+    
+    return;
+}
+
+- (void) createLabelLotteryInfo:(UIView *)view LabelText:(NSString *)labelText LongAmount:(NSString *) amount {
+    UILabel *lbl;
+    
+    lbl = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, 90, 15)];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.font = [UIFont systemFontOfSize:11.0];
+    lbl.textAlignment = UITextAlignmentRight;
+    lbl.textColor = [UIColor blackColor];
+    lbl.text = labelText;
+    [view addSubview:lbl];
+    
+    NSNumberFormatter *fmtNum = [[NSNumberFormatter alloc]init];
+    [fmtNum setPositiveFormat:@"###,###,###,###,##0"];
+    
+    lbl = [[UILabel alloc] initWithFrame:CGRectMake(110, 4, 150, 15)];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.font = [UIFont systemFontOfSize:11.0];
+    lbl.textAlignment = UITextAlignmentRight;
+    lbl.textColor = [UIColor blackColor];
+    NSString *dispText = [NSString stringWithFormat:@"%@円", [fmtNum stringFromNumber:[NSNumber numberWithLong:amount]]];
+    lbl.text = dispText;
+    [view addSubview:lbl];
+    
+    return;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *CellIdentifier;
@@ -322,6 +431,7 @@
                 NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
                 
                 x = 10.0;
                 y = 2.0;
@@ -345,17 +455,6 @@
                 //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
                 img.tag = idx+1;
                 [cell.contentView addSubview:img];
-                
-                // 編集ボタン
-                // btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                // btn.frame = CGRectMake(170,2,50,25);
-                // [btn setTitle:@"編集" forState:UIControlStateNormal];
-                // [btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
-                // [cell.contentView addSubview:btn];
-                
-                //imgBuyNo1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 1.5, 20.0, 20.0)];
-                //[cell.contentView addSubview:imgBuyNo1];
-                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             }
             
             break;
@@ -369,29 +468,38 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
                 
-                if (indexPath.row == 0) {
-                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"1等"]];
+                if (lottery == nil) {
+                    [self createLabelLotteryMessage:cell.contentView LabelText:@"当選番号 未発表"];
                 }
-                else if (indexPath.row == 1) {
-                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"2等"]];
+                else {
+                    NSNumberFormatter *fmtNum = [[NSNumberFormatter alloc]init];
+                    [fmtNum setPositiveFormat:@"###,###,###,##0"];
+                    if (indexPath.row == 0) {
+                        [self createLabelLotteryNumber:cell.contentView LabelText:@"1等" Unit:lottery.one_unit Amount:lottery.one_amount];
+                    }
+                    else if (indexPath.row == 1) {
+                        [self createLabelLotteryNumber:cell.contentView LabelText:@"2等" Unit:lottery.two_unit Amount:lottery.two_amount];
+                    }
+                    else if (indexPath.row == 2) {
+                        [self createLabelLotteryNumber:cell.contentView LabelText:@"3等" Unit:lottery.three_unit Amount:lottery.three_amount];
+                    }
+                    else if (indexPath.row == 3) {
+                        [self createLabelLotteryNumber:cell.contentView LabelText:@"4等" Unit:lottery.four_unit Amount:lottery.four_amount];
+                    }
+                    else if (indexPath.row == 4) {
+                        [self createLabelLotteryNumber:cell.contentView LabelText:@"5等" Unit:lottery.five_unit Amount:lottery.five_amount];
+                    }
+                    else if (indexPath.row == 5) {
+                        NSLog(@"sales %lu", lottery.sales);
+                        NSString *dispText = [NSString stringWithFormat:@"%@円", [fmtNum stringFromNumber:[NSNumber numberWithLong:lottery.sales]]];
+                        [self createLabelLotteryInfo:cell.contentView LabelText:@"販売実績" LongAmount:dispText];
+                    }
+                    else if (indexPath.row == 6) {
+                        [self createLabelLotteryInfo:cell.contentView LabelText:@"キャリーオーバー" Amount:lottery.carryover];
+                    }
+                    
+                    //cell.backgroundView = [[UIImageView alloc] init];
                 }
-                else if (indexPath.row == 2) {
-                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"3等"]];
-                }
-                else if (indexPath.row == 3) {
-                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"4等"]];
-                }
-                else if (indexPath.row == 4) {
-                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"5等"]];
-                }
-                else if (indexPath.row == 5) {
-                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"販売実績"]];
-                }
-                else if (indexPath.row == 6) {
-                    [cell.contentView addSubview:[self createLabel:4.0 LabelText:@"キャリーオーバー"]];
-                }
-                
-                //cell.backgroundView = [[UIImageView alloc] init];
             }
             break;
         default:
@@ -410,9 +518,8 @@
             NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
             UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-            //UIImageView *img = [arrmBuyNo objectAtIndex:idx];
+
             UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idx+1];
-            
             img.image = theImage;
         }
     }
@@ -426,13 +533,10 @@
             NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
             UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-            //UIImageView *img = [arrmBuyNo objectAtIndex:idx];
-            //img.image = theImage;
 
             UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idx+1];
             img.image = theImage;
-            NSLog(@"cell Sec01 idx[%d]", idx);
-
+            //NSLog(@"cell Sec01 idx[%d]", idx);
         }
         
         if ([buyHist isUpdate:buySetNo]) {

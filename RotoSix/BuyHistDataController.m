@@ -71,30 +71,30 @@
 
 -(void)createDemoFromDb {
     //呼び出したいメソッドで下記を実行
-    //NSError *error;
-    //NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error;
+    NSFileManager *fm = [NSFileManager defaultManager];
     
     NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
     dbmstPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
     NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", dbmstPath]);
-/*  本来のマスタの処理としては正しいが、mst.dbを変更dbとして使用するので一時的にコメントアウト
-    BOOL result_flag = [fm fileExistsAtPath:writableDBPath];
+/*  本来のマスタの処理としては正しいが、mst.dbを変更dbとして使用するので一時的にコメントアウト */
+    BOOL result_flag = [fm fileExistsAtPath:dbmstPath];
     if(result_flag){
-        [fm removeItemAtPath:writableDBPath error:nil];
+        [fm removeItemAtPath:dbmstPath error:nil];
     }
     
     //dbが存在してなかったらここが呼ばれて、作成したDBをコピー
     NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"mst.db"];
     NSLog(@"%@", [NSString stringWithFormat:@"defaultDBPath [%@]", defaultDBPath]);
     
-    BOOL copy_result_flag = [fm copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    BOOL copy_result_flag = [fm copyItemAtPath:defaultDBPath toPath:dbmstPath error:&error];
     if(!copy_result_flag){
         //失敗したらここ
         NSLog(@"%@", [NSString stringWithFormat:@"copy failed"]);
     }
- */
+/* */
     
     NSMutableArray *listBuyHist = [[NSMutableArray alloc] init];
 
