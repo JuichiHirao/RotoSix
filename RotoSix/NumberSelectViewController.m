@@ -180,7 +180,10 @@
         [marrBuyNo addObject:[NSNumber numberWithInt:[strNo intValue]]];
     }
     
-    selectNoCount = [arrBuyNo count];
+    if (buyNumbers.length > 0) {
+        selectNoCount = [arrBuyNo count];
+    }
+    NSLog(@"loadView selectNoCount %d  buyNumbers [%@]", selectNoCount, buyNumbers);
 
     LayerNumberSelect *selpanel = [LayerNumberSelect layer];
     //selpanel.bounds = CGRectMake(0, 0, 300, 340);

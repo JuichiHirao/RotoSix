@@ -7,17 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NumberSelectViewController.h"
 
-@interface BuyRegistViewController : UIViewController
-                <UITableViewDataSource, UITableViewDelegate>
+@class NumberSelectViewController;
+
+@interface BuyRegistViewController : UITableViewController
 {
     NSArray *listData;
 }
 
 @property (strong, nonatomic) NSArray *listData;
-@property (strong, nonatomic) IBOutlet UIButton *btnCancel;
-@property (strong, nonatomic) IBOutlet UITableView *tableViewBuyNumber;
-
-- (IBAction)btnCancelPress:(id)sender;
 
 @end

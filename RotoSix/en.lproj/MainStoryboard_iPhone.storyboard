@@ -60,7 +60,7 @@
                     <navigationItem key="navigationItem" title="履歴" id="V5K-aI-QAV">
                         <barButtonItem key="rightBarButtonItem" tag="1" style="plain" systemItem="add" id="4wf-yK-RvQ">
                             <connections>
-                                <segue destination="EMU-9J-dyi" kind="modal" id="0Hw-pR-PLx"/>
+                                <segue destination="EMU-9J-dyi" kind="push" id="E1j-iK-Rzc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -110,67 +110,33 @@
             </objects>
             <point key="canvasLocation" x="2152" y="-212"/>
         </scene>
-        <!--Buy Regist View Controller-->
+        <!--Buy Regist View Controller - 新規登録-->
         <scene sceneID="tEd-kB-Qc3">
             <objects>
-                <viewController id="EMU-9J-dyi" customClass="BuyRegistViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9SL-GB-rm6">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7Ih-oX-6He">
-                                <rect key="frame" x="211" y="417" width="100" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="保存">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fIW-fh-0qU">
-                                <rect key="frame" x="103" y="417" width="100" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="キャンセル">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnCancelPress:" destination="EMU-9J-dyi" eventType="touchUpInside" id="Z4T-dY-5G7"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Zng-V7-w8N">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="193"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="N9K-pM-9JE">
-                                        <rect key="frame" x="0.0" y="46" width="320" height="46"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="EMU-9J-dyi" id="ubD-qL-JCy"/>
-                                    <outlet property="delegate" destination="EMU-9J-dyi" id="Nwx-kz-eIa"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
+                <viewController hidesBottomBarWhenPushed="YES" id="EMU-9J-dyi" customClass="BuyRegistViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="wax-yR-vZl">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vo3-aO-U24">
+                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="新規登録" id="U0z-Vl-mWf">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="mUA-NW-W2J"/>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="btnCancel" destination="fIW-fh-0qU" id="CfQ-YO-Tbr"/>
-                        <outlet property="tableViewBuyNumber" destination="Zng-V7-w8N" id="iel-pW-hFp"/>
+                        <segue destination="KqJ-gk-oxf" kind="modal" identifier="NumberInput" id="XSG-ad-JIG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3CI-Dz-0wl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -238,12 +204,10 @@
                 <relationship kind="outlet" name="histTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
-        <class className="BuyRegistViewController" superclassName="UIViewController">
+        <class className="BuyRegistViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyRegistViewController.h"/>
             <relationships>
                 <relationship kind="action" name="btnCancelPress:"/>
-                <relationship kind="outlet" name="btnCancel" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tableViewBuyNumber" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="NumberSelectViewController" superclassName="UIViewController">
@@ -255,4 +219,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="XSG-ad-JIG"/>
+    </inferredMetricsTieBreakers>
 </document>
