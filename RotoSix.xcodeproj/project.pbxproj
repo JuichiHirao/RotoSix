@@ -19,6 +19,7 @@
 		A214F2AC1636D3BD00AE0C36 /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
 		A2164752163966C200200BF9 /* StatusUpdate35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2164751163966C200200BF9 /* StatusUpdate35.png */; };
 		A21675541606F3B8001A7C03 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21675531606F3B7001A7C03 /* CoreImage.framework */; };
+		A2217AF91646444700328034 /* BuyRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2217AF81646444700328034 /* BuyRegistViewController.m */; };
 		A260B5041642A8BE001032EB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A260B5031642A8BE001032EB /* Default-568h@2x.png */; };
 		A26A3A0515FC35EF00181646 /* No01-20.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A3A0415FC35EF00181646 /* No01-20.png */; };
 		A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A3A3015FC924400181646 /* NumberSelectViewController.m */; };
@@ -165,6 +166,8 @@
 		A214F2AB1636D3BD00AE0C36 /* mst.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = mst.db; sourceTree = "<group>"; };
 		A2164751163966C200200BF9 /* StatusUpdate35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusUpdate35.png; sourceTree = "<group>"; };
 		A21675531606F3B7001A7C03 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		A2217AF71646444700328034 /* BuyRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyRegistViewController.h; sourceTree = "<group>"; };
+		A2217AF81646444700328034 /* BuyRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyRegistViewController.m; sourceTree = "<group>"; };
 		A260B5031642A8BE001032EB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A26A3A0415FC35EF00181646 /* No01-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-20.png"; sourceTree = "<group>"; };
 		A26A3A2F15FC924400181646 /* NumberSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectViewController.h; sourceTree = "<group>"; };
@@ -486,6 +489,8 @@
 				A2A522A415C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard */,
 				A2A522A715C6AF0C00D65863 /* MainStoryboard_iPad.storyboard */,
 				A2A5229015C6AF0C00D65863 /* Supporting Files */,
+				A2217AF71646444700328034 /* BuyRegistViewController.h */,
+				A2217AF81646444700328034 /* BuyRegistViewController.m */,
 				A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */,
 				A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */,
 				A2C0051215F4452E0081A14E /* BuyHistDetailViewController.h */,
@@ -759,6 +764,7 @@
 				A214F2AA1636D19A00AE0C36 /* FMResultSet.m in Sources */,
 				A2C03C691642B4A4000A03B0 /* Lottery.m in Sources */,
 				A2C03C6D1642B4CB000A03B0 /* LotteryDataController.m in Sources */,
+				A2217AF91646444700328034 /* BuyRegistViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

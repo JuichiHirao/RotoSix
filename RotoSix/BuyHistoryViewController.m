@@ -69,12 +69,12 @@
 
     histTableView.backgroundView = imgBg;
     
-    self.navigationItem.rightBarButtonItem = [self editButtonItem];
-//	imageView.image = [UIImage imageNamed:@"Background.png"];
-    
     isCellSetting = NO;
-    
-    //[self createTableCell];
+}
+
+- (void)barButtonAdd
+{
+    return;
 }
 
 - (void)viewDidUnload
