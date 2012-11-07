@@ -136,6 +136,7 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="buyRegistView" destination="wax-yR-vZl" id="m2L-7p-eWC"/>
                         <segue destination="KqJ-gk-oxf" kind="modal" identifier="NumberInput" id="XSG-ad-JIG"/>
                     </connections>
                 </viewController>
@@ -208,6 +209,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyRegistViewController.h"/>
             <relationships>
                 <relationship kind="action" name="btnCancelPress:"/>
+                <relationship kind="outlet" name="buyRegistView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="NumberSelectViewController" superclassName="UIViewController">

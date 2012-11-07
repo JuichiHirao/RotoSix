@@ -18,14 +18,39 @@
 
 @synthesize numberSelViewController=_numberSelViewController;
 @synthesize listData;
+@synthesize buyHist;
+@synthesize buyRegistView;
+@synthesize selBuyNumbers;
+@synthesize selBuyNo;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+// DELEGATE
+-(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
+    
+    if (buyHist == nil ) {
+        buyHist = [[BuyHistory alloc] init];
     }
-    return self;
+    NSString *beforeNo = [buyHist getSetNo:selBuyNo];
+    
+    [buyHist changeSetNo:selBuyNo SetNo:name];
+    
+    if (![beforeNo isEqualToString:name]) {
+        NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]  buyHist getCount[%d]", beforeNo, name, selBuyNo, [buyHist getCount]);
+    }
+    else {
+        NSLog(@"NumberSelectBtnEnd no change!! beforeNo [%@] -> [%@]  row [%d]  buyHist getCount[%d]", beforeNo, name, selBuyNo, [buyHist getCount]);
+    }
+    
+    [buyRegistView beginUpdates];
+    
+    // セクションの特定の行のみを更新
+    // NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selBuyNo inSection:1];
+    // NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+    // [buyRegistView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+    [buyRegistView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [buyRegistView endUpdates];
 }
 
 - (void)viewDidLoad
@@ -44,6 +69,7 @@
 }
 
 - (void)viewDidUnload {
+    [self setBuyRegistView:nil];
     [super viewDidUnload];
 }
 
@@ -76,13 +102,31 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    NSLog(@"BuyRegist heightForRowAtIndexPath [%d]", 1);
+    if (indexPath.section == 1) {
+        if (buyHist.getCount > 0) {
+            return 30;
+        }
+        else {
+            return 60.0;
+        }
+    }
+    
     return 60.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //    return 1;
     NSLog(@"BuyRegist numberOfRowsInSection [%d]", 1);
+    if (section == 1) {
+        if (buyHist.getCount > 0) {
+            return buyHist.getCount + 1;
+        }
+        else {
+            return 1;
+        }
+    }
+    
     return 1;
 }
 
@@ -91,17 +135,12 @@
     NSString *CellIdentifier;
     UITableViewCell *cell;
     
-    int buySetNo = -1;
+    NSInteger buySetNo = -1;
     
     CGFloat x = 10.0;
     CGFloat y = 2.0;
     CGFloat width = 23.0;
     CGFloat height = 23.0;
-    
-    CellIdentifier = @"CellBuyNumberRegist";
-    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    buySetNo = indexPath.row;
     
     switch (indexPath.section) {
         case 0:
@@ -114,7 +153,7 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
                 
-                if (1==1) {
+                if (buyHist.getCount<=0) {
                     UILabel *lbl;
 
                     lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, 35)];
@@ -154,16 +193,19 @@
         case 1:
             CellIdentifier = @"CellNewRegistSection01";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            
             buySetNo = indexPath.row;
-            
+
+            if (buyHist.getCount>0) {
+                cell = nil;
+            }
+
             if (cell==nil) {
-                NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+                NSLog(@"cell nil CellIdentifier [%@] [%p] secion01 [%d]", CellIdentifier, cell, indexPath.row);
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
                 
-                if (1==1) {
+                if (buyHist.getCount<=0) {
                     UILabel *lbl;
                     
                     lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, 35)];
@@ -214,52 +256,24 @@
             break;
     }
 
-    if (cell==nil) {
-        NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    if (indexPath.section == 1) {
+        NSLog(@"cell section01 image load secion01 [%d]", indexPath.row);
+        NSString *setNo = [buyHist getSetNo:buySetNo];
         
-        x = 10.0;
-        y = 2.0;
-        width = 23.0;
-        height = 23.0;
+        NSArray *arrBuySingleNo = [setNo componentsSeparatedByString:@","];
         
-        int idx=0;
-        for (idx=0; idx < 6; idx++) {
-            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-            //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-            img.tag = idx+1;
-            x = x + 26;
-            [cell.contentView addSubview:img];
-            //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+        for (int idx=0; idx < [arrBuySingleNo count]; idx++) {
+            NSString *strNo = [arrBuySingleNo objectAtIndex:idx];
+            NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
+            NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
+            UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+            
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idx+1];
+            img.image = theImage;
+            //NSLog(@"cell Sec01 idx[%d]", idx);
         }
-        
-        // ステータスの表示用
-        x = x + 26;
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-        //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-        //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
-        img.tag = idx+1;
-        [cell.contentView addSubview:img];
     }
     
-    //NSString *setNo = [buyHist getSetNo:buySetNo];
-    NSString *setNo = @"";
-    
-    NSArray *arrBuySingleNo = [setNo componentsSeparatedByString:@","];
-    
-    for (int idx=0; idx < [arrBuySingleNo count]; idx++) {
-        NSString *strNo = [arrBuySingleNo objectAtIndex:idx];
-        NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
-        NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
-        UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-        
-        UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idx+1];
-        img.image = theImage;
-        //NSLog(@"cell Sec01 idx[%d]", idx);
-    }
-        
     return cell;
 }
 
@@ -274,8 +288,8 @@
         
         //NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
         NumberSelectViewController *numInputlViewController = [segue destinationViewController];
-        numInputlViewController.buyNumbers = @"";
-//        numInputlViewController.delegate = self;
+        numInputlViewController.buyNumbers = selBuyNumbers;
+        numInputlViewController.delegate = self;
     }
 }
 
@@ -291,8 +305,8 @@
     NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
     
     if (indexPath.section==1) {
-//        selBuyNumbers = [buyHist getSetNo:indexPath.row];
-//        selBuyNo = indexPath.row;
+        selBuyNumbers = [buyHist getSetNo:indexPath.row];
+        selBuyNo = indexPath.row;
     }
     
     [self performSegueWithIdentifier:@"NumberInput" sender:self];
