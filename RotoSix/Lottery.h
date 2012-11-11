@@ -27,11 +27,6 @@
 @property (nonatomic, assign) long sales;
 @property (nonatomic, assign) NSInteger carryover;
 
--(NSString*) getSetNo:(NSInteger)setNoIndex;
--(NSString*) changeSetNo:(NSInteger)setNoIndex SetNo:(NSString *)setNo;
--(NSInteger) getCount;
--(BOOL) isUpdate:(NSInteger)selBuyNo;
--(void) setUpdate:(NSInteger)selBuyNo Status:(NSInteger)status;
--(void) save;
+-(NSString *)getDisplayStringDate;
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class BuyHistory;
+@class Lottery;
 
 @interface BuyHistDataController : NSObject
 
@@ -20,5 +21,6 @@
 - (void) reload:(NSInteger)idx;
 - (NSInteger) isDbUpdate:(NSInteger)idx;
 - (void) setDbUpdate:(NSInteger)idx;
++ (NSArray *) makeDefaultTimesData;
 
 @end

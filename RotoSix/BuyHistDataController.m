@@ -14,7 +14,6 @@
 @interface BuyHistDataController()
 @property (nonatomic, copy, readwrite) NSMutableArray *list;
 - (void)createDemoData;
-- (void)testdb;
 @end
 
 @implementation BuyHistDataController
@@ -25,7 +24,6 @@
 -(id)init {
     if (self = [super init]) {
         [self createDemoFromDb];
-        [self makeDefaultTimesData];
     }
     return self;
 }
@@ -70,29 +68,15 @@
     list = listBuyHist;
 }
 
-- (void) makeDefaultTimesData {
+/** pickerviewに表示するための回数を取得する
+ *
+ * @return 0 〜 9 過去   10 直近   11 〜 14 未来
+ */
++ (NSArray *) makeDefaultTimesData {
+    NSMutableArray *marrLottery = [[NSMutableArray alloc] init];
     NSDate *date = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *comps, *compsDate, *compsWeekday;
-    
-    // 年月日をとりだす
-    comps = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
-                        fromDate:date];
-    NSInteger year = [comps year];
-    NSInteger month = [comps month];
-    NSInteger day = [comps day];
-    NSLog(@"year: %d month: %d, day: %d", year, month, day);
-    //=> year: 2010 month: 5, day: 22
-    
-    // 週や曜日などをとりだす
-    comps = [calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
-                        fromDate:date];
-    NSInteger week = [comps week]; // 今年に入って何週目か
-    NSInteger weekday = [comps weekday]; // 曜日
-    NSInteger weekdayOrdinal = [comps weekdayOrdinal]; // 今月の第何曜日か
-    NSLog(@"week: %d weekday: %d weekday ordinal: %d", week, weekday, weekdayOrdinal);
-    //=> week: 21 weekday: 7(日曜日) weekday ordinal: 4(第4日曜日)
-
+    NSDateComponents *comps;
     
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
 	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
@@ -105,7 +89,7 @@
     // sqlite3から最新の回数を取得する
     Lottery *lottery = [LotteryDataController getNewest];
     
-    // 直近の抽選日
+    // 現在日付から直近の抽選日
     while (1==1) {
         date = [NSDate dateWithTimeIntervalSinceNow:diffDay*24*60*60];
         comps = [calendar components:(NSWeekdayCalendarUnit)
@@ -122,16 +106,20 @@
             break;
         }
     }
-    NSDate *lotteryNewestDate = date;
+    
+    // return用の配列へ格納するため退避
+    Lottery *lotteryNewest = [[Lottery alloc] init];
+    lotteryNewest.lotteryDate = date;
 
-    comps = [calendar components:(NSDayCalendarUnit) fromDate:lotteryNewestDate toDate:lottery.lotteryDate options:0];
+    // ログ出力
+    comps = [calendar components:(NSDayCalendarUnit) fromDate:lotteryNewest.lotteryDate toDate:lottery.lotteryDate options:0];
     diffDay = [comps day];
     NSLog(@"直近の抽選日 %@ 登録の抽選日 %@ 回数 %d  差の日数 %d", [outputDateFormatter stringFromDate:date]
           , [outputDateFormatter stringFromDate:lottery.lotteryDate], lottery.times, diffDay);
     
     int times = lottery.times;
-    // sqliteの登録日が過去な場合は計算して直近の抽選日の回数を取得する
     if (diffDay < 0) {
+        // sqliteの登録日が過去な場合は計算して直近の抽選日の回数を取得する
         diffDay = 1;
         while (1==1) {
             date = [NSDate dateWithTimeInterval:diffDay*24*60*60 sinceDate:lottery.lotteryDate];
@@ -140,7 +128,7 @@
             // 抽選曜日の月曜日か木曜日の場合
             if ([comps weekday] == 2 || [comps weekday] == 5) {
                 times++;
-                comps = [calendar components:(NSDayCalendarUnit) fromDate:lotteryNewestDate toDate:date options:0];
+                comps = [calendar components:(NSDayCalendarUnit) fromDate:lotteryNewest.lotteryDate toDate:date options:0];
                 //diffDay = [comps day];
                 if ([comps day] >= 0) {
                     NSLog(@"直近の回数 %d", times);
@@ -151,7 +139,8 @@
             diffDay++;
         }
     }
-
+    lotteryNewest.times = times;
+    
     if (diffDay == 0) {
         // 最新の情報が取得されている場合はsqlite3から過去10回の情報を取得する
     }
@@ -161,13 +150,19 @@
         cnt = 0;
         // 過去の日付10個（直近を除いて9個）
         while (1==1) {
-            date = [NSDate dateWithTimeInterval:diffDay*24*60*60 sinceDate:lotteryNewestDate];
+            date = [NSDate dateWithTimeInterval:diffDay*24*60*60 sinceDate:lotteryNewest.lotteryDate];
             comps = [calendar components:(NSWeekdayCalendarUnit)
                                 fromDate:date];
             
             // 抽選曜日の月曜日か木曜日の場合
             if ([comps weekday] == 2 || [comps weekday] == 5) {
-                NSLog(@"過去 CALC %02d 抽選日 %@", cnt, [outputDateFormatter stringFromDate:date]);
+                times--;
+                Lottery *lotteryPast = [[Lottery alloc] init];
+                lotteryPast.lotteryDate = date;
+                lotteryPast.times = times;
+                
+                [marrLottery addObject:lotteryPast];
+                //NSLog(@"過去 CALC %02d 抽選日 %@", cnt, [outputDateFormatter stringFromDate:date]);
                 cnt++;
             }
             
@@ -178,16 +173,25 @@
             }
         }
         
+        [marrLottery addObject:lotteryNewest];
+
         // 未来の日付 5個
+        times = lotteryNewest.times;
         diffDay = 1;
         cnt = 0;
         while (1==1) {
-            date = [NSDate dateWithTimeIntervalSinceNow:diffDay*24*60*60];
-            comps = [calendar components:(NSWeekdayCalendarUnit)
-                                fromDate:date];
+            date = [NSDate dateWithTimeInterval:diffDay*24*60*60 sinceDate:lotteryNewest.lotteryDate];
+            //date = [NSDate dateWithTimeIntervalSinceNow:diffDay*24*60*60];
+            comps = [calendar components:(NSWeekdayCalendarUnit) fromDate:date];
             // 抽選曜日の月曜日か木曜日の場合
             if ([comps weekday] == 2 || [comps weekday] == 5) {
-                NSLog(@"未来 CALC %02d 抽選日 %@", cnt, [outputDateFormatter stringFromDate:date]);
+                times++;
+                Lottery *lotteryFuture = [[Lottery alloc] init];
+                lotteryFuture.lotteryDate = date;
+                lotteryFuture.times = times;
+                
+                //NSLog(@"未来 CALC %02d  回数 %d 抽選日 %@", cnt, lotteryFuture.times, [outputDateFormatter stringFromDate:lotteryFuture.lotteryDate]);
+                [marrLottery addObject:lotteryFuture];
                 cnt++;
             }
             
@@ -199,9 +203,13 @@
         }
     }
     
-    // 回数を元に当日の回数を割り出す
+    NSArray *sortedArray = [marrLottery sortedArrayUsingSelector:@selector(compareTimes:)];
+    for (int idx=0; idx<[sortedArray count]; idx++) {
+        Lottery *lottery = [sortedArray objectAtIndex:idx];
+        //NSLog(@"idx[%d] 回数 %d  抽選日 %@", idx, lottery.times, [outputDateFormatter stringFromDate:lottery.lotteryDate]);
+    }
     
-    // 当日から未来の抽選日・回数（５つ）、過去の抽選日・回数（１０個）を取得する
+    return sortedArray;
 }
 
 -(void)createDemoFromDb {

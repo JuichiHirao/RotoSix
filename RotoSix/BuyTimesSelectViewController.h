@@ -15,6 +15,8 @@
 }
 
 @property (strong, nonatomic) IBOutlet UIPickerView *picker;
+@property (strong, nonatomic) NSArray *arrLottery;
+
 - (IBAction)btnCancelPressed:(id)sender;
 
 @end

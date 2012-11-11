@@ -7,6 +7,9 @@
 //
 
 #import "BuyTimesSelectViewController.h"
+#import "LotteryDataController.h"
+#import "Lottery.h"
+#import "BuyHistDataController.h"
 
 @interface BuyTimesSelectViewController ()
 
@@ -15,11 +18,15 @@
 @implementation BuyTimesSelectViewController
 
 @synthesize picker;
+@synthesize arrLottery;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    arrLottery = [BuyHistDataController makeDefaultTimesData];
+    
+    [picker selectRow:10 inComponent:0 animated:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -31,6 +38,7 @@
 - (IBAction)btnCancelPressed:(id)sender {
     [self dismissModalViewControllerAnimated:YES];
 }
+
 - (void)viewDidUnload {
     [self setPicker:nil];
     [super viewDidUnload];
@@ -41,12 +49,32 @@
     return 2;
 }
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 2;
+    
+    if (component == 0) {
+        return [arrLottery count];
+    }
+    
+    return 10;
+}
+
+- (void) selectRow:(NSInteger)row inComponent:(NSInteger)component animated:(BOOL)animated {
+    [picker selectRow:9 inComponent:0 animated:NO];
 }
 
 - (UIView *) pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     UILabel *pickerLabel = (UILabel *)view;
-    NSLog(@"viewForRow component [%d]  row [%d]", component, row);
+    //NSLog(@"viewForRow component [%d]  row [%d]", component, row);
+    
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
+	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+	[outputDateFormatter setDateFormat:outputDateFormatterStr];
+    
+    Lottery *lottery;
+    
+    if (component==0) {
+        lottery = [arrLottery objectAtIndex:row];
+    }
     
     //Update the frame size of the label.
     CGRect frame = CGRectMake(0,0,150,40);
@@ -59,10 +87,10 @@
     [pickerLabel setNumberOfLines:2];
     
     if (component==1) {
-        [pickerLabel setText:@"dynamic text from\n an array or dictionary"];
+        [pickerLabel setText:[NSString stringWithFormat:@"%d回", row+1]];
     }
     else {
-        [pickerLabel setText:@"第704回"];
+        [pickerLabel setText:[NSString stringWithFormat:@"第%d回\n%@", lottery.times, [outputDateFormatter stringFromDate:lottery.lotteryDate]]];
     }
 
     //Return the UILabel to the PickerView.
@@ -71,42 +99,6 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return @"TEST\nだよ";
-}
-
-- (void) test {
-    NSDate *date = [NSDate date];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *comps;
-    
-    // 年月日をとりだす
-    comps = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
-                        fromDate:date];
-    NSInteger year = [comps year];
-    NSInteger month = [comps month];
-    NSInteger day = [comps day];
-    NSLog(@"year: %d month: %d, day: %d", year, month, day);
-    //=> year: 2010 month: 5, day: 22
-    
-    // 週や曜日などをとりだす
-    comps = [calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
-                        fromDate:date];
-    NSInteger week = [comps week]; // 今年に入って何週目か
-    NSInteger weekday = [comps weekday]; // 曜日
-    NSInteger weekdayOrdinal = [comps weekdayOrdinal]; // 今月の第何曜日か
-    NSLog(@"week: %d weekday: %d weekday ordinal: %d", week, weekday, weekdayOrdinal);
-    //=> week: 21 weekday: 7(日曜日) weekday ordinal: 4(第4日曜日)
-    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
-	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
-	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
-	[outputDateFormatter setDateFormat:outputDateFormatterStr];
-    //lbLotteryDate.text = [outputDateFormatter stringFromDate:buyHistAtIndex.lotteryDate];
-
-    
-    // sqlite3から最新の回数を取得する
-    
-    // 回数を元に当日の回数を割り出す
-
-    // 当日から未来の抽選日・回数（５つ）、過去の抽選日・回数（１０個）を取得する
 }
 
 @end

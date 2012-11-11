@@ -15,6 +15,6 @@
 @property (nonatomic, copy, readwrite) NSString *dbmstPath;
 
 + (Lottery *)getTimes:(NSInteger) times;
-+ (BuyHistory *)getNewest;
++ (Lottery *)getNewest;
 
 @end
