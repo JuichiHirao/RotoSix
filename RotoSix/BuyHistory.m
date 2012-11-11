@@ -11,7 +11,7 @@
 
 @implementation BuyHistory
 
-@synthesize dbId, isDbUpdate, set01, set02, set03, set04, set05, lotteryNo, lotteryDate, unit, prizeMoney, isSet01Update, isSet02Update, isSet03Update, isSet04Update, isSet05Update;
+@synthesize dbId, isDbUpdate, set01, set02, set03, set04, set05, lotteryTimes, lotteryDate, unit, prizeMoney, isSet01Update, isSet02Update, isSet03Update, isSet04Update, isSet05Update;
 
 -(BOOL) isUpdate:(NSInteger)selBuyNo {
     if (selBuyNo==0) {

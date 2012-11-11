@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSString *set03;
 @property (nonatomic, strong) NSString *set04;
 @property (nonatomic, strong) NSString *set05;
-@property (nonatomic, assign) NSInteger lotteryNo;
+@property (nonatomic, assign) NSInteger lotteryTimes;
 @property (nonatomic, strong) NSDate *lotteryDate;
 @property (nonatomic, assign) NSInteger unit;
 @property (nonatomic, assign) NSInteger prizeMoney;

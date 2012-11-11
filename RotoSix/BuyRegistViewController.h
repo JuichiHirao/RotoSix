@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NumberSelectViewController.h"
+#import "BuyTimesSelectViewController.h"
 #import "BuyHistory.h"
 
 @class NumberSelectViewController;
+@class BuyTimesSelectViewController;
 
 @interface BuyRegistViewController : UITableViewController <NumberSelectDelegate>
 {

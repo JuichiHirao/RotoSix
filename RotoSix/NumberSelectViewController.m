@@ -58,12 +58,7 @@
             return;
         }
     }
-    
-    if ([selected isEqualToString:@"1"])
-        selectNoCount--;
-    else
-        selectNoCount++;
-    
+        
     NSLog(@"%@", [NSString stringWithFormat:@"selectNoCount %d", selectNoCount]);
 
     // y軸で回転のアニメーションをする
@@ -103,6 +98,24 @@
     // LayerにKEY-VALUEで格納されている選択状態と逆の値を取得する
     NSString *chgSelected = [self getChangeSelected:[findlayer valueForKey:@"selected"]];
     [findlayer setValue:chgSelected forKey:@"selected"];
+
+    if ([chgSelected isEqualToString:@"1"])
+        selectNoCount++;
+    else
+        selectNoCount--;
+
+    if (selectNoCount > 6) {
+        // エラーメッセージは２秒で自動的に消す
+        lblNotice.text = @"どれかを選択解除してから番号を選択して下さい";
+        lblNotice.hidden = NO;
+        [NSTimer scheduledTimerWithTimeInterval:2
+                                         target:self
+                                       selector:@selector(finishErrorMessage:)
+                                       userInfo:nil
+                                        repeats:NO];
+        selectNoCount--;
+        return;
+    }
 
     // 取得した逆の値からイメージファイル名を取得、同画像を表示設定する
     findlayer.contents = (id)[UIImage imageNamed:[self getImageName:chgSelected layername:findlayer.name]].CGImage;

@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Lottery.h"
+#import "BuyHistory.h"
 
 @interface LotteryDataController : NSObject
 
 @property (nonatomic, copy, readwrite) NSString *dbmstPath;
 
 + (Lottery *)getTimes:(NSInteger) times;
++ (BuyHistory *)getNewest;
 
 @end

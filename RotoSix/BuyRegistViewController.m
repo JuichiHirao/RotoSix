@@ -11,19 +11,21 @@
 @interface BuyRegistViewController ()
 
 @property (nonatomic, strong) NumberSelectViewController *numberSelViewController;
+@property (nonatomic, strong) BuyTimesSelectViewController *buyTimesSelectViewController;
 
 @end
 
 @implementation BuyRegistViewController
 
 @synthesize numberSelViewController=_numberSelViewController;
+@synthesize buyTimesSelectViewController=_buyTimesSelectViewController;
 @synthesize listData;
 @synthesize buyHist;
 @synthesize buyRegistView;
 @synthesize selBuyNumbers;
 @synthesize selBuyNo;
 
-// DELEGATE
+#pragma mark - NumberSelectView Delegate
 -(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
     
     if (buyHist == nil ) {
@@ -53,6 +55,7 @@
     [buyRegistView endUpdates];
 }
 
+#pragma mark - View Controller Method
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -291,25 +294,40 @@
         numInputlViewController.buyNumbers = selBuyNumbers;
         numInputlViewController.delegate = self;
     }
+    else if ([[segue identifier] isEqualToString:@"BuyTimesSelect"]) {
+        BuyTimesSelectViewController *buyTimesSelectController = [segue destinationViewController];
+    }
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section != 1) {
-        return;
+    if (indexPath.section == 0) {
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        NSLog(@" cell [%p]", cell);
+        NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
+        
+        if (indexPath.section==1) {
+            selBuyNumbers = [buyHist getSetNo:indexPath.row];
+            selBuyNo = indexPath.row;
+        }
+        
+        [self performSegueWithIdentifier:@"BuyTimesSelect" sender:self];
     }
-    
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    NSLog(@" cell [%p]", cell);
-    NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
-    
-    if (indexPath.section==1) {
-        selBuyNumbers = [buyHist getSetNo:indexPath.row];
-        selBuyNo = indexPath.row;
+    if (indexPath.section == 1) {
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        NSLog(@" cell [%p]", cell);
+        NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
+        
+        if (indexPath.section==1) {
+            selBuyNumbers = [buyHist getSetNo:indexPath.row];
+            selBuyNo = indexPath.row;
+        }
+        
+        [self performSegueWithIdentifier:@"NumberInput" sender:self];
     }
-    
-    [self performSegueWithIdentifier:@"NumberInput" sender:self];
 }
 
 

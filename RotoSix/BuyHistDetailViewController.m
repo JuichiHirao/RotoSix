@@ -82,7 +82,7 @@
     NSLog(@"str [%@]", str);
 
     // 当選情報をsqliteから取得する
-    lottery = [LotteryDataController getTimes:[buyHist lotteryNo]];
+    lottery = [LotteryDataController getTimes:[buyHist lotteryTimes]];
 
     // 詳細画面のタイトルを設定、表示（抽選日と回数を表示）
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
@@ -90,7 +90,7 @@
 	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
 	[outputDateFormatter setDateFormat:outputDateFormatterStr];
     
-    self.title = [NSString stringWithFormat:@"%@ (第%d回)", [outputDateFormatter stringFromDate:buyHist.lotteryDate], buyHist.lotteryNo];
+    self.title = [NSString stringWithFormat:@"%@ (第%d回)", [outputDateFormatter stringFromDate:buyHist.lotteryDate], buyHist.lotteryTimes];
     // Scroll the table view to the top before it appears
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointZero animated:NO];

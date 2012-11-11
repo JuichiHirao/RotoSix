@@ -182,7 +182,7 @@
 	[outputDateFormatter setDateFormat:outputDateFormatterStr];
     lbLotteryDate.text = [outputDateFormatter stringFromDate:buyHistAtIndex.lotteryDate];
     
-    lbKaisuu.text = [NSString stringWithFormat:@"第%d回", buyHistAtIndex.lotteryNo];      // @"第689回";
+    lbKaisuu.text = [NSString stringWithFormat:@"第%d回", buyHistAtIndex.lotteryTimes];      // @"第689回";
 
 //    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"BallIcon-48" ofType:@"png"];
     // データの取得
