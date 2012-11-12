@@ -430,7 +430,7 @@
             if (cell==nil) {
                 NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                 cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
                 
                 x = 10.0;
