@@ -19,13 +19,14 @@
 
 @synthesize numberSelViewController=_numberSelViewController;
 @synthesize buyTimesSelectViewController=_buyTimesSelectViewController;
-@synthesize listData;
 @synthesize buyHist;
 @synthesize buyRegistView;
+@synthesize selLottery;
+@synthesize selBuyTimes;
 @synthesize selBuyNumbers;
 @synthesize selBuyNo;
 
-#pragma mark - NumberSelectView Delegate
+#pragma mark - from SelectView Delegate
 -(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
     
     if (buyHist == nil ) {
@@ -42,27 +43,31 @@
         NSLog(@"NumberSelectBtnEnd no change!! beforeNo [%@] -> [%@]  row [%d]  buyHist getCount[%d]", beforeNo, name, selBuyNo, [buyHist getCount]);
     }
     
-    [buyRegistView beginUpdates];
-    
-    // セクションの特定の行のみを更新
-    // NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selBuyNo inSection:1];
-    // NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
-    // [buyRegistView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
-    
     // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
     [buyRegistView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     [buyRegistView endUpdates];
 }
 
+- (void)BuyTimesSelectBtnEnd:(BuyTimesSelectViewController *)controller SelectLottery:(Lottery *)lottery SelectTimes:(NSInteger)buyTimes {
+    
+    selLottery = lottery;
+    selBuyTimes = buyTimes;
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
+	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+	[outputDateFormatter setDateFormat:outputDateFormatterStr];
+
+    NSLog(@"BuyTimesSelectBtnEnd 抽選日 [%@] 回数 [%d]   購入回数 [%d]", [outputDateFormatter stringFromDate:selLottery.lotteryDate], selLottery.times, selBuyTimes);
+    
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
+    [buyRegistView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - View Controller Method
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    NSArray *array = [[NSArray alloc] initWithObjects:@"新規追加", nil];
-    
-    self.listData = array;
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,6 +111,14 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     NSLog(@"BuyRegist heightForRowAtIndexPath [%d]", 1);
+    if (indexPath.section == 0) {
+        if (selBuyTimes > 0) {
+            return 80;
+        }
+        else {
+            return 60;
+        }
+    }
     if (indexPath.section == 1) {
         if (buyHist.getCount > 0) {
             return 30;
@@ -156,7 +169,7 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
                 
-                if (buyHist.getCount<=0) {
+                if (selBuyTimes <= 0) {
                     UILabel *lbl;
 
                     lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, 35)];
@@ -176,19 +189,28 @@
                     [cell.contentView addSubview:lbl];
                 }
                 else {
-                    x = 10.0;
-                    y = 2.0;
-                    width = 35.0;
-                    height = 35.0;
+                    UILabel *lbl;
                     
-                    for (int idx=0; idx < 7; idx++) {
-                        //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-                        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-                        img.tag = idx+1;
-                        x = x + 39.0;
-                        //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
-                        [cell.contentView addSubview:img];
-                    }
+                    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+                    NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
+                    [outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+                    [outputDateFormatter setDateFormat:outputDateFormatterStr];
+                    
+                    lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 320, 20)];
+                    lbl.backgroundColor = [UIColor clearColor];
+                    lbl.font = [UIFont systemFontOfSize:17.0];
+                    lbl.textAlignment = UITextAlignmentCenter;
+                    lbl.textColor = [UIColor blackColor];
+                    lbl.text = [NSString stringWithFormat:@"第%d回  %@", selLottery.times, [outputDateFormatter stringFromDate:selLottery.lotteryDate]];
+                    [cell.contentView addSubview:lbl];
+                    
+                    lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 35, 320, 35)];
+                    lbl.backgroundColor = [UIColor clearColor];
+                    lbl.font = [UIFont systemFontOfSize:17.0];
+                    lbl.textAlignment = UITextAlignmentCenter;
+                    lbl.textColor = [UIColor blackColor];
+                    lbl.text = [NSString stringWithFormat:@"継続回数  %d回", selBuyTimes];
+                    [cell.contentView addSubview:lbl];
                 }
             }
             
@@ -296,6 +318,7 @@
     }
     else if ([[segue identifier] isEqualToString:@"BuyTimesSelect"]) {
         BuyTimesSelectViewController *buyTimesSelectController = [segue destinationViewController];
+        buyTimesSelectController.delegate = self;
     }
 
 }

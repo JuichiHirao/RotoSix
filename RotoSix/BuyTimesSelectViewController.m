@@ -17,6 +17,7 @@
 
 @implementation BuyTimesSelectViewController
 
+@synthesize delegate = _delegate;
 @synthesize picker;
 @synthesize arrLottery;
 
@@ -33,6 +34,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)btnEndPressed:(id)sender {
+    NSInteger com01 = [picker selectedRowInComponent:0];
+    NSInteger com02 = [picker selectedRowInComponent:1];
+    
+    NSLog(@"%d  %d", com01, com02);
+    Lottery *selLottery = [arrLottery objectAtIndex:com01];
+    
+    [[self delegate] BuyTimesSelectBtnEnd:self SelectLottery:selLottery SelectTimes:com02+1];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)btnCancelPressed:(id)sender {

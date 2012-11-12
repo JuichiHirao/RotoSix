@@ -14,14 +14,15 @@
 @class NumberSelectViewController;
 @class BuyTimesSelectViewController;
 
-@interface BuyRegistViewController : UITableViewController <NumberSelectDelegate>
+@interface BuyRegistViewController : UITableViewController <NumberSelectDelegate, BuyTimesSelectDelegate>
 {
     NSArray *listData;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *buyRegistView;
 
-@property (strong, nonatomic) NSArray *listData;
+@property (nonatomic, strong) Lottery *selLottery;
+@property (nonatomic) NSInteger selBuyTimes;
 @property (nonatomic, strong) BuyHistory *buyHist;
 @property (nonatomic, strong) NSString *selBuyNumbers;
 @property (nonatomic) NSInteger selBuyNo;
