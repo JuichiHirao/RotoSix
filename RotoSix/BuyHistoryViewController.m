@@ -10,12 +10,17 @@
 #import "BuyHistDetailViewController.h"
 #import "BuyHistDataController.h"
 #import "BuyHistory.h"
+#import "BuyRegistViewController.h"
 
 @interface BuyHistoryViewController ()
+
+@property (nonatomic, strong) BuyRegistViewController *buyRegistViewController;
 
 @end
 
 @implementation BuyHistoryViewController
+
+@synthesize buyRegistViewController=_buyRegistViewController;
 
 @synthesize dataController;
 @synthesize histTableView;
@@ -28,6 +33,13 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)RegistBuyHistoryEnd:(BuyRegistViewController *)controller {
+    NSLog(@"RegistBuyHistoryEnd");
+    [dataController reloadAll];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
+    [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,11 +82,6 @@
     histTableView.backgroundView = imgBg;
     
     isCellSetting = NO;
-}
-
-- (void)barButtonAdd
-{
-    return;
 }
 
 - (void)viewDidUnload
@@ -247,6 +254,10 @@
         NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
         BuyHistDetailViewController *detailViewController = [segue destinationViewController];
         detailViewController.buyHist= [dataController objectInListAtIndex:selectedRowIndex.row];
+    }
+    else if ([[segue identifier] isEqualToString:@"BuyRegist"]) {
+        BuyRegistViewController *buyRegistViewController = [segue destinationViewController];
+        buyRegistViewController.delegate = self;
     }
 }
 

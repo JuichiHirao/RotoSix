@@ -211,6 +211,46 @@
     
     return sortedArray;
 }
+-(void)reloadAll {
+    
+    NSMutableArray *listBuyHist = [[NSMutableArray alloc] init];
+    
+    //作成したテーブルからデータを取得
+    FMDatabase* db = [FMDatabase databaseWithPath:dbmstPath];
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, set02, set03, set04, set05, lottery_amount, lottery_date FROM buy_history order by lottery_date desc"];
+        while ([rs next]) {
+            BuyHistory *buyHist;
+            
+            buyHist = [[BuyHistory alloc]init];
+            buyHist.dbId = [rs intForColumn:@"id"];
+            buyHist.set01 = [rs stringForColumn:@"set01"];
+            buyHist.set02 = [rs stringForColumn:@"set02"];
+            buyHist.set03 = [rs stringForColumn:@"set03"];
+            buyHist.set04 = [rs stringForColumn:@"set04"];
+            buyHist.set05 = [rs stringForColumn:@"set05"];
+            buyHist.lotteryDate = [rs dateForColumn:@"lottery_date"];
+            //            buyHist.unit = 2;
+            //            buyHist.lotteryDate = [dateFormatter dateFromString:@"20120601"];
+            buyHist.lotteryTimes = [rs intForColumn:@"lottery_times"];
+            
+            [listBuyHist addObject:buyHist];
+            
+            //ここでデータを展開
+            NSLog(@"%d %@ %@ %@ %@ %@ %d %@", [rs intForColumn:@"lottery_times"], [rs stringForColumn:@"set01"]
+                  , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
+                  , [rs stringForColumn:@"set05"], [rs intForColumn:@"lottery_amount"], [rs dateForColumn:@"lottery_date"]);
+        }
+        [rs close];
+        [db close];
+        
+        list = listBuyHist;
+    }else{
+        //DBが開けなかったらここ
+    }    
+}
 
 -(void)createDemoFromDb {
     //呼び出したいメソッドで下記を実行
@@ -246,7 +286,7 @@
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         
-        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, set02, set03, set04, set05, lottery_amount, lottery_date FROM buy_history order by lottery_times desc"];
+        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, set02, set03, set04, set05, lottery_amount, lottery_date FROM buy_history order by lottery_date desc"];
         while ([rs next]) {
             BuyHistory *buyHist;
 
@@ -327,7 +367,7 @@
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         
-        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, set02, set03, set04, set05, lottery_amount, lottery_date FROM buy_history order by lottery_times desc"];
+        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, set02, set03, set04, set05, lottery_amount, lottery_date FROM buy_history order by lottery_date desc"];
         if ([rs next]) {
             buyHist.dbId = [rs intForColumn:@"id"];
             buyHist.set01 = [rs stringForColumn:@"set01"];

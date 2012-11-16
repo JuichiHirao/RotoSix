@@ -25,8 +25,9 @@
 {
     [super viewDidLoad];
     
-    arrLottery = [BuyHistDataController makeDefaultTimesData];
+    //arrLottery = [BuyHistDataController makeDefaultTimesData];
     
+    // 次回の当選日を初期の選択状態にする
     [picker selectRow:10 inComponent:0 animated:NO];
 }
 
@@ -43,7 +44,7 @@
     NSLog(@"%d  %d", com01, com02);
     Lottery *selLottery = [arrLottery objectAtIndex:com01];
     
-    [[self delegate] BuyTimesSelectBtnEnd:self SelectLottery:selLottery SelectTimes:com02+1];
+    [[self delegate] BuyTimesSelectBtnEnd:self SelectIndex:com01 SelectLottery:selLottery SelectTimes:com02+1];
     [self dismissModalViewControllerAnimated:YES];
 }
 

@@ -28,6 +28,6 @@
 
 @protocol BuyTimesSelectDelegate <NSObject>
 
-- (void)BuyTimesSelectBtnEnd:(BuyTimesSelectViewController *)controller SelectLottery:(Lottery *)lottery SelectTimes:(NSInteger)buyTimes;
+- (void)BuyTimesSelectBtnEnd:(BuyTimesSelectViewController *)controller SelectIndex:(NSInteger)index SelectLottery:(Lottery *)lottery SelectTimes:(NSInteger)buyTimes;
 
 @end

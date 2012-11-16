@@ -7,6 +7,7 @@
 //
 
 #import "BuyRegistViewController.h"
+#import "BuyHistDataController.h"
 
 @interface BuyRegistViewController ()
 
@@ -17,10 +18,14 @@
 
 @implementation BuyRegistViewController
 
+@synthesize delegate = _delegate;
+
 @synthesize numberSelViewController=_numberSelViewController;
 @synthesize buyTimesSelectViewController=_buyTimesSelectViewController;
 @synthesize buyHist;
 @synthesize buyRegistView;
+@synthesize arrLottery;
+@synthesize selIndex;
 @synthesize selLottery;
 @synthesize selBuyTimes;
 @synthesize selBuyNumbers;
@@ -49,8 +54,9 @@
     [buyRegistView endUpdates];
 }
 
-- (void)BuyTimesSelectBtnEnd:(BuyTimesSelectViewController *)controller SelectLottery:(Lottery *)lottery SelectTimes:(NSInteger)buyTimes {
+- (void)BuyTimesSelectBtnEnd:(BuyTimesSelectViewController *)controller SelectIndex:(NSInteger)index SelectLottery:(Lottery *)lottery SelectTimes:(NSInteger)buyTimes {
     
+    selIndex = index;
     selLottery = lottery;
     selBuyTimes = buyTimes;
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
@@ -58,7 +64,7 @@
 	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
 	[outputDateFormatter setDateFormat:outputDateFormatterStr];
 
-    NSLog(@"BuyTimesSelectBtnEnd 抽選日 [%@] 回数 [%d]   購入回数 [%d]", [outputDateFormatter stringFromDate:selLottery.lotteryDate], selLottery.times, selBuyTimes);
+    NSLog(@"BuyTimesSelectBtnEnd IDX[%d] 抽選日 [%@] 回数 [%d]   購入回数 [%d]", selIndex, [outputDateFormatter stringFromDate:selLottery.lotteryDate], selLottery.times, selBuyTimes);
     
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
     [buyRegistView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -68,6 +74,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    arrLottery = [BuyHistDataController makeDefaultTimesData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,6 +86,7 @@
 
 - (void)viewDidUnload {
     [self setBuyRegistView:nil];
+    [self setTabitemSave:nil];
     [super viewDidUnload];
 }
 
@@ -318,6 +327,7 @@
     }
     else if ([[segue identifier] isEqualToString:@"BuyTimesSelect"]) {
         BuyTimesSelectViewController *buyTimesSelectController = [segue destinationViewController];
+        buyTimesSelectController.arrLottery = arrLottery;
         buyTimesSelectController.delegate = self;
     }
 
@@ -335,9 +345,9 @@
             selBuyNumbers = [buyHist getSetNo:indexPath.row];
             selBuyNo = indexPath.row;
         }
-        
         [self performSegueWithIdentifier:@"BuyTimesSelect" sender:self];
     }
+    
     if (indexPath.section == 1) {
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         
@@ -353,5 +363,44 @@
     }
 }
 
+- (IBAction)tabitemSavePress:(id)sender {
+    // チェックを行う
+    NSString *strMessage;
+    if (selLottery.lotteryDate == nil || selLottery.times <= 0 || selBuyTimes <= 0) {
+        strMessage = @"購入回数、継続回数を選択して下さい";
+    }
+    else if ([buyHist getCount] <= 0) {
+        strMessage = @"購入した番号を１組以上入力して下さい";
+    }
+    
+    if (strMessage.length > 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未選択エラー" message:strMessage delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil ];
+        [alert show];
+        
+        return;
+    }
+    
+    for (int idx=selIndex; idx < selIndex+selBuyTimes; idx++) {
+        BuyHistory *data = [[BuyHistory alloc] init];
+        
+        data.set01 = buyHist.set01;
+        data.set02 = buyHist.set02;
+        data.set03 = buyHist.set03;
+        data.set04 = buyHist.set04;
+        data.set05 = buyHist.set05;
+        
+        Lottery *lotteryData = [arrLottery objectAtIndex:idx];
+        data.lotteryDate = lotteryData.lotteryDate;
+        data.lotteryTimes = lotteryData.times;
+        
+        [data save];
+    }
+    
+    // 購入情報画面もdelegateを実行
+    [[self delegate] RegistBuyHistoryEnd:self];
+    
+    // Saveボタンは無効にする
+    [_tabitemSave setEnabled:FALSE];
+}
 
 @end

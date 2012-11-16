@@ -130,22 +130,47 @@
     FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
     if ([db open]) {
         [db setShouldCacheStatements:YES];
+
+        [db beginTransaction];
         
-        for (int idx=0; idx < 5; idx++) {
-            
-            if ([self isUpdate:idx]) {
-//                NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?  WHERE id = ? [dbId:%d]", idx+1, dbId];
-                NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?  WHERE id = ?", idx+1];
-                NSLog(@"UPDATE buy_history set set%02d = ? [set%02d:%@]  WHERE id = ? [dbId:%d] ", idx+1, idx+1, [self getSetNo:idx], dbId);
+        // IDが0以上で設定されている場合は、更新
+        if (dbId > 0) {
+            for (int idx=0; idx < 5; idx++) {
                 
-                [db executeUpdate:strSql, [self getSetNo:idx], [NSNumber numberWithInteger:dbId]];
+                if ([self isUpdate:idx]) {
+                    //                NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?  WHERE id = ? [dbId:%d]", idx+1, dbId];
+                    NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?  WHERE id = ?", idx+1];
+                    NSLog(@"UPDATE buy_history set set%02d = ? [set%02d:%@]  WHERE id = ? [dbId:%d] ", idx+1, idx+1, [self getSetNo:idx], dbId);
+                    
+                    [db executeUpdate:strSql, [self getSetNo:idx], [NSNumber numberWithInteger:dbId]];
+                }
             }
+        }
+        // IDが0の場合は挿入
+        else {
+            NSString *strSql = [NSString stringWithFormat:@"INSERT INTO buy_history ( "
+                                @"lottery_times, set01, set02, set03, set04, set05, lottery_amount"
+                                @", lottery_date ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)"];
+            
+            [db executeUpdate:strSql
+                ,[NSNumber numberWithInteger:lotteryTimes]
+                , set01, set02, set03, set04, set05
+                , prizeMoney, lotteryDate];
+        }
+
+        if ([db hadError]) {
+            NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            [db rollback];
+        }
+        else {
+            [db commit];
         }
 
         [db close];
+        
     }else{
         //DBが開けなかったらここ
-    }    
+    }
 }
 
 

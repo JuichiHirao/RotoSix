@@ -60,7 +60,7 @@
                     <navigationItem key="navigationItem" title="履歴" id="V5K-aI-QAV">
                         <barButtonItem key="rightBarButtonItem" tag="1" style="plain" systemItem="add" id="4wf-yK-RvQ">
                             <connections>
-                                <segue destination="EMU-9J-dyi" kind="push" id="E1j-iK-Rzc"/>
+                                <segue destination="EMU-9J-dyi" kind="push" identifier="BuyRegist" id="E1j-iK-Rzc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -132,11 +132,16 @@
                         <sections/>
                     </tableView>
                     <navigationItem key="navigationItem" title="新規登録" id="U0z-Vl-mWf">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="mUA-NW-W2J"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="mUA-NW-W2J">
+                            <connections>
+                                <action selector="tabitemSavePress:" destination="EMU-9J-dyi" id="Zo0-Dh-w2Q"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="buyRegistView" destination="wax-yR-vZl" id="m2L-7p-eWC"/>
+                        <outlet property="tabitemSave" destination="mUA-NW-W2J" id="D6i-A5-r4T"/>
                         <segue destination="KqJ-gk-oxf" kind="modal" identifier="NumberInput" id="XSG-ad-JIG"/>
                         <segue destination="6w4-D2-ljB" kind="modal" identifier="BuyTimesSelect" id="CNJ-6M-hhA"/>
                     </connections>
@@ -267,7 +272,9 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyRegistViewController.h"/>
             <relationships>
                 <relationship kind="action" name="btnCancelPress:"/>
+                <relationship kind="action" name="tabitemSavePress:"/>
                 <relationship kind="outlet" name="buyRegistView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="tabitemSave" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="BuyTimesSelectViewController" superclassName="UIViewController">
@@ -275,7 +282,6 @@
             <relationships>
                 <relationship kind="action" name="btnCancelPressed:"/>
                 <relationship kind="action" name="btnEndPressed:"/>
-                <relationship kind="action" name="btnSelectedPressed:"/>
                 <relationship kind="outlet" name="picker" candidateClass="UIPickerView"/>
             </relationships>
         </class>

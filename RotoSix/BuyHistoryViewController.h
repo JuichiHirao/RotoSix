@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BuyRegistViewController.h"
 
 @class BuyHistDataController;
+@class BuyRegistViewController;
 
-@interface BuyHistoryViewController : UITableViewController {
+@interface BuyHistoryViewController : UITableViewController <BuyRegistDelegate> {
     BOOL isCellSetting;
     NSMutableArray *arrmBuyNo;
     NSInteger cntArrayBuyNo;

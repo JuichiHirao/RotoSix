@@ -14,17 +14,34 @@
 @class NumberSelectViewController;
 @class BuyTimesSelectViewController;
 
+@protocol BuyRegistDelegate;
+
 @interface BuyRegistViewController : UITableViewController <NumberSelectDelegate, BuyTimesSelectDelegate>
 {
     NSArray *listData;
+    id <BuyRegistDelegate> delegate;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *buyRegistView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemSave;
 
+@property (weak, nonatomic) id <BuyRegistDelegate> delegate;
+
+@property (strong, nonatomic) NSArray *arrLottery;
+
+@property (nonatomic) NSInteger selIndex;
 @property (nonatomic, strong) Lottery *selLottery;
 @property (nonatomic) NSInteger selBuyTimes;
 @property (nonatomic, strong) BuyHistory *buyHist;
 @property (nonatomic, strong) NSString *selBuyNumbers;
 @property (nonatomic) NSInteger selBuyNo;
+
+- (IBAction)tabitemSavePress:(id)sender;
+
+@end
+
+@protocol BuyRegistDelegate <NSObject>
+
+- (void)RegistBuyHistoryEnd:(BuyRegistViewController *)controller;
 
 @end
