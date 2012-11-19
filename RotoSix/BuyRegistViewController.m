@@ -173,6 +173,10 @@
             CellIdentifier = @"CellNewRegistSection00";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
+            if (selBuyTimes > 0) {
+                cell = nil;
+            }
+            
             if (cell==nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -380,7 +384,10 @@
         return;
     }
     
+    NSLog(@"tabitemSavePress selIndex [%d]  selBuyTimes [%d]  arrLottery.count [%d]", selIndex, selBuyTimes, arrLottery.count);
+
     for (int idx=selIndex; idx < selIndex+selBuyTimes; idx++) {
+
         BuyHistory *data = [[BuyHistory alloc] init];
         
         data.set01 = buyHist.set01;

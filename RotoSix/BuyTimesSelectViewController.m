@@ -64,7 +64,7 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
     if (component == 0) {
-        return [arrLottery count];
+        return 15;
     }
     
     return 10;
