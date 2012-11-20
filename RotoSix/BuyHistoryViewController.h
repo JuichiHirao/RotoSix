@@ -14,8 +14,6 @@
 
 @interface BuyHistoryViewController : UITableViewController <BuyRegistDelegate> {
     BOOL isCellSetting;
-    NSMutableArray *arrmBuyNo;
-    NSInteger cntArrayBuyNo;
 }
 
 @property (nonatomic, strong) BuyHistDataController *dataController;

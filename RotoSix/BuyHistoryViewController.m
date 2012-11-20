@@ -123,8 +123,8 @@
     UILabel *lbKaisuu, *lbLotteryDate;
     UIImage *rowBackground;
     
-    NSLog(@"cellForRowAtIndexPath [%d]", indexPath.row);
     BuyHistory *buyHistAtIndex = [dataController objectInListAtIndex:indexPath.row];
+    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]", indexPath.section, indexPath.row, buyHistAtIndex.lotteryTimes);
 
     //if (indexPath.row == 0) {
     //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -132,9 +132,10 @@
 
     UILabel *lbl = (UILabel*)[cell.contentView viewWithTag:1];
 
+    NSInteger idxImgTag;
     if (lbl==nil) {
+        NSLog(@"cell create");
         
-        cntArrayBuyNo = 0;
         lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0.0, 120.0, 15.0)];
         lbLotteryDate.tag = 1;
         lbLotteryDate.backgroundColor = [UIColor clearColor];
@@ -153,28 +154,41 @@
 
         [cell.contentView addSubview:lbKaisuu];
         
-        arrmBuyNo = [NSMutableArray array];
-        
         CGFloat x = 121.0;
         CGFloat y = 3.0;
         CGFloat width = 20.0;
         CGFloat height = 20.0;
         
+        idxImgTag = 11;
         for (int idx=0; idx < 5; idx++ ) {
             x = 121.0;
             for (int idxSub=0; idxSub < 6; idxSub++) {
-                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+//                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                img.tag = idxImgTag;
                 x = x + 26;
-                cntArrayBuyNo++;
+                
+                [cell.contentView addSubview:img];
+                idxImgTag++;
             }
             y = y + 22;
         }
         
-        for (int idx=0; idx < cntArrayBuyNo; idx++) {
-            [cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
-        }
-
         cell.backgroundView = [[UIImageView alloc] init];
+    }
+    else {
+        lbLotteryDate = (UILabel*)[cell.contentView viewWithTag:1];
+        lbKaisuu = (UILabel*)[cell.contentView viewWithTag:2];
+        
+        UIImageView *img;
+        for (idxImgTag = 11; idxImgTag <= 40; idxImgTag++) {
+            img = (UIImageView*)[cell.contentView viewWithTag:idxImgTag];
+
+            if (img==nil) {
+                break;
+            }
+            img.image = nil;
+        }
     }
     
     NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
@@ -190,14 +204,16 @@
     lbLotteryDate.text = [outputDateFormatter stringFromDate:buyHistAtIndex.lotteryDate];
     
     lbKaisuu.text = [NSString stringWithFormat:@"第%d回", buyHistAtIndex.lotteryTimes];      // @"第689回";
+    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]   lbLotteryDate.text [%@]"
+          , indexPath.section, indexPath.row, buyHistAtIndex.lotteryTimes, [outputDateFormatter stringFromDate:buyHistAtIndex.lotteryDate]);
 
 //    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"BallIcon-48" ofType:@"png"];
     // データの取得
-    BuyHistory *buyHist = [dataController objectInListAtIndex:indexPath.row];
+    //BuyHistory *buyHist = [dataController objectInListAtIndex:indexPath.row];
     
-    int idxArrmBuyNo = 0;
+    idxImgTag = 11;
     for (int idxBuySet=0; idxBuySet<5; idxBuySet++) {
-        NSString *setNo = [buyHist getSetNo:idxBuySet];
+        NSString *setNo = [buyHistAtIndex getSetNo:idxBuySet];
         
         if ([setNo length] <= 0) {
             continue;
@@ -210,10 +226,10 @@
             NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
             UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-            UIImageView *img = [arrmBuyNo objectAtIndex:idxArrmBuyNo];
-            
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idxImgTag];
+
             img.image = theImage;
-            idxArrmBuyNo++;
+            idxImgTag++;
         }
     }
 
