@@ -92,6 +92,23 @@
 
 #pragma mark - Table view data source
 
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (UITableViewCellEditingStyleDelete == editingStyle) {
+        int count = [buyHist getCount];
+        [buyHist removeSetData:indexPath.row];
+        // 最大まで追加されている場合にdeleteRowsAtIndexPathsを実行すると
+        // 「さらに追加」があるので行数は変わらないのに、行を削除しようとするのでExceptionになるので
+        // 最大の場合はセクションの更新により、行の削除を行う
+        if (count==5) {
+            NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+            [buyRegistView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        else {
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -142,9 +159,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"BuyRegist numberOfRowsInSection [%d]", 1);
+    NSLog(@"BuyRegist numberOfRowsInSection [%d] buyHist.getCount [%d]", section, buyHist.getCount);
     if (section == 1) {
         if (buyHist.getCount > 0) {
+            if (buyHist.getCount >= 5) {
+                return buyHist.getCount;
+            }
             return buyHist.getCount + 1;
         }
         else {
@@ -229,6 +249,7 @@
             
             break;
         case 1:
+            NSLog(@"CellNewRegistSection01 [%@] [%p] secion01 [%d]  buyHist.getCount [%d]", CellIdentifier, cell, indexPath.row, buyHist.getCount);
             CellIdentifier = @"CellNewRegistSection01";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             buySetNo = indexPath.row;
@@ -263,28 +284,41 @@
                     [cell.contentView addSubview:lbl];
                 }
                 else {
-                    x = 10.0;
-                    y = 2.0;
-                    width = 23.0;
-                    height = 23.0;
-                    
-                    int idx=0;
-                    for (idx=0; idx < 6; idx++) {
+                    if (buyHist.getCount>indexPath.row) {
+                        x = 10.0;
+                        y = 2.0;
+                        width = 23.0;
+                        height = 23.0;
+                        
+                        int idx=0;
+                        for (idx=0; idx < 6; idx++) {
+                            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                            //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                            img.tag = idx+1;
+                            x = x + 26;
+                            [cell.contentView addSubview:img];
+                            //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+                        }
+                        
+                        // ステータスの表示用
+                        x = x + 26;
                         UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
                         //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                        //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
                         img.tag = idx+1;
-                        x = x + 26;
                         [cell.contentView addSubview:img];
-                        //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
                     }
-                    
-                    // ステータスの表示用
-                    x = x + 26;
-                    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-                    //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-                    //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
-                    img.tag = idx+1;
-                    [cell.contentView addSubview:img];
+                    else {
+                        UILabel *lbl;
+                        
+                        lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 35)];
+                        lbl.backgroundColor = [UIColor clearColor];
+                        lbl.font = [UIFont systemFontOfSize:12.0];
+                        lbl.textAlignment = UITextAlignmentCenter;
+                        lbl.textColor = [UIColor blackColor];
+                        lbl.text = @"さらに追加";
+                        [cell.contentView addSubview:lbl];
+                    }
                 }
             }
             

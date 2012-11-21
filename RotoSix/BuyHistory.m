@@ -41,6 +41,27 @@
     }
     return NO;
 }
+
+-(void) removeSetData:(NSInteger)setNoIndex {
+    NSLog(@"removeSetData setNoIndx [%d]  getCount [%d]", setNoIndex, [self getCount]);
+    // 最後の場合は削除するだけ
+    if ([self getCount] == setNoIndex+1) {
+        [self changeSetNo:setNoIndex SetNo:@""];
+    }
+    // 最後以外は削除してずらす
+    else {
+        int count = [self getCount];
+
+        [self changeSetNo:setNoIndex SetNo:@""];
+        int idx = 0;
+        for (idx=setNoIndex+1; idx<count; idx++) {
+            NSString *setno = [self getSetNo:idx];
+            [self changeSetNo:idx-1 SetNo:setno];
+            [self changeSetNo:idx SetNo:@""];
+        }
+    }
+}
+
 -(void) setUpdate:(NSInteger)selBuyNo Status:(NSInteger)status {
     if (selBuyNo==0) {
         self.isSet01Update = status;
