@@ -36,6 +36,12 @@
     return [list objectAtIndex:theIndex];
 }
 
+- (void)removeObjectInListAtIndex:(unsigned)theIndex {
+    BuyHistory *hist = [list objectAtIndex:theIndex];
+    [hist remove];
+    [list removeObjectAtIndex:theIndex];
+}
+
 -(void)createDemoData {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMdd"];

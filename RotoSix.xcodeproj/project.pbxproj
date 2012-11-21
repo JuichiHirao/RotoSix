@@ -125,12 +125,12 @@
 		A2C0051715F448F30081A14E /* BuyHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C0051615F448F30081A14E /* BuyHistory.m */; };
 		A2C03C691642B4A4000A03B0 /* Lottery.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C03C681642B4A4000A03B0 /* Lottery.m */; };
 		A2C03C6D1642B4CB000A03B0 /* LotteryDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C03C6C1642B4CB000A03B0 /* LotteryDataController.m */; };
+		A2D785C4165C498B004E0EF4 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D785C3165C498B004E0EF4 /* Background.png */; };
 		A2DA1B2115FA270400E036F7 /* DetailImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2015FA270400E036F7 /* DetailImage.png */; };
 		A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2215FA31E600E036F7 /* No03-35.png */; };
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
 		A2F1426C163C01C500D6385D /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
-		E61BEDEA15F39A4F00FAF755 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = E61BEDE915F39A4F00FAF755 /* Background.png */; };
 		E6689B0915F253420026CBC3 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E6689B0815F253420026CBC3 /* CellBackground.png */; };
 		E66BC18716153BC200056B40 /* No43-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18516153BC200056B40 /* No43-45.png */; };
 		E66BC18816153BC200056B40 /* No43NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18616153BC200056B40 /* No43NoSel-45.png */; };
@@ -287,12 +287,12 @@
 		A2C03C681642B4A4000A03B0 /* Lottery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lottery.m; sourceTree = "<group>"; };
 		A2C03C6B1642B4CB000A03B0 /* LotteryDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LotteryDataController.h; sourceTree = "<group>"; };
 		A2C03C6C1642B4CB000A03B0 /* LotteryDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LotteryDataController.m; sourceTree = "<group>"; };
+		A2D785C3165C498B004E0EF4 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		A2DA1B2015FA270400E036F7 /* DetailImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DetailImage.png; sourceTree = "<group>"; };
 		A2DA1B2215FA31E600E036F7 /* No03-35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No03-35.png"; sourceTree = "<group>"; };
 		A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistoryViewController.h; sourceTree = "<group>"; };
 		A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistoryViewController.m; sourceTree = "<group>"; };
 		A2ED92F015EF847D0051CD57 /* No01-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15.png"; sourceTree = "<group>"; };
-		E61BEDE915F39A4F00FAF755 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		E6689B0815F253420026CBC3 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackground.png; sourceTree = "<group>"; };
 		E66BC18516153BC200056B40 /* No43-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No43-45.png"; sourceTree = "<group>"; };
 		E66BC18616153BC200056B40 /* No43NoSel-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No43NoSel-45.png"; sourceTree = "<group>"; };
@@ -481,10 +481,10 @@
 				A214F2A51636D19A00AE0C36 /* FMResultSet.m */,
 				A226947116075F1E00A930EA /* ResourceImage */,
 				A20B00E916037FD60056F01A /* NumberSelectBackground.png */,
+				A2D785C3165C498B004E0EF4 /* Background.png */,
 				A26A3A0415FC35EF00181646 /* No01-20.png */,
 				A2DA1B2215FA31E600E036F7 /* No03-35.png */,
 				A2DA1B2015FA270400E036F7 /* DetailImage.png */,
-				E61BEDE915F39A4F00FAF755 /* Background.png */,
 				E6689B0815F253420026CBC3 /* CellBackground.png */,
 				A2ED92F015EF847D0051CD57 /* No01-15.png */,
 				A2A5229815C6AF0C00D65863 /* AppDelegate.h */,
@@ -625,7 +625,6 @@
 				A2A522A915C6AF0C00D65863 /* MainStoryboard_iPad.storyboard in Resources */,
 				A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */,
 				E6689B0915F253420026CBC3 /* CellBackground.png in Resources */,
-				E61BEDEA15F39A4F00FAF755 /* Background.png in Resources */,
 				A2DA1B2115FA270400E036F7 /* DetailImage.png in Resources */,
 				A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */,
 				A26A3A0515FC35EF00181646 /* No01-20.png in Resources */,
@@ -718,6 +717,7 @@
 				E66BC18B161540B600056B40 /* No42NoSel-45.png in Resources */,
 				A2164752163966C200200BF9 /* StatusUpdate35.png in Resources */,
 				A260B5041642A8BE001032EB /* Default-568h@2x.png in Resources */,
+				A2D785C4165C498B004E0EF4 /* Background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,10 +884,14 @@
 		A2A522C215C6AF0C00D65863 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
 				INFOPLIST_FILE = "RotoSix/RotoSix-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5ED46BFE-BC51-4CF2-9BC7-DCF346454705";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5ED46BFE-BC51-4CF2-9BC7-DCF346454705";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -895,10 +899,14 @@
 		A2A522C315C6AF0C00D65863 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
 				INFOPLIST_FILE = "RotoSix/RotoSix-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5ED46BFE-BC51-4CF2-9BC7-DCF346454705";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5ED46BFE-BC51-4CF2-9BC7-DCF346454705";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

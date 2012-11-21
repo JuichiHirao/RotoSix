@@ -173,5 +173,38 @@
     }
 }
 
+-(void)remove {
+    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
+    
+    //作成したテーブルからデータを取得
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        [db beginTransaction];
+        
+        NSString *strSql = [NSString stringWithFormat:@"DELETE FROM buy_history WHERE id = ?"];
+        NSLog(@"DELETE FROM buy_history WHERE id = %d", dbId);
+        
+        [db executeUpdate:strSql, [NSNumber numberWithInteger:dbId]];
+        
+        if ([db hadError]) {
+            NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            [db rollback];
+        }
+        else {
+            [db commit];
+        }
+        
+        [db close];
+        
+    }else{
+        //DBが開けなかったらここ
+    }
+}
+
 
 @end

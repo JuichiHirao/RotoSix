@@ -34,5 +34,6 @@
 -(BOOL) isUpdate:(NSInteger)selBuyNo;
 -(void) setUpdate:(NSInteger)selBuyNo Status:(NSInteger)status;
 -(void) save;
+-(void) remove;
 
 @end

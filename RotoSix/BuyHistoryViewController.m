@@ -50,15 +50,17 @@
     
     [super viewWillAppear:animated];
     
-    // 更新した行だけをリロード、セル再表示する
-    if ([dataController isDbUpdate:selectedRowIndex.row]) {
-        [dataController reload:selectedRowIndex.row];
-        
-        NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selectedRowIndex.row inSection:0];
-        NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
-        [histTableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        [dataController setDbUpdate:selectedRowIndex.row];
+    if ([dataController countOfList] > 0) {
+        // 更新した行だけをリロード、セル再表示する
+        if ([dataController isDbUpdate:selectedRowIndex.row]) {
+            [dataController reload:selectedRowIndex.row];
+            
+            NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selectedRowIndex.row inSection:0];
+            NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+            [histTableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            [dataController setDbUpdate:selectedRowIndex.row];
+        }
     }
 }
 
@@ -82,6 +84,9 @@
     histTableView.backgroundView = imgBg;
     
     isCellSetting = NO;
+    
+    //[super setEditing:NO animated:YES];
+
 }
 
 - (void)viewDidUnload
@@ -98,6 +103,13 @@
 }
 
 #pragma mark - Table view data source
+
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (UITableViewCellEditingStyleDelete == editingStyle) {
+        [dataController removeObjectInListAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
