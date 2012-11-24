@@ -438,7 +438,7 @@
     }
     
     // 購入情報画面もdelegateを実行
-    [[self delegate] RegistBuyHistoryEnd:self];
+    [[self delegate] RegistBuyHistoryEnd];
     
     // Saveボタンは無効にする
     [_tabitemSave setEnabled:FALSE];

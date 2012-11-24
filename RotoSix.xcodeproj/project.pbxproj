@@ -131,6 +131,10 @@
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
 		A2F1426C163C01C500D6385D /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
+		A2FD1D6016611508001290F5 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FD1D5F16611508001290F5 /* SettingViewController.m */; };
+		A2FD1D63166126DB001290F5 /* tr.db in Resources */ = {isa = PBXBuildFile; fileRef = A2FD1D62166126DA001290F5 /* tr.db */; };
+		A2FD1D6416612AA9001290F5 /* tr.db in Resources */ = {isa = PBXBuildFile; fileRef = A2FD1D62166126DA001290F5 /* tr.db */; };
+		E660B880165DDDD300794350 /* DatabaseFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = E660B87F165DDDD300794350 /* DatabaseFileController.m */; };
 		E6689B0915F253420026CBC3 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E6689B0815F253420026CBC3 /* CellBackground.png */; };
 		E66BC18716153BC200056B40 /* No43-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18516153BC200056B40 /* No43-45.png */; };
 		E66BC18816153BC200056B40 /* No43NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18616153BC200056B40 /* No43NoSel-45.png */; };
@@ -293,6 +297,11 @@
 		A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistoryViewController.h; sourceTree = "<group>"; };
 		A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistoryViewController.m; sourceTree = "<group>"; };
 		A2ED92F015EF847D0051CD57 /* No01-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15.png"; sourceTree = "<group>"; };
+		A2FD1D5E16611508001290F5 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		A2FD1D5F16611508001290F5 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		A2FD1D62166126DA001290F5 /* tr.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = tr.db; sourceTree = "<group>"; };
+		E660B87E165DDDD300794350 /* DatabaseFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseFileController.h; sourceTree = "<group>"; };
+		E660B87F165DDDD300794350 /* DatabaseFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseFileController.m; sourceTree = "<group>"; };
 		E6689B0815F253420026CBC3 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackground.png; sourceTree = "<group>"; };
 		E66BC18516153BC200056B40 /* No43-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No43-45.png"; sourceTree = "<group>"; };
 		E66BC18616153BC200056B40 /* No43NoSel-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No43NoSel-45.png"; sourceTree = "<group>"; };
@@ -468,6 +477,7 @@
 		A2A5228F15C6AF0C00D65863 /* RotoSix */ = {
 			isa = PBXGroup;
 			children = (
+				A2FD1D62166126DA001290F5 /* tr.db */,
 				A214F2AB1636D3BD00AE0C36 /* mst.db */,
 				A214F29C1636D19900AE0C36 /* FMDatabase.h */,
 				A214F29D1636D19900AE0C36 /* FMDatabase.m */,
@@ -514,6 +524,10 @@
 				E6E416E91631579F00F14725 /* NumberSelectView.m */,
 				A21D777E164A51060092DFAE /* BuyTimesSelectViewController.h */,
 				A21D777F164A51060092DFAE /* BuyTimesSelectViewController.m */,
+				E660B87E165DDDD300794350 /* DatabaseFileController.h */,
+				E660B87F165DDDD300794350 /* DatabaseFileController.m */,
+				A2FD1D5E16611508001290F5 /* SettingViewController.h */,
+				A2FD1D5F16611508001290F5 /* SettingViewController.m */,
 			);
 			path = RotoSix;
 			sourceTree = "<group>";
@@ -619,6 +633,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2FD1D6416612AA9001290F5 /* tr.db in Resources */,
 				A2F1426C163C01C500D6385D /* mst.db in Resources */,
 				A2A5229415C6AF0C00D65863 /* InfoPlist.strings in Resources */,
 				A2A522A615C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard in Resources */,
@@ -727,6 +742,7 @@
 			files = (
 				A2A522BB15C6AF0C00D65863 /* InfoPlist.strings in Resources */,
 				A214F2AC1636D3BD00AE0C36 /* mst.db in Resources */,
+				A2FD1D63166126DB001290F5 /* tr.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +787,8 @@
 				A2C03C6D1642B4CB000A03B0 /* LotteryDataController.m in Sources */,
 				A2217AF91646444700328034 /* BuyRegistViewController.m in Sources */,
 				A21D7780164A51060092DFAE /* BuyTimesSelectViewController.m in Sources */,
+				E660B880165DDDD300794350 /* DatabaseFileController.m in Sources */,
+				A2FD1D6016611508001290F5 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

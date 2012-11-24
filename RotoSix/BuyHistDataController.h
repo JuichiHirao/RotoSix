@@ -13,8 +13,6 @@
 
 @interface BuyHistDataController : NSObject
 
-@property (nonatomic, copy, readwrite) NSString *dbmstPath;
-
 - (unsigned)countOfList;
 - (BuyHistory *)objectInListAtIndex:(unsigned)theIndex;
 - (void)removeObjectInListAtIndex:(unsigned)theIndex;

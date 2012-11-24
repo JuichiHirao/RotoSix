@@ -8,6 +8,7 @@
 
 #import "BuyHistory.h"
 #import "FMDatabase.h"
+#import "DatabaseFileController.h"
 
 @implementation BuyHistory
 
@@ -142,13 +143,8 @@
 }
 
 -(void)save {
-    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
-    
     //作成したテーブルからデータを取得
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
     if ([db open]) {
         [db setShouldCacheStatements:YES];
 
@@ -195,13 +191,9 @@
 }
 
 -(void)remove {
-    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
     
     //作成したテーブルからデータを取得
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         

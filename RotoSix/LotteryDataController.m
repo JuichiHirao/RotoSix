@@ -9,6 +9,7 @@
 #import "LotteryDataController.h"
 #import "Lottery.h"
 #import "FMDatabase.h"
+#import "DatabaseFileController.h"
 
 @interface LotteryDataController()
 @property (nonatomic, copy, readwrite) NSMutableArray *list;
@@ -21,36 +22,11 @@
 @synthesize list;
 
 -(void)createDemoFromDb {
-    //呼び出したいメソッドで下記を実行
-    //NSError *error;
-    //NSFileManager *fm = [NSFileManager defaultManager];
-    
-    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    dbmstPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
-    NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", dbmstPath]);
-    /*  本来のマスタの処理としては正しいが、mst.dbを変更dbとして使用するので一時的にコメントアウト
-     BOOL result_flag = [fm fileExistsAtPath:writableDBPath];
-     if(result_flag){
-     [fm removeItemAtPath:writableDBPath error:nil];
-     }
-     
-     //dbが存在してなかったらここが呼ばれて、作成したDBをコピー
-     NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"mst.db"];
-     NSLog(@"%@", [NSString stringWithFormat:@"defaultDBPath [%@]", defaultDBPath]);
-     
-     BOOL copy_result_flag = [fm copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-     if(!copy_result_flag){
-     //失敗したらここ
-     NSLog(@"%@", [NSString stringWithFormat:@"copy failed"]);
-     }
-     */
-    
+
     NSMutableArray *listLottery = [[NSMutableArray alloc] init];
     
     //作成したテーブルからデータを取得
-    FMDatabase* db = [FMDatabase databaseWithPath:dbmstPath];
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getMasterFile]];
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         
@@ -97,14 +73,8 @@
     
     Lottery *lottery;
 
-    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString *mstPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
-    NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", mstPath]);
-        
     //作成したテーブルからデータを取得
-    FMDatabase* db = [FMDatabase databaseWithPath:mstPath];
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getMasterFile]];
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         
@@ -151,16 +121,10 @@
 
 + (Lottery *)getNewest {
     
-    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString *dbmstPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
-    //NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", dbmstPath]);
-    
     Lottery *lottery = [[Lottery alloc] init];
     
     //作成したテーブルからデータを取得
-    FMDatabase* db = [FMDatabase databaseWithPath:dbmstPath];
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getMasterFile]];
     if ([db open]) {
         [db setShouldCacheStatements:YES];
 

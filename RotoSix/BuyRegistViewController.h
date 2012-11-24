@@ -42,6 +42,6 @@
 
 @protocol BuyRegistDelegate <NSObject>
 
-- (void)RegistBuyHistoryEnd:(BuyRegistViewController *)controller;
+- (void)RegistBuyHistoryEnd;
 
 @end

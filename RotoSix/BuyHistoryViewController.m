@@ -26,6 +26,17 @@
 @synthesize histTableView;
 @synthesize buyHistCell;
 
+#pragma mark - Delegate From Other Display
+
+- (void)RegistBuyHistoryEnd {
+    NSLog(@"RegistBuyHistoryEnd");
+    [dataController reloadAll];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
+    [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - UIView Override Method
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -33,13 +44,6 @@
         // Custom initialization
     }
     return self;
-}
-
-- (void)RegistBuyHistoryEnd:(BuyRegistViewController *)controller {
-    NSLog(@"RegistBuyHistoryEnd");
-    [dataController reloadAll];
-    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
-    [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -247,15 +251,6 @@
 
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
