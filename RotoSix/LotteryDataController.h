@@ -14,6 +14,10 @@
 
 @property (nonatomic, copy, readwrite) NSString *dbmstPath;
 
+- (unsigned)countOfList;
+- (Lottery *)objectInListAtIndex:(unsigned)theIndex;
+- (void)createDemoFromDb;
+
 + (Lottery *)getTimes:(NSInteger) times;
 + (Lottery *)getNewest;
 

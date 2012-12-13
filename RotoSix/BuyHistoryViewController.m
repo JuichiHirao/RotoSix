@@ -118,13 +118,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
-//    return [dataController countOfList];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return 1;
-    NSLog(@"numberOfRowsInSection [%d]", [dataController countOfList]);
+    //NSLog(@"numberOfRowsInSection [%d]", [dataController countOfList]);
     return [dataController countOfList];
 }
 
