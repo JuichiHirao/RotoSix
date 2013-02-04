@@ -128,8 +128,10 @@
 		A2D785C4165C498B004E0EF4 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D785C3165C498B004E0EF4 /* Background.png */; };
 		A2DA1B2115FA270400E036F7 /* DetailImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2015FA270400E036F7 /* DetailImage.png */; };
 		A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2215FA31E600E036F7 /* No03-35.png */; };
+		A2E82ECF16C0105400EB7ED5 /* LotteryConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E82ECE16C0105400EB7ED5 /* LotteryConnectionHandler.m */; };
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
+		A2F1394D16665C7A005C6C1C /* LotteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F1394C16665C7A005C6C1C /* LotteryViewController.m */; };
 		A2F1426C163C01C500D6385D /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
 		A2FD1D6016611508001290F5 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FD1D5F16611508001290F5 /* SettingViewController.m */; };
 		A2FD1D63166126DB001290F5 /* tr.db in Resources */ = {isa = PBXBuildFile; fileRef = A2FD1D62166126DA001290F5 /* tr.db */; };
@@ -294,9 +296,13 @@
 		A2D785C3165C498B004E0EF4 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		A2DA1B2015FA270400E036F7 /* DetailImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DetailImage.png; sourceTree = "<group>"; };
 		A2DA1B2215FA31E600E036F7 /* No03-35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No03-35.png"; sourceTree = "<group>"; };
+		A2E82ECD16C0105400EB7ED5 /* LotteryConnectionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LotteryConnectionHandler.h; sourceTree = "<group>"; };
+		A2E82ECE16C0105400EB7ED5 /* LotteryConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LotteryConnectionHandler.m; sourceTree = "<group>"; };
 		A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistoryViewController.h; sourceTree = "<group>"; };
 		A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistoryViewController.m; sourceTree = "<group>"; };
 		A2ED92F015EF847D0051CD57 /* No01-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15.png"; sourceTree = "<group>"; };
+		A2F1394B16665C7A005C6C1C /* LotteryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LotteryViewController.h; sourceTree = "<group>"; };
+		A2F1394C16665C7A005C6C1C /* LotteryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LotteryViewController.m; sourceTree = "<group>"; };
 		A2FD1D5E16611508001290F5 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		A2FD1D5F16611508001290F5 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		A2FD1D62166126DA001290F5 /* tr.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = tr.db; sourceTree = "<group>"; };
@@ -508,6 +514,10 @@
 				A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */,
 				A2C0051215F4452E0081A14E /* BuyHistDetailViewController.h */,
 				A2C0051315F4452E0081A14E /* BuyHistDetailViewController.m */,
+				A2F1394B16665C7A005C6C1C /* LotteryViewController.h */,
+				A2F1394C16665C7A005C6C1C /* LotteryViewController.m */,
+				A2E82ECD16C0105400EB7ED5 /* LotteryConnectionHandler.h */,
+				A2E82ECE16C0105400EB7ED5 /* LotteryConnectionHandler.m */,
 				A2C03C671642B4A3000A03B0 /* Lottery.h */,
 				A2C03C681642B4A4000A03B0 /* Lottery.m */,
 				A2C03C6B1642B4CB000A03B0 /* LotteryDataController.h */,
@@ -789,6 +799,8 @@
 				A21D7780164A51060092DFAE /* BuyTimesSelectViewController.m in Sources */,
 				E660B880165DDDD300794350 /* DatabaseFileController.m in Sources */,
 				A2FD1D6016611508001290F5 /* SettingViewController.m in Sources */,
+				A2F1394D16665C7A005C6C1C /* LotteryViewController.m in Sources */,
+				A2E82ECF16C0105400EB7ED5 /* LotteryConnectionHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

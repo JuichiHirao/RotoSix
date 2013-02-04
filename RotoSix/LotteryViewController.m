@@ -9,6 +9,7 @@
 #import "LotteryViewController.h"
 #import "Lottery.h"
 #import "LotteryDataController.h"
+#import "LotteryConnectionHandler.h"
 
 @interface LotteryViewController ()
 
@@ -157,7 +158,7 @@
     NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]   lbLotteryDate.text [%@]"
           , indexPath.section, indexPath.row, lotteryAtIndex.times, [outputDateFormatter stringFromDate:lotteryAtIndex.lotteryDate]);
     
-    //    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"BallIcon-48" ofType:@"png"];
+    //NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"BallIcon-48" ofType:@"png"];
     // データの取得
     //BuyHistory *buyHist = [dataController objectInListAtIndex:indexPath.row];
     
@@ -195,6 +196,15 @@
 
 - (void)viewDidUnload {
     [self setLotteryView:nil];
+    [self setTabitemRefresh:nil];
     [super viewDidUnload];
+}
+
+- (IBAction)tabitemRefreshPress:(id)sender {
+    NSURL *url = [NSURL URLWithString:@"http://localhost:3000/lotteries/1/"];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//	[request setValue:@"application/xml"forHTTPHeaderField:@"Content-Type"];
+	[request setHTTPMethod:@"GET"];
+	[NSURLConnection connectionWithRequest:request delegate:[[LotteryConnectionHandler alloc] init]];
 }
 @end
