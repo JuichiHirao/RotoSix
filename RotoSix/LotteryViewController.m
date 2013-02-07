@@ -10,8 +10,9 @@
 #import "Lottery.h"
 #import "LotteryDataController.h"
 #import "LotteryConnectionHandler.h"
+#import "SBJson.h"
 
-@interface LotteryViewController ()
+@interface LotteryViewController () <SBJsonStreamParserAdapterDelegate>
 
 @end
 
@@ -181,6 +182,29 @@
     return cell;
 }
 
+#pragma mark SBJsonStreamParserAdapterDelegate methods
+
+// OBJECTが2つ以上の場合は、このdelegateが呼ばれる
+- (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
+    //[NSException raise:@"unexpected" format:@"Should not get here"];
+    
+    NSLog(@"array受信 JSONRepresentation [%@]", [array JSONRepresentation]);
+    
+    //NSArray* arr = [feed objectForKey:@"link"];
+    NSEnumerator* data = [array objectEnumerator];
+    NSDictionary* item;
+    while (item = (NSDictionary*)[data nextObject]) {
+        NSLog(@"times %@", [item objectForKey:@"times"]);
+    }
+}
+
+// OBJECTが1つの場合は、このdelegateが呼ばれる
+- (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
+	NSString *times = [dict objectForKey:@"times"];
+    
+    NSLog(@"dict受信 times %@   JSONRepresentation [%@]", times, [dict JSONRepresentation]);
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -201,10 +225,73 @@
 }
 
 - (IBAction)tabitemRefreshPress:(id)sender {
-    NSURL *url = [NSURL URLWithString:@"http://localhost:3000/lotteries/1/"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:3000/lotteries/"];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 //	[request setValue:@"application/xml"forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPMethod:@"GET"];
-	[NSURLConnection connectionWithRequest:request delegate:[[LotteryConnectionHandler alloc] init]];
+    
+    // We don't want *all* the individual messages from the
+	// SBJsonStreamParser, just the top-level objects. The stream
+	// parser adapter exists for this purpose.
+	adapter = [[SBJsonStreamParserAdapter alloc] init];
+	
+	// Set ourselves as the delegate, so we receive the messages
+	// from the adapter.
+	adapter.delegate = self;
+	
+	// Create a new stream parser..
+	parser = [[SBJsonStreamParser alloc] init];
+	
+	// .. and set our adapter as its delegate.
+	parser.delegate = adapter;
+	
+	// Normally it's an error if JSON is followed by anything but
+	// whitespace. Setting this means that the parser will be
+	// expecting the stream to contain multiple whitespace-separated
+	// JSON documents.
+	parser.supportMultipleDocuments = YES;
+    
+	[NSURLConnection connectionWithRequest:request delegate:self];
 }
+
+// サーバからレスポンスヘッダを受け取ったときに呼び出される
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	// 送信されるデータの文字コードを取得
+	NSString *encodingName = [response textEncodingName];
+	
+	NSLog(@"受信文字コード: %@", encodingName);
+	
+	if ([encodingName isEqualToString: @"euc-jp"]) {
+		receivedDataEncoding = NSJapaneseEUCStringEncoding;
+	} else {
+		receivedDataEncoding = NSUTF8StringEncoding;
+	}
+}
+
+// サーバからデータを受け取るたびに呼び出される
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+	// 取得したデータをreceivedDataへ格納する
+	NSLog(@"受信データ（バイト数）: %d", [data length]);
+	//[receivedData appendData:data];
+    
+    SBJsonStreamParserStatus status = [parser parse:data];
+	
+	if (status == SBJsonStreamParserError) {
+        //tweet.text = [NSString stringWithFormat: @"The parser encountered an error: %@", parser.error];
+		NSLog(@"Parser error: %@", parser.error);
+		
+	} else if (status == SBJsonStreamParserWaitingForData) {
+		NSLog(@"Parser waiting for more data");
+	}
+	NSLog(@"SBJsonStreamParserStatus");
+}
+
+// データの取得が終了したときに呼び出される
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	NSString *result = [[NSString alloc] initWithData:receivedData encoding:receivedDataEncoding];
+	NSLog(@"データの受信完了: %@", result);
+	//[result release];
+	//[receivedData release];
+}
+
 @end

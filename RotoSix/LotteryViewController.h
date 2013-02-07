@@ -7,11 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SBJson.h"
 #import "Lottery.h"
 
 @class LotteryDataController;
+@class SBJsonStreamParser;
+@class SBJsonStreamParserAdapter;
 
-@interface LotteryViewController : UITableViewController
+@interface LotteryViewController : UITableViewController {
+    SBJsonStreamParser *parser;
+    SBJsonStreamParserAdapter *adapter;
+    
+    NSMutableData *receivedData;
+	NSStringEncoding receivedDataEncoding;
+}
 
 @property (strong, nonatomic) IBOutlet UITableView *lotteryView;
 @property (nonatomic, strong) LotteryDataController *dataController;

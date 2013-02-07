@@ -7,6 +7,7 @@
 //
 
 #import "LotteryConnectionHandler.h"
+#import "SBJson.h"
 
 @implementation LotteryConnectionHandler
 
@@ -36,7 +37,18 @@
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
 	// 取得したデータをreceivedDataへ格納する
 	NSLog(@"受信データ（バイト数）: %d", [data length]);
-	[receivedData appendData:data];
+	//[receivedData appendData:data];
+    
+    SBJsonStreamParserStatus status = [parser parse:data];
+	
+	if (status == SBJsonStreamParserError) {
+        //tweet.text = [NSString stringWithFormat: @"The parser encountered an error: %@", parser.error];
+		NSLog(@"Parser error: %@", parser.error);
+		
+	} else if (status == SBJsonStreamParserWaitingForData) {
+		NSLog(@"Parser waiting for more data");
+	}
+	NSLog(@"SBJsonStreamParserStatus");
 }
 
 // データの取得が終了したときに呼び出される

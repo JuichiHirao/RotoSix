@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SBJson.h"
 
 @interface LotteryConnectionHandler : NSObject {
 	NSMutableData *receivedData;
 	NSStringEncoding receivedDataEncoding;
+    
+    SBJsonStreamParser *parser;
+    SBJsonStreamParserAdapter *adapter;
 }
 
 @end
