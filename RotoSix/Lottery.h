@@ -27,6 +27,6 @@
 @property (nonatomic, assign) long sales;
 @property (nonatomic, assign) NSInteger carryover;
 
--(NSString *)getDisplayStringDate;
+-(void)save;
 
 @end

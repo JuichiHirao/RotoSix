@@ -20,5 +20,6 @@
 
 + (Lottery *)getTimes:(NSInteger) times;
 + (Lottery *)getNewest;
++ (Lottery *)getDataFromJson:(NSDictionary *)dict;
 
 @end

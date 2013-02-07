@@ -194,7 +194,9 @@
     NSEnumerator* data = [array objectEnumerator];
     NSDictionary* item;
     while (item = (NSDictionary*)[data nextObject]) {
-        NSLog(@"times %@", [item objectForKey:@"times"]);
+        Lottery *lottery = [LotteryDataController getDataFromJson:item];
+        NSLog(@"change times %d", lottery.times);
+        [lottery save];
     }
 }
 

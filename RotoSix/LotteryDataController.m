@@ -175,4 +175,34 @@
     return lottery;
 }
 
+// SBJSONを使用して、取得した１件分の当選データ（NSDictionary）からLotteryを生成する
++ (Lottery *)getDataFromJson:(NSDictionary *)dict {
+    Lottery *lottery = [[Lottery alloc]init];
+    NSLog(@"times %@", [dict objectForKey:@"times"]);
+
+    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
+    [inputFormatter setDateFormat:@"yyyy-MM-dd"];
+    //NSDate *formatterDate = [inputFormatter dateFromString:(NSString*)[dict objectForKey:@"num_set"]];
+    
+    NSString *data = (NSString*)[dict objectForKey:@"lottery_date"];
+    lottery.lotteryDate = [inputFormatter dateFromString:data];
+    lottery.times = [(NSString*)[dict objectForKey:@"times"] intValue];
+    NSString *num_set = (NSString*)[dict objectForKey:@"num_set"];
+    lottery.num_set = num_set;
+    lottery.one_unit = [(NSString*)[dict objectForKey:@"one_unit"] intValue];
+    lottery.one_amount = [(NSString*)[dict objectForKey:@"one_amount"] intValue];
+    lottery.two_unit = [(NSString*)[dict objectForKey:@"two_unit"] intValue];
+    lottery.two_amount = [(NSString*)[dict objectForKey:@"two_amount"] intValue];
+    lottery.three_unit = [(NSString*)[dict objectForKey:@"three_unit"] intValue];
+    lottery.three_amount = [(NSString*)[dict objectForKey:@"three_amount"] intValue];
+    lottery.four_unit = [(NSString*)[dict objectForKey:@"four_unit"] intValue];
+    lottery.four_amount = [(NSString*)[dict objectForKey:@"four_unit"] intValue];
+    lottery.five_unit = [(NSString*)[dict objectForKey:@"five_unit"] intValue];
+    lottery.five_amount = [(NSString*)[dict objectForKey:@"five_amount"] intValue];
+//    lottery.sales = [rs longForColumn:@"sales"];
+    lottery.carryover = [(NSString*)[dict objectForKey:@"carryover"] intValue];
+
+    return lottery;
+}
+
 @end
