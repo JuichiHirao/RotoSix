@@ -19,6 +19,8 @@
 - (void)createDemoFromDb;
 
 + (Lottery *)getTimes:(NSInteger) times;
++ (Lottery *)getSearchNumSetOnlyFirstRow:(NSString *) numset;
++ (NSMutableArray *)getSearchNumSet:(NSString *) numset;
 + (Lottery *)getNewest;
 + (Lottery *)getDataFromJson:(NSDictionary *)dict;
 

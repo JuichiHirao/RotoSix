@@ -227,7 +227,7 @@
 }
 
 - (IBAction)tabitemRefreshPress:(id)sender {
-    NSURL *url = [NSURL URLWithString:@"http://localhost:3000/lotteries/"];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.11.119:3000/lotteries/"];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 //	[request setValue:@"application/xml"forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPMethod:@"GET"];
