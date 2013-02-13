@@ -24,10 +24,11 @@
 -(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
     
     NSLog(@"NumberSelectBtnEnd name [%@]", name );
-    Lottery *data = [LotteryDataController getSearchNumSet:name];
+    NSMutableArray *arrData = [LotteryDataController getSearchNumSet:name];
     
-    if (data!=nil) {
-        NSLog(@"Search Match!! [%d]", data.times);
+    if (arrData!=nil) {
+        selNameSet = name;
+        //NSLog(@"Search Match!! [%d]", data.times);
         [self performSegueWithIdentifier:@"SearchResult" sender:self];
     }
 }
@@ -163,7 +164,7 @@
     }
     else {
         SearchResultViewController *searchResultViewController = [segue destinationViewController];
-        searchResultViewController.selNumSet = @"";
+        searchResultViewController.selNumSet = selNameSet;
         //searchResultViewController.delegate = self;
     }
 }

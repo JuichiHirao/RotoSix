@@ -13,7 +13,9 @@
 @class NumberSelectViewController;
 @class SearchResultViewController;
 
-@interface SearchViewController : UITableViewController <NumberSelectDelegate>
+@interface SearchViewController : UITableViewController <NumberSelectDelegate> {
+    NSString *selNameSet;
+}
 
 
 - (void)btnSelectSearchNumberPress:(id)sender;

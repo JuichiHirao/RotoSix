@@ -128,8 +128,14 @@
     return lottery;
 }
 
--(NSMutableArray *)getSearchNumSet: (NSString *) numset {
++(NSMutableArray *)getSearchNumSet:(NSString *) numset {
     
+    if ([numset length] <= 0) {
+        NSLog(@"getSearchNumSet nameset is not set");
+        return nil;
+    }
+    
+    NSLog(@"getSearchNumSet nameset %@", numset);
     NSMutableArray *listLottery = [[NSMutableArray alloc] init];
     
     //作成したテーブルからデータを取得
@@ -174,8 +180,6 @@
         }
         [rs close];
         [db close];
-        
-        list = listLottery;
     }else{
         //DBが開けなかったらここ
     }

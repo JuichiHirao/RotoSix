@@ -30,6 +30,7 @@
     [super viewDidLoad];
 
     arrResult = [LotteryDataController getSearchNumSet:selNumSet];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -47,24 +48,148 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    if (arrResult != nil && [arrResult count] > 0) {
+        return [arrResult count];
+    }
+    
+    return 1;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (arrResult != nil && [arrResult count] > 0) {
+        return 40;
+    }
+    
+    return 200;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"SearchResultCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UILabel *lbKaisuu, *lbLotteryDate;
+    UIImage *rowBackground;
     
-    // Configure the cell...
+    if (arrResult == nil || [arrResult count] <= 0) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 80.0, 300.0, 60.0)];
+        lbLotteryDate.tag = 1;
+        
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:16.0];
+        label.textAlignment = UITextAlignmentCenter;
+        label.textColor = [UIColor grayColor];
+        label.text = @"一致データなし";
+        
+        [cell.contentView addSubview:label];
+        
+        return cell;
+    }
+    Lottery *lotteryAtIndex = arrResult[indexPath.row];
+    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]", indexPath.section, indexPath.row, lotteryAtIndex.times);
+    
+    //if (indexPath.row == 0) {
+    //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    
+    UILabel *lbl = (UILabel*)[cell.contentView viewWithTag:1];
+    
+    NSInteger idxImgTag;
+    if (lbl==nil) {
+        NSLog(@"cell create");
+        
+        lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0.0, 120.0, 15.0)];
+        lbLotteryDate.tag = 1;
+        lbLotteryDate.backgroundColor = [UIColor clearColor];
+        lbLotteryDate.font = [UIFont systemFontOfSize:12.0];
+        lbLotteryDate.textAlignment = UITextAlignmentLeft;
+        lbLotteryDate.textColor = [UIColor blackColor];
+        
+        [cell.contentView addSubview:lbLotteryDate];
+        
+        lbKaisuu = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 15.0, 50.0, 15.0)];
+        lbKaisuu.tag = 2;
+        lbKaisuu.backgroundColor = [UIColor clearColor];
+        lbKaisuu.font = [UIFont systemFontOfSize:10.0];
+        lbKaisuu.textAlignment = UITextAlignmentCenter;
+        lbKaisuu.textColor = [UIColor blackColor];
+        
+        [cell.contentView addSubview:lbKaisuu];
+        
+        CGFloat x = 10.0;
+        CGFloat y = 40.0;
+        CGFloat width = 35.0;
+        CGFloat height = 35.0;
+        
+        idxImgTag = 11;
+        for (int idxSub=0; idxSub < 7; idxSub++) {
+            //                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+            img.tag = idxImgTag;
+            x = x + 45;
+            
+            [cell.contentView addSubview:img];
+            idxImgTag++;
+        }
+        
+        cell.backgroundView = [[UIImageView alloc] init];
+    }
+    else {
+        lbLotteryDate = (UILabel*)[cell.contentView viewWithTag:1];
+        lbKaisuu = (UILabel*)[cell.contentView viewWithTag:2];
+        
+        UIImageView *img;
+        for (idxImgTag = 11; idxImgTag <= 17; idxImgTag++) {
+            img = (UIImageView*)[cell.contentView viewWithTag:idxImgTag];
+            
+            if (img==nil) {
+                break;
+            }
+            img.image = nil;
+        }
+    }
+    
+    NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
+    rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
+    //    rowBackground = [UIImage imageNamed:@"CellBackground.png"];
+    
+    ((UIImageView *)cell.backgroundView).image = rowBackground;
+    
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
+	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+	[outputDateFormatter setDateFormat:outputDateFormatterStr];
+    lbLotteryDate.text = [outputDateFormatter stringFromDate:lotteryAtIndex.lotteryDate];
+    
+    lbKaisuu.text = [NSString stringWithFormat:@"第%d回", lotteryAtIndex.times];      // @"第689回";
+    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]   lbLotteryDate.text [%@]"
+          , indexPath.section, indexPath.row, lotteryAtIndex.times, [outputDateFormatter stringFromDate:lotteryAtIndex.lotteryDate]);
+    
+    //NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"BallIcon-48" ofType:@"png"];
+    // データの取得
+    //BuyHistory *buyHist = [dataController objectInListAtIndex:indexPath.row];
+    
+    idxImgTag = 11;
+    NSString *setNo = [lotteryAtIndex num_set];
+    
+    NSArray *arrBuySingleNo = [setNo componentsSeparatedByString:@","];
+    
+    for (int idx=0; idx < [arrBuySingleNo count]; idx++) {
+        NSString *strNo = [arrBuySingleNo objectAtIndex:idx];
+        NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
+        UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+        UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idxImgTag];
+        
+        img.image = theImage;
+        idxImgTag++;
+    }
     
     return cell;
 }
