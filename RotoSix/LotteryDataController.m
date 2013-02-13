@@ -143,7 +143,10 @@
     if ([db open]) {
         [db setShouldCacheStatements:YES];
 
-        NSString *paramNumSet = [NSString stringWithFormat:@"%@%%", numset];
+        NSString *workNumSet = [numset stringByReplacingOccurrencesOfString:@"," withString:@"%"];
+        NSString *paramNumSet = [NSString stringWithFormat:@"%%%@%%", workNumSet];
+        NSLog(@"paramNumSet %@", paramNumSet);
+        
         FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_date, times, num_set,one_unit, one_amount, two_unit, two_amount, three_unit, three_amount, four_unit, four_amount, five_unit, five_amount, sales, carryover FROM lottery WHERE num_set like ?", paramNumSet];
 
 //        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_date, times, num_set, one_unit, one_amount, two_unit, two_amount, three_unit, three_amount, four_unit, four_amount, five_unit, five_amount, sales, carryover FROM lottery order by times desc"];

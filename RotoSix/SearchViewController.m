@@ -160,6 +160,8 @@
         //NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
         NumberSelectViewController *numInputlViewController = [segue destinationViewController];
         numInputlViewController.buyNumbers = @"";
+        numInputlViewController.minSelNum = 4;
+        numInputlViewController.maxSelNum = 6;
         numInputlViewController.delegate = self;
     }
     else {

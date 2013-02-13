@@ -20,6 +20,8 @@
 }
 
 @property (nonatomic, strong) NSString *buyNumbers;
+@property (nonatomic) NSInteger minSelNum;
+@property (nonatomic) NSInteger maxSelNum;
 @property (nonatomic, strong) UILabel *lblNotice;
 @property (weak, nonatomic) id <NumberSelectDelegate> delegate;
 

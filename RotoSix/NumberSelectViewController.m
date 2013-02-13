@@ -15,15 +15,18 @@
 @implementation NumberSelectViewController
 
 @synthesize buyNumbers;
+@synthesize minSelNum;
+@synthesize maxSelNum;
 @synthesize lblNotice;
 @synthesize delegate = _delegate;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"%@", @"LayerSelectPanel touch x %f  y %f");
 	UITouch *aTouch = [touches anyObject];
     CGPoint pos = [aTouch locationInView:self.view];
-    
+
+    // StoryBoardのMultiple Touchをチェックしないと複数の指の座標軸は取得できない
+    // http://ameblo.jp/xcc/entry-10230746253.html
     if ([touches count] == 1) {
         for (UITouch *touch in touches) {
             CGPoint pos = [aTouch locationInView:[touch view]];
@@ -31,9 +34,10 @@
             NSLog(@"%@", [NSString stringWithFormat:@"LayerSelectPanel touch x %f  y %f", pos.x, pos.y]);
         }
 	}
+    else {
+        NSLog(@"%@", [NSString stringWithFormat:@"LayerSelectPanel many finger touches x %f  y %f", pos.x, pos.y]);
+    }
 
-    NSLog(@"buyNumber %@", buyNumbers);
-    
     CALayer *layer = [selpanelView.layer hitTest:pos];
     NSString *layerPrefix = [layer.name substringWithRange:NSMakeRange(0, 2)];
 	// 未選択[0]の場合
@@ -46,7 +50,7 @@
     NSLog(@"%@", [NSString stringWithFormat:@"layer %@ selected %@    selectNoCount %d", layer.name, selected, selectNoCount]);
 
     if ([selected isEqualToString:@"0"]) {
-        if (selectNoCount >= 6) {
+        if (selectNoCount >= maxSelNum) {
             // エラーメッセージは２秒で自動的に消す
             lblNotice.text = @"どれかを選択解除してから番号を選択して下さい";
             lblNotice.hidden = NO;
@@ -104,7 +108,7 @@
     else
         selectNoCount--;
 
-    if (selectNoCount > 6) {
+    if (selectNoCount > maxSelNum) {
         // エラーメッセージは２秒で自動的に消す
         lblNotice.text = @"どれかを選択解除してから番号を選択して下さい";
         lblNotice.hidden = NO;
@@ -197,6 +201,13 @@
         selectNoCount = [arrBuyNo count];
     }
     NSLog(@"loadView selectNoCount %d  buyNumbers [%@]", selectNoCount, buyNumbers);
+
+    // 番号選択の最大数の設定
+    if (maxSelNum <= 0)
+        maxSelNum = 6;
+    
+    if (minSelNum <= 0)
+        minSelNum = 6;
 
     LayerNumberSelect *selpanel = [LayerNumberSelect layer];
     //selpanel.bounds = CGRectMake(0, 0, 300, 340);
@@ -310,9 +321,21 @@
 
 - (void)btnEndPressed {
     NSString *selNo = [self getSelectNumber];
-    
-    if (selNo.length < 17) {
-        lblNotice.text = @"6個の数字を選択して下さい";
+
+    NSArray *arrBuySingleNo = [selNo componentsSeparatedByString:@","];
+
+    if (!([arrBuySingleNo count] <= maxSelNum
+        && [arrBuySingleNo count] >= minSelNum)) {
+        if (minSelNum < maxSelNum) {
+            lblNotice.text = [NSString stringWithFormat:@"%d〜%d個の数字を選択して下さい", minSelNum, maxSelNum];
+        }
+        else if (minSelNum == maxSelNum) {
+            lblNotice.text = [NSString stringWithFormat:@"%d個の数字を選択して下さい", maxSelNum];
+        }
+        else {
+            lblNotice.text = @"プログラムのバグです";
+        }
+        
         lblNotice.hidden = NO;
         [NSTimer scheduledTimerWithTimeInterval:2
                                          target:self
