@@ -22,10 +22,13 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (isAnimation == YES)
+        return;
+    
 	UITouch *aTouch = [touches anyObject];
     CGPoint pos = [aTouch locationInView:self.view];
 
-    // StoryBoardのMultiple Touchをチェックしないと複数の指の座標軸は取得できない
+    // StoryBoardのMultiple Touchをチェックしないと複数の指の座標軸は取得できない なので必ずtouches countは1
     // http://ameblo.jp/xcc/entry-10230746253.html
     if ([touches count] == 1) {
         for (UITouch *touch in touches) {
@@ -65,10 +68,11 @@
         
     NSLog(@"%@", [NSString stringWithFormat:@"selectNoCount %d", selectNoCount]);
 
+    isAnimation = YES;
     // y軸で回転のアニメーションをする
     //   iOS Core Frameworks Chapter 8.4.3 参照
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    anim.duration = 0.5f;
+    anim.duration = 0.3f;
     anim.toValue = [NSNumber numberWithFloat:M_PI];
     [anim setValue:layer.name forKey:@"layername"];
     anim.delegate = self;
@@ -120,6 +124,8 @@
         selectNoCount--;
         return;
     }
+    
+    isAnimation = NO;
 
     // 取得した逆の値からイメージファイル名を取得、同画像を表示設定する
     findlayer.contents = (id)[UIImage imageNamed:[self getImageName:chgSelected layername:findlayer.name]].CGImage;

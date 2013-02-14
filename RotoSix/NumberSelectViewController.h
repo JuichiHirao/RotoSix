@@ -17,6 +17,7 @@
     NumberSelectView *selpanelView;
     NSInteger selectNoCount;
     id <NumberSelectDelegate> delegate;
+    bool isAnimation;
 }
 
 @property (nonatomic, strong) NSString *buyNumbers;
