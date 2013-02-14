@@ -12,12 +12,12 @@
 
 @class NumberSelectViewController;
 @class SearchResultViewController;
+@class SearchDataController;
 
-@interface SearchViewController : UITableViewController <NumberSelectDelegate> {
-    NSString *selNameSet;
+@interface SearchViewController : UITableViewController <NumberSelectDelegate, SearchResultDelegate> {
+    NSString *selNumSet;
 }
 
-
-- (void)btnSelectSearchNumberPress:(id)sender;
+@property (nonatomic, strong) SearchDataController *dataController;
 
 @end

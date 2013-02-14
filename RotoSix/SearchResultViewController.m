@@ -14,7 +14,8 @@
 
 @implementation SearchResultViewController
 
-@synthesize selNumSet;
+@synthesize delegate = _delegate;
+@synthesize search;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,7 +30,18 @@
 {
     [super viewDidLoad];
 
-    arrResult = [LotteryDataController getSearchNumSet:selNumSet];
+    arrResult = [LotteryDataController getSearchNumSet:search.num_set];
+    
+    search.registDate = [NSDate new];
+    if (arrResult != nil) {
+        search.matchCount = [arrResult count];
+    }
+    else
+        search.matchCount = 0;
+    
+    [search save];
+
+    [[self delegate] RegistSearchEnd];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -48,13 +60,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     if (arrResult != nil && [arrResult count] > 0) {
         return [arrResult count];
     }
@@ -62,7 +72,8 @@
     return 1;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (arrResult != nil && [arrResult count] > 0) {
         return 40;
     }

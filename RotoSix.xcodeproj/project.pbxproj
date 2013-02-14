@@ -147,6 +147,8 @@
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
 		A2F1394D16665C7A005C6C1C /* LotteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F1394C16665C7A005C6C1C /* LotteryViewController.m */; };
 		A2F1426C163C01C500D6385D /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
+		A2F8645B16CCF372008CFCE2 /* SearchDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F8645A16CCF372008CFCE2 /* SearchDataController.m */; };
+		A2F8645E16CCF4CF008CFCE2 /* Search.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F8645D16CCF4CF008CFCE2 /* Search.m */; };
 		A2FD1D6016611508001290F5 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FD1D5F16611508001290F5 /* SettingViewController.m */; };
 		A2FD1D63166126DB001290F5 /* tr.db in Resources */ = {isa = PBXBuildFile; fileRef = A2FD1D62166126DA001290F5 /* tr.db */; };
 		A2FD1D6416612AA9001290F5 /* tr.db in Resources */ = {isa = PBXBuildFile; fileRef = A2FD1D62166126DA001290F5 /* tr.db */; };
@@ -346,6 +348,10 @@
 		A2ED92F015EF847D0051CD57 /* No01-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15.png"; sourceTree = "<group>"; };
 		A2F1394B16665C7A005C6C1C /* LotteryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LotteryViewController.h; sourceTree = "<group>"; };
 		A2F1394C16665C7A005C6C1C /* LotteryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LotteryViewController.m; sourceTree = "<group>"; };
+		A2F8645916CCF372008CFCE2 /* SearchDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDataController.h; sourceTree = "<group>"; };
+		A2F8645A16CCF372008CFCE2 /* SearchDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDataController.m; sourceTree = "<group>"; };
+		A2F8645C16CCF4CF008CFCE2 /* Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Search.h; sourceTree = "<group>"; };
+		A2F8645D16CCF4CF008CFCE2 /* Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Search.m; sourceTree = "<group>"; };
 		A2FD1D5E16611508001290F5 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		A2FD1D5F16611508001290F5 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		A2FD1D62166126DA001290F5 /* tr.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = tr.db; sourceTree = "<group>"; };
@@ -618,6 +624,10 @@
 				A236AC2E16C930E100C97590 /* SearchResultViewController.m */,
 				A236AC3016C9317100C97590 /* SearchViewController.h */,
 				A236AC3116C9317100C97590 /* SearchViewController.m */,
+				A2F8645916CCF372008CFCE2 /* SearchDataController.h */,
+				A2F8645A16CCF372008CFCE2 /* SearchDataController.m */,
+				A2F8645C16CCF4CF008CFCE2 /* Search.h */,
+				A2F8645D16CCF4CF008CFCE2 /* Search.m */,
 			);
 			path = RotoSix;
 			sourceTree = "<group>";
@@ -895,6 +905,8 @@
 				A20B8B8516C168CD00074FF2 /* SBJsonWriter.m in Sources */,
 				A236AC2F16C930E100C97590 /* SearchResultViewController.m in Sources */,
 				A236AC3216C9317100C97590 /* SearchViewController.m in Sources */,
+				A2F8645B16CCF372008CFCE2 /* SearchDataController.m in Sources */,
+				A2F8645E16CCF4CF008CFCE2 /* Search.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

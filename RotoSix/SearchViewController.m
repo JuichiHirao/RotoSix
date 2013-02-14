@@ -9,6 +9,8 @@
 #import "SearchViewController.h"
 #import "LotteryDataController.h"
 #import "SearchResultViewController.h"
+#import "SearchDataController.h"
+#import "Search.h"
 
 @interface SearchViewController ()
 
@@ -18,19 +20,28 @@
 
 @implementation SearchViewController
 
+@synthesize dataController;
 @synthesize numberSelViewController=_numberSelViewController;
 
 #pragma mark - from SelectView Delegate
 -(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
     
     NSLog(@"NumberSelectBtnEnd name [%@]", name );
-    NSMutableArray *arrData = [LotteryDataController getSearchNumSet:name];
+//    NSMutableArray *arrData = [LotteryDataController getSearchNumSet:name];
     
-    if (arrData!=nil) {
-        selNameSet = name;
+//    if (arrData!=nil) {
+        selNumSet = name;
         //NSLog(@"Search Match!! [%d]", data.times);
         [self performSegueWithIdentifier:@"SearchResult" sender:self];
-    }
+//    }
+}
+
+- (void)RegistSearchEnd {
+    NSLog(@"RegistSearchEnd");
+    [dataController load];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//    [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -46,11 +57,11 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    SearchDataController *data = [[SearchDataController alloc] init];
+    dataController = data;
+
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,19 +74,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     if (section == 0) {
         return 1;
     }
     else {
-        return 2;
+        return [dataController countOfList];
     }
     
     return 1;
@@ -89,7 +97,7 @@
             height = 50.0;
             break;
         case 1:
-            height = 35.0;
+            height = 50.0;
             break;
         default:
             break;
@@ -97,23 +105,35 @@
     return height;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0)
+        return NO;
+    else
+        return YES;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+    static NSString *CellIdentifier = @"";
+    UITableViewCell *cell;
     
+    UILabel *lbMatchCount, *lbCreateDate;
+    UIImage *rowBackground;
+    Search *searchAtIndex;
+    NSInteger idxImgTag;
+
     switch (indexPath.section) {
         case 0:
-            NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
-            //CellIdentifier = @"CellBuyHistDetailSection00";
-            //cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        {
+            CellIdentifier = @"CellSearchSec00";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
-            //if (cell == nil) {
-            //    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            //}
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
+            NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+
             // 保存ボタン
             UIButton *btn;
             btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -124,26 +144,109 @@
             [cell.contentView addSubview:btn];
             
             break;
+        }
+        case 1:
+        {
+            searchAtIndex = [dataController objectInListAtIndex:indexPath.row];
+            
+            CellIdentifier = @"CellSearchSec01";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
+            
+            UILabel *lbl = (UILabel*)[cell.contentView viewWithTag:1];
+            
+            if (lbl==nil) {
+                NSLog(@"cell create");
+                
+                lbCreateDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0.0, 120.0, 15.0)];
+                lbCreateDate.tag = 1;
+                lbCreateDate.backgroundColor = [UIColor clearColor];
+                lbCreateDate.font = [UIFont systemFontOfSize:12.0];
+                lbCreateDate.textAlignment = UITextAlignmentLeft;
+                lbCreateDate.textColor = [UIColor blackColor];
+                
+                [cell.contentView addSubview:lbCreateDate];
+                
+                lbMatchCount = [[UILabel alloc] initWithFrame:CGRectMake(100, 23, 200.0, 20)];
+                lbMatchCount.tag = 2;
+                lbMatchCount.backgroundColor = [UIColor clearColor];
+                lbMatchCount.font = [UIFont systemFontOfSize:20.0];
+                lbMatchCount.textAlignment = UITextAlignmentRight;
+                lbMatchCount.textColor = [UIColor blackColor];
+                
+                [cell.contentView addSubview:lbMatchCount];
+                
+                CGFloat x = 10.0;
+                CGFloat y = 15.0;
+                CGFloat width = 30.0;
+                CGFloat height = 30.0;
+                
+                idxImgTag = 11;
+                for (int idxSub=0; idxSub < 6; idxSub++) {
+                    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                    img.tag = idxImgTag;
+                    x = x + 45;
+                    
+                    [cell.contentView addSubview:img];
+                    idxImgTag++;
+                }
+                
+                cell.backgroundView = [[UIImageView alloc] init];
+            }
+            else {
+                lbCreateDate = (UILabel*)[cell.contentView viewWithTag:1];
+                lbMatchCount = (UILabel*)[cell.contentView viewWithTag:2];
+                
+                UIImageView *img;
+                for (idxImgTag = 11; idxImgTag <= 40; idxImgTag++) {
+                    img = (UIImageView*)[cell.contentView viewWithTag:idxImgTag];
+                    
+                    if (img==nil) {
+                        break;
+                    }
+                    img.image = nil;
+                }
+            }
+            break;
+        }
     }
-    //NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
-    //rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
-    //((UIImageView *)cell.backgroundView).image = rowBackground;
-    /*
-     if (indexPath.section==0) {
-     NSArray *arrLotteryNo = [@"1,2,8,16,25,40,27" componentsSeparatedByString:@","];
-     
-     for (int idx=0; idx < 7; idx++) {
-     NSString *strNo = [arrLotteryNo objectAtIndex:idx];
-     NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
-     NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
-     UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-     
-     UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idx+1];
-     img.image = theImage;
-     }
-     }
-     */
-    // Configure the cell...
+    
+    NSString *imageCellBgPath;
+    switch (indexPath.section) {
+        case 1:
+            imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
+            rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
+            
+            ((UIImageView *)cell.backgroundView).image = rowBackground;
+            
+            NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+            NSString *outputDateFormatterStr = @"yyyy-MM-dd HH:mm:dd";
+            [outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+            [outputDateFormatter setDateFormat:outputDateFormatterStr];
+            lbCreateDate.text = [outputDateFormatter stringFromDate:searchAtIndex.registDate];
+            
+            lbMatchCount.text = [NSString stringWithFormat:@"%d", searchAtIndex.matchCount];
+            NSLog(@"cellForRowAtIndexPath sec[%d] row[%d] search.num_set [%@]  search.matchCount [%d]   lbLotteryDate.text [%@]"
+                  , indexPath.section, indexPath.row, searchAtIndex.num_set, searchAtIndex.matchCount, [outputDateFormatter stringFromDate:searchAtIndex.registDate]);
+            
+            idxImgTag = 11;
+            for (int idxBuySet=0; idxBuySet<5; idxBuySet++) {
+                NSArray *arrNumSet = [searchAtIndex.num_set componentsSeparatedByString:@","];
+                
+                for (int idx=0; idx < [arrNumSet count]; idx++) {
+                    NSString *strNo = [arrNumSet objectAtIndex:idx];
+                    NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
+                    NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
+                    UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+                    
+                    UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idxImgTag+idx];
+                    img.image = theImage;
+                }
+            }
+    }
     
     return cell;
 }
@@ -166,49 +269,13 @@
     }
     else {
         SearchResultViewController *searchResultViewController = [segue destinationViewController];
-        searchResultViewController.selNumSet = selNameSet;
+        Search *search = [[Search alloc] init];
+        search.num_set = selNumSet;
+        searchResultViewController.delegate = self;
+        searchResultViewController.search = search;
         //searchResultViewController.delegate = self;
     }
 }
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 #pragma mark - Table view delegate
 

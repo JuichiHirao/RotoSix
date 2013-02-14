@@ -8,11 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "LotteryDataController.h"
+#import "Search.h"
+
+@protocol SearchResultDelegate;
 
 @interface SearchResultViewController : UITableViewController {
     NSMutableArray *arrResult;
+    id <SearchResultDelegate> delegate;
 }
 
-@property (nonatomic, strong) NSString *selNumSet;
+@property (weak, nonatomic) id <SearchResultDelegate> delegate;
+@property (nonatomic, strong) Search *search;
+
+@end
+
+@protocol SearchResultDelegate <NSObject>
+
+- (void)RegistSearchEnd;
 
 @end
