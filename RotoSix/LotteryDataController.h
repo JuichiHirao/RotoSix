@@ -20,6 +20,8 @@
 
 + (Lottery *)getTimes:(NSInteger) times;
 + (Lottery *)getSearchNumSetOnlyFirstRow:(NSString *) numset;
++(NSMutableArray *)getSearchNumSetAll:(NSString *) numset;
++ (NSMutableArray *)addArraySearchNumSet:(NSString *) numset DestArray:(NSMutableArray *)arrDest LotteryRanking:(NSInteger) lotteryRanking;
 + (NSMutableArray *)getSearchNumSet:(NSString *) numset;
 + (Lottery *)getNewest;
 + (Lottery *)getDataFromJson:(NSDictionary *)dict;

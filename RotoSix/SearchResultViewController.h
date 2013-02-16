@@ -13,7 +13,7 @@
 @protocol SearchResultDelegate;
 
 @interface SearchResultViewController : UITableViewController {
-    NSMutableArray *arrResult;
+    NSArray *arrResult;
     id <SearchResultDelegate> delegate;
 }
 

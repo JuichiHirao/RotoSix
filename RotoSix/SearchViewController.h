@@ -15,7 +15,7 @@
 @class SearchDataController;
 
 @interface SearchViewController : UITableViewController <NumberSelectDelegate, SearchResultDelegate> {
-    NSString *selNumSet;
+    Search *selSearch;
 }
 
 @property (nonatomic, strong) SearchDataController *dataController;

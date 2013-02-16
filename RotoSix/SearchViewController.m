@@ -28,12 +28,13 @@
     
     NSLog(@"NumberSelectBtnEnd name [%@]", name );
 //    NSMutableArray *arrData = [LotteryDataController getSearchNumSet:name];
+
+    if (selSearch == nil) {
+        selSearch = [[Search alloc] init];
+    }
     
-//    if (arrData!=nil) {
-        selNumSet = name;
-        //NSLog(@"Search Match!! [%d]", data.times);
-        [self performSegueWithIdentifier:@"SearchResult" sender:self];
-//    }
+    selSearch.num_set = name;
+    [self performSegueWithIdentifier:@"SearchResult" sender:self];
 }
 
 - (void)RegistSearchEnd {
@@ -269,10 +270,8 @@
     }
     else {
         SearchResultViewController *searchResultViewController = [segue destinationViewController];
-        Search *search = [[Search alloc] init];
-        search.num_set = selNumSet;
         searchResultViewController.delegate = self;
-        searchResultViewController.search = search;
+        searchResultViewController.search = selSearch;
         //searchResultViewController.delegate = self;
     }
 }
@@ -281,6 +280,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    selSearch = [dataController objectInListAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"SearchResult" sender:self];
+
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

@@ -30,7 +30,13 @@
 {
     [super viewDidLoad];
 
-    arrResult = [LotteryDataController getSearchNumSet:search.num_set];
+    NSMutableArray *arrWorkResult = [LotteryDataController getSearchNumSetAll:search.num_set];
+    //arrResult = [LotteryDataController getSearchNumSetAll:search.num_set];
+    NSSortDescriptor *sortDescripter = [[NSSortDescriptor alloc] initWithKey:@"times" ascending:NO];
+    
+    NSMutableArray *arrSort = [NSArray arrayWithObjects:sortDescripter, nil];
+    arrResult = [arrWorkResult sortedArrayUsingDescriptors:arrSort];
+    //arrResult = [LotteryDataController getSearchNumSetAll:search.num_set];
     
     search.registDate = [NSDate new];
     if (arrResult != nil) {
@@ -38,7 +44,7 @@
     }
     else
         search.matchCount = 0;
-    
+
     [search save];
 
     [[self delegate] RegistSearchEnd];
@@ -75,7 +81,7 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (arrResult != nil && [arrResult count] > 0) {
-        return 40;
+        return 112;
     }
     
     return 200;
@@ -85,7 +91,7 @@
 {
     static NSString *CellIdentifier = @"SearchResultCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    UILabel *lbKaisuu, *lbLotteryDate;
+    UILabel *lbKaisuu, *lbLotteryDate, *lbLotteryRanking;
     UIImage *rowBackground;
     
     if (arrResult == nil || [arrResult count] <= 0) {
@@ -132,7 +138,16 @@
         lbKaisuu.textColor = [UIColor blackColor];
         
         [cell.contentView addSubview:lbKaisuu];
+
+        lbLotteryRanking = [[UILabel alloc] initWithFrame:CGRectMake(180.0, 5.0, 50.0, 20.0)];
+        lbLotteryRanking.tag = 2;
+        lbLotteryRanking.backgroundColor = [UIColor clearColor];
+        lbLotteryRanking.font = [UIFont systemFontOfSize:18.0];
+        lbLotteryRanking.textAlignment = UITextAlignmentCenter;
+        lbLotteryRanking.textColor = [UIColor blackColor];
         
+        [cell.contentView addSubview:lbLotteryRanking];
+
         CGFloat x = 10.0;
         CGFloat y = 40.0;
         CGFloat width = 35.0;
@@ -179,6 +194,7 @@
     lbLotteryDate.text = [outputDateFormatter stringFromDate:lotteryAtIndex.lotteryDate];
     
     lbKaisuu.text = [NSString stringWithFormat:@"第%d回", lotteryAtIndex.times];      // @"第689回";
+    lbLotteryRanking.text = [NSString stringWithFormat:@"%d等", lotteryAtIndex.lotteryRanking];
     NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]   lbLotteryDate.text [%@]"
           , indexPath.section, indexPath.row, lotteryAtIndex.times, [outputDateFormatter stringFromDate:lotteryAtIndex.lotteryDate]);
     

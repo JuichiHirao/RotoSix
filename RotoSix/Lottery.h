@@ -26,6 +26,7 @@
 @property (nonatomic, assign) NSInteger five_amount;
 @property (nonatomic, assign) long sales;
 @property (nonatomic, assign) NSInteger carryover;
+@property (nonatomic, assign) NSInteger lotteryRanking; // 検索時にのみ使用するプロパティ（ヒット時の当選順を格納）
 
 -(void)save;
 

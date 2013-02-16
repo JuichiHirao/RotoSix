@@ -20,7 +20,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
     dbmstPath = [documentsDirectory stringByAppendingPathComponent:@"mst.db"];
-    NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", dbmstPath]);
+    //NSLog(@"%@", [NSString stringWithFormat:@"writableDBPath [%@]", dbmstPath]);
 
     // 存在しない場合はProject内のファイルをコピーして初期状態にする
     BOOL result_flag = [fm fileExistsAtPath:dbmstPath];

@@ -12,7 +12,7 @@
 
 @implementation Lottery
 
-@synthesize dbId, lotteryDate, times, num_set, one_unit, one_amount, two_unit, two_amount, three_unit, three_amount, four_unit, four_amount, five_unit, five_amount, sales, carryover;
+@synthesize dbId, lotteryDate, times, num_set, one_unit, one_amount, two_unit, two_amount, three_unit, three_amount, four_unit, four_amount, five_unit, five_amount, sales, carryover, lotteryRanking;
 
 - (NSComparisonResult)compareTimes:(Lottery *)data {
     if (self.times > data.times) {
