@@ -12,7 +12,7 @@
 
 @implementation BuyHistory
 
-@synthesize dbId, isDbUpdate, set01, set02, set03, set04, set05, lotteryTimes, lotteryDate, unit, prizeMoney, isSet01Update, isSet02Update, isSet03Update, isSet04Update, isSet05Update;
+@synthesize dbId, isDbUpdate, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lotteryTimes, lotteryDate, unit, lotteryStatus, prizeMoney, isSet01Update, isSet02Update, isSet03Update, isSet04Update, isSet05Update;
 
 -(BOOL) isUpdate:(NSInteger)selBuyNo {
     if (selBuyNo==0) {
@@ -160,23 +160,30 @@
                     NSLog(@"UPDATE buy_history set set%02d = ? [set%02d:%@]  WHERE id = ? [dbId:%d] ", idx+1, idx+1, [self getSetNo:idx], dbId);
                     
                     [db executeUpdate:strSql, [self getSetNo:idx], [NSNumber numberWithInteger:dbId]];
+                    
+                    if ([db hadError]) {
+                        NSLog(@"BuyHistroy.save update Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+                        [db rollback];
+                        [db close];
+                        return;
+                    }
                 }
             }
         }
         // IDが0の場合は挿入
         else {
             NSString *strSql = [NSString stringWithFormat:@"INSERT INTO buy_history ( "
-                                @"lottery_times, set01, set02, set03, set04, set05, lottery_amount"
+                                @"lottery_times, set01, set02, set03, set04, set05, lottery_status"
                                 @", lottery_date ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)"];
             
             [db executeUpdate:strSql
                 ,[NSNumber numberWithInteger:lotteryTimes]
                 , set01, set02, set03, set04, set05
-                , prizeMoney, lotteryDate];
+                , [NSNumber numberWithInteger:lotteryStatus], lotteryDate];
         }
 
         if ([db hadError]) {
-            NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            NSLog(@"BuyHistroy.save insert Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
             [db rollback];
         }
         else {

@@ -30,7 +30,7 @@
 
 - (void)RegistBuyHistoryEnd {
     NSLog(@"RegistBuyHistoryEnd");
-    [dataController reloadAll];
+    [dataController loadAll];
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
     [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }

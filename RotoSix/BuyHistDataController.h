@@ -16,8 +16,7 @@
 - (unsigned)countOfList;
 - (BuyHistory *)objectInListAtIndex:(unsigned)theIndex;
 - (void)removeObjectInListAtIndex:(unsigned)theIndex;
-- (void) reloadAll;
-- (void) createDemoFromDb;
+- (void) loadAll;
 - (void) reload:(NSInteger)idx;
 - (NSInteger) isDbUpdate:(NSInteger)idx;
 - (void) setDbUpdate:(NSInteger)idx;
