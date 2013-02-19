@@ -57,7 +57,7 @@
             lottery.four_amount = [rs intForColumn:@"four_amount"];
             lottery.five_unit = [rs intForColumn:@"five_unit"];
             lottery.five_amount = [rs intForColumn:@"five_amount"];
-            lottery.sales = [rs intForColumn:@"sales"];
+            lottery.sales = [rs longLongIntForColumn:@"sales"];
             lottery.carryover = [rs intForColumn:@"carryover"];
             
             [listLottery addObject:lottery];
@@ -106,11 +106,11 @@
             lottery.four_amount = [rs intForColumn:@"four_amount"];
             lottery.five_unit = [rs intForColumn:@"five_unit"];
             lottery.five_amount = [rs intForColumn:@"five_amount"];
-            lottery.sales = [rs longForColumn:@"sales"];
+            lottery.sales = [rs longLongIntForColumn:@"sales"];
             lottery.carryover = [rs intForColumn:@"carryover"];
                         
             //ここでデータを展開
-            NSLog(@"%d %@ %d %@ one %d %d two %d %d three %d %d four %d %d five %d %d   %lu %d", lottery.dbId, lottery.lotteryDate, lottery.times
+            NSLog(@"%d %@ %d %@ one %d %d two %d %d three %d %d four %d %d five %d %d   %lld %d", lottery.dbId, lottery.lotteryDate, lottery.times
                   , lottery.num_set, lottery.one_unit, lottery.one_amount, lottery.two_unit, lottery.two_amount
                   , lottery.three_unit, lottery.three_amount, lottery.four_unit, lottery.four_amount
                   , lottery.five_unit, lottery.five_amount, lottery.sales, lottery.carryover);
@@ -322,7 +322,7 @@
             lottery.four_amount = [rs intForColumn:@"four_amount"];
             lottery.five_unit = [rs intForColumn:@"five_unit"];
             lottery.five_amount = [rs intForColumn:@"five_amount"];
-            lottery.sales = [rs intForColumn:@"sales"];
+            lottery.sales = [rs longLongIntForColumn:@"sales"];
             lottery.carryover = [rs intForColumn:@"carryover"];
             
             [listLottery addObject:lottery];
@@ -372,11 +372,11 @@
             lottery.four_amount = [rs intForColumn:@"four_amount"];
             lottery.five_unit = [rs intForColumn:@"five_unit"];
             lottery.five_amount = [rs intForColumn:@"five_amount"];
-            lottery.sales = [rs longForColumn:@"sales"];
+            lottery.sales = [rs longLongIntForColumn:@"sales"];
             lottery.carryover = [rs intForColumn:@"carryover"];
             
             //ここでデータを展開
-            NSLog(@"%d %@ %d %@ one %d %d two %d %d three %d %d four %d %d five %d %d   %lu %d", lottery.dbId, lottery.lotteryDate, lottery.times
+            NSLog(@"%d %@ %d %@ one %d %d two %d %d three %d %d four %d %d five %d %d   %lld %d", lottery.dbId, lottery.lotteryDate, lottery.times
                   , lottery.num_set, lottery.one_unit, lottery.one_amount, lottery.two_unit, lottery.two_amount
                   , lottery.three_unit, lottery.three_amount, lottery.four_unit, lottery.four_amount
                   , lottery.five_unit, lottery.five_amount, lottery.sales, lottery.carryover);
@@ -422,12 +422,12 @@
             lottery.four_amount = [rs intForColumn:@"four_amount"];
             lottery.five_unit = [rs intForColumn:@"five_unit"];
             lottery.five_amount = [rs intForColumn:@"five_amount"];
-            lottery.sales = [rs longForColumn:@"sales"];
+            lottery.sales = [rs longLongIntForColumn:@"sales"];
             lottery.carryover = [rs intForColumn:@"carryover"];
         }
 
         //ここでデータを展開
-        NSLog(@"%d %@ %d %@ one %d %d two %d %d three %d %d four %d %d five %d %d   %lu %d", lottery.dbId, lottery.lotteryDate, lottery.times
+        NSLog(@"%d %@ %d %@ one %d %d two %d %d three %d %d four %d %d five %d %d   %lld %d", lottery.dbId, lottery.lotteryDate, lottery.times
               , lottery.num_set, lottery.one_unit, lottery.one_amount, lottery.two_unit, lottery.two_amount
               , lottery.three_unit, lottery.three_amount, lottery.four_unit, lottery.four_amount
               , lottery.five_unit, lottery.five_amount, lottery.sales, lottery.carryover);
@@ -465,7 +465,7 @@
     lottery.four_amount = [(NSString*)[dict objectForKey:@"four_unit"] intValue];
     lottery.five_unit = [(NSString*)[dict objectForKey:@"five_unit"] intValue];
     lottery.five_amount = [(NSString*)[dict objectForKey:@"five_amount"] intValue];
-//    lottery.sales = [rs longForColumn:@"sales"];
+    lottery.sales = [(NSString*)[dict objectForKey:@"sales"] intValue];
     lottery.carryover = [(NSString*)[dict objectForKey:@"carryover"] intValue];
 
     return lottery;

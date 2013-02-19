@@ -26,6 +26,52 @@
     }
 }
 
+- (NSString *)getCammaSales {
+    //NSString *data = [NSString stringWithFormat:@"%lld", sales];
+    NSMutableString *data = [NSMutableString string];
+    NSString *work = @"";
+    
+    NSInteger amr = data.length % 3;
+    NSInteger wr = (data.length - amr) / 3;
+    
+    NSString *piyo = [data substringWithRange:NSMakeRange(0, amr)];
+    
+    for (int idx=0; idx < wr; idx++) {
+        [work stringByAppendingString:piyo];
+        [work stringByAppendingString:@","];
+    }
+
+    long long int l = sales;
+    
+    int d = 0;
+	int n, a;
+	do {
+		// 3桁毎をチェックしてカンマ挿入
+		if (d == 3) {
+//			s = ',' + s;
+            // data = [data stringByAppendingString:@","];
+            [data insertString:@"," atIndex:0];
+			d = 0;
+		}
+		d ++;
+        
+		// 　下一桁をバッファの先頭に追加
+		n = l%10;
+        a = '0' + n;
+        //data = [data stringByAppendingFormat:@"%c", a];
+        [data insertString:[NSString stringWithFormat:@"%c", a] atIndex:0];
+//		s = char('0'+(n)) + s;
+        
+		// 　数値を1桁シフト(下一桁を取り除く)
+		l /= 10;
+	} while (l > 0);
+    
+	//return s;
+    
+	return data;
+
+}
+
 -(void)save {
     //作成したテーブルからデータを取得
     FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getMasterFile]];
