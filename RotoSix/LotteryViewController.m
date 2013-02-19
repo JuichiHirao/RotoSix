@@ -11,6 +11,7 @@
 #import "LotteryDataController.h"
 #import "LotteryConnectionHandler.h"
 #import "SBJson.h"
+#import "BuyHistDataController.h"
 
 @interface LotteryViewController () <SBJsonStreamParserAdapterDelegate>
 
@@ -195,6 +196,12 @@
     NSDictionary* item;
     while (item = (NSDictionary*)[data nextObject]) {
         Lottery *lottery = [LotteryDataController getDataFromJson:item];
+        
+        NSMutableArray *arrBuyHist = [BuyHistDataController getTimes:lottery.times];
+        for (int idx=0; idx < [arrBuyHist count]; idx++) {
+            BuyHistory *data = arrBuyHist[idx];
+            [data lotteryCheck:lottery];
+        }
         NSLog(@"change times %d", lottery.times);
         [lottery save];
     }

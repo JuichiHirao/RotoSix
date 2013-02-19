@@ -9,6 +9,7 @@
 #import "BuyHistory.h"
 #import "FMDatabase.h"
 #import "DatabaseFileController.h"
+#import "Lottery.h"
 
 @implementation BuyHistory
 
@@ -101,6 +102,26 @@
     return @"";
 }
 
+-(NSInteger) getPlace:(NSInteger)setNoIndex {
+    if (setNoIndex==0) {
+        return place01;
+    }
+    else if (setNoIndex==1) {
+        return place02;
+    }
+    else if (setNoIndex==2) {
+        return place03;
+    }
+    else if (setNoIndex==3) {
+        return place04;
+    }
+    else if (setNoIndex==4){
+        return place05;
+    }
+    
+    return @"";
+}
+
 -(NSString*) changeSetNo:(NSInteger)setNoIndex SetNo:(NSString *)setNo {
     if (setNoIndex==0) {
         set01 = setNo;
@@ -142,6 +163,81 @@
     }
 }
 
+-(void) lotteryCheck:(Lottery *) lottery {
+    
+    NSInteger place = 0;
+    place = [self lotteryCheck:set01 Lottery:lottery];
+    if (self.place01 != place) {
+        [self setUpdate:0 Status:1];
+        self.place01 = place;
+    }
+    place = [self lotteryCheck:set02 Lottery:lottery];
+    if (self.place02 != place) {
+        [self setUpdate:1 Status:1];
+        self.place02 = place;
+    }
+    place = [self lotteryCheck:set03 Lottery:lottery];
+    if (self.place03 != place) {
+        [self setUpdate:2 Status:1];
+        self.place03 = place;
+    }
+    place = [self lotteryCheck:set04 Lottery:lottery];
+    if (self.place04 != place) {
+        [self setUpdate:3 Status:1];
+        self.place04 = place;
+    }
+    place = [self lotteryCheck:set05 Lottery:lottery];
+    if (self.place05 != place) {
+        [self setUpdate:4 Status:1];
+        self.place05 = place;
+    }
+    
+    self.lotteryStatus = 1;
+    
+    return;
+}
+
+-(NSInteger) lotteryCheck:(NSString *)setData Lottery:(Lottery *)lottery {
+    
+    NSInteger place = 0;
+    NSArray *arrSelectNo = [setData componentsSeparatedByString:@","];
+    bool isMatchBonus = NO;
+    
+    NSString *bonusNo = [lottery.num_set substringFromIndex:[lottery.num_set length]-2];
+    
+    int matchNo = 0;
+    for (int idx=0; idx < [arrSelectNo count]; idx++) {
+        NSString *data = [NSString stringWithFormat:@"%@,", arrSelectNo[idx]];
+        
+        if ([lottery.num_set rangeOfString:data].length > 0) {
+            matchNo++;
+        }
+        
+        if ([arrSelectNo[idx] isEqual:bonusNo] == YES) {
+            isMatchBonus = YES;
+        }
+    }
+    
+    if (matchNo == 3)
+        place = 5;
+    else if (matchNo == 4) {
+        place = 4;
+    }
+    else if (matchNo == 5 && isMatchBonus == NO) {
+        place = 3;
+    }
+    else if (matchNo == 5 && isMatchBonus == YES) {
+        place = 2;
+    }
+    else if (matchNo == 6) {
+        place = 1;
+    }
+
+    NSLog(@"matchNo %d  bonusNo %@ place %d", matchNo, bonusNo, place);
+
+    return place;
+}
+
 -(void)save {
     //作成したテーブルからデータを取得
     FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
@@ -156,10 +252,10 @@
                 
                 if ([self isUpdate:idx]) {
                     //                NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?  WHERE id = ? [dbId:%d]", idx+1, dbId];
-                    NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?  WHERE id = ?", idx+1];
-                    NSLog(@"UPDATE buy_history set set%02d = ? [set%02d:%@]  WHERE id = ? [dbId:%d] ", idx+1, idx+1, [self getSetNo:idx], dbId);
+                    NSString *strSql = [NSString stringWithFormat:@"UPDATE buy_history set set%02d = ?, place%02d = ? WHERE id = ?", idx+1, idx+1];
+                    //NSLog(@"UPDATE buy_history set set%02d = ? [set%02d:%@], place%02d = ? [%d] WHERE id = ? [dbId:%d] ", idx+1, idx+1, [self getSetNo:idx], idx+1, [self getPlace:idx], dbId);
                     
-                    [db executeUpdate:strSql, [self getSetNo:idx], [NSNumber numberWithInteger:dbId]];
+                    [db executeUpdate:strSql, [self getSetNo:idx], [NSNumber numberWithInteger:[self getPlace:idx]], [NSNumber numberWithInteger:dbId]];
                     
                     if ([db hadError]) {
                         NSLog(@"BuyHistroy.save update Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
@@ -168,6 +264,17 @@
                         return;
                     }
                 }
+            }
+            NSString *strSql = @"UPDATE buy_history set lottery_status = ? WHERE id = ? ";
+            NSLog(@"UPDATE buy_history set lottery_status = ? [%d] WHERE id = ? [dbId:%d] ", lotteryStatus, dbId);
+            
+            [db executeUpdate:strSql, [NSNumber numberWithInteger:lotteryStatus], [NSNumber numberWithInteger:dbId]];
+            
+            if ([db hadError]) {
+                NSLog(@"BuyHistroy.save update Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+                [db rollback];
+                [db close];
+                return;
             }
         }
         // IDが0の場合は挿入

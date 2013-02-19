@@ -117,7 +117,7 @@
             cnt++;
         }
         if (cnt<=0) {
-            NSLog(@"lottery NO DATA!!");
+            NSLog(@"lottery NO DATA!! [%d]", times);
         }
         [rs close];
         [db close];

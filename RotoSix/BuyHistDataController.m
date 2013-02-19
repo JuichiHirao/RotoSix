@@ -115,10 +115,10 @@
     }
     lotteryNewest.times = times;
     
-    if (diffDay == 0) {
+    //if (diffDay == 0) {
         // 最新の情報が取得されている場合はsqlite3から過去10回の情報を取得する
-    }
-    else {
+    //}
+    //else {
         // 最新の情報が取得できない場合は計算して過去10回の情報を取得する
         diffDay = -1; // 直近の抽選日は取得できているので、含めない
         cnt = 0;
@@ -203,7 +203,7 @@
                 break;
             }
         }
-    }
+    //}
     
     NSArray *sortedArray = [marrLottery sortedArrayUsingSelector:@selector(compareTimes:)];
 //    for (int idx=0; idx<[sortedArray count]; idx++) {
@@ -225,7 +225,7 @@
         FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history order by lottery_date desc"];
 
         if ([db hadError]) {
-            NSLog(@"BuyHistroy.reloadAll Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            NSLog(@"BuyHistDataController.loadAll Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
             return;
         }
 
@@ -253,7 +253,7 @@
             //ここでデータを展開
             NSLog(@"BuyHistDataController.loadAll %d %@ %@ %@ %@ %@ %d %@", [rs intForColumn:@"lottery_times"], [rs stringForColumn:@"set01"]
                   , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
-                  , [rs stringForColumn:@"set05"], [rs intForColumn:@"lottery_amount"], [rs dateForColumn:@"lottery_date"]);
+                  , [rs stringForColumn:@"set05"], [rs intForColumn:@"lottery_status"], [rs dateForColumn:@"lottery_date"]);
         }
         [rs close];
         [db close];
@@ -307,6 +307,107 @@
     }
     
     return buyHist;
+}
+
+-(void)reload:(NSInteger)idx {
+    BuyHistory *buyHist = [list objectAtIndex:idx];
+    
+    // このフラグのチェックにより初期表示時のviewWillAppearの呼び出しを無視する
+    if (buyHist.isDbUpdate != 1) {
+        return;
+    }
+    
+    //作成したテーブルからデータを取得
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        FMResultSet *rs = [db executeQuery:@"SELECT lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history WHERE id = ?", [NSNumber numberWithInteger:buyHist.dbId]];
+
+        if ([db hadError]) {
+            NSLog(@"BuyHistroy.reloadAll Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            return;
+        }
+
+        while ([rs next]) {
+            buyHist.lotteryTimes = [rs intForColumn:@"lottery_times"];
+            buyHist.set01 = [rs stringForColumn:@"set01"];
+            buyHist.place01 = [rs intForColumn:@"place01"];
+            buyHist.set02 = [rs stringForColumn:@"set02"];
+            buyHist.place02 = [rs intForColumn:@"place02"];
+            buyHist.set03 = [rs stringForColumn:@"set03"];
+            buyHist.place03 = [rs intForColumn:@"place03"];
+            buyHist.set04 = [rs stringForColumn:@"set04"];
+            buyHist.place04 = [rs intForColumn:@"place04"];
+            buyHist.set05 = [rs stringForColumn:@"set05"];
+            buyHist.place05 = [rs intForColumn:@"place05"];
+            buyHist.lotteryStatus = [rs intForColumn:@"lottery_status"];
+            buyHist.lotteryDate = [rs dateForColumn:@"lottery_date"];
+            
+            [list replaceObjectAtIndex:idx withObject:buyHist];
+            
+            //ここでデータを展開
+            NSLog(@"%d 01[%@] 02[%@] 03[%@] 04[%@] 05[%@]", buyHist.dbId, [rs stringForColumn:@"set01"]
+                  , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
+                  , [rs stringForColumn:@"set05"]);
+        }
+        [rs close];
+        [db close];
+    }else{
+        //DBが開けなかったらここ
+    }    
+}
+
++ (NSMutableArray *)getTimes:(NSInteger) times {
+    
+    NSMutableArray *listBuyHist = [[NSMutableArray alloc] init];
+    
+    //作成したテーブルからデータを取得
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history WHERE times = ? order by times desc "];
+        
+        if ([db hadError]) {
+            NSLog(@"BuyHistroy.reloadAll Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            return nil;
+        }
+        
+        while ([rs next]) {
+            BuyHistory *buyHist;
+
+            buyHist = [[BuyHistory alloc]init];
+            buyHist.dbId = [rs intForColumn:@"id"];
+            buyHist.lotteryTimes = [rs intForColumn:@"lottery_times"];
+            buyHist.set01 = [rs stringForColumn:@"set01"];
+            buyHist.place01 = [rs intForColumn:@"place01"];
+            buyHist.set02 = [rs stringForColumn:@"set02"];
+            buyHist.place02 = [rs intForColumn:@"place02"];
+            buyHist.set03 = [rs stringForColumn:@"set03"];
+            buyHist.place03 = [rs intForColumn:@"place03"];
+            buyHist.set04 = [rs stringForColumn:@"set04"];
+            buyHist.place04 = [rs intForColumn:@"place04"];
+            buyHist.set05 = [rs stringForColumn:@"set05"];
+            buyHist.place05 = [rs intForColumn:@"place05"];
+            buyHist.lotteryStatus = [rs intForColumn:@"lottery_status"];
+            buyHist.lotteryDate = [rs dateForColumn:@"lottery_date"];
+            
+            [listBuyHist addObject:buyHist];
+            
+            //ここでデータを展開
+            NSLog(@"BuyHistDataController.loadAll %d %@ %@ %@ %@ %@ %d %@", [rs intForColumn:@"lottery_times"], [rs stringForColumn:@"set01"]
+                  , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
+                  , [rs stringForColumn:@"set05"], [rs intForColumn:@"lottery_amount"], [rs dateForColumn:@"lottery_date"]);
+        }
+        [rs close];
+        [db close];
+        
+    }else{
+        //DBが開けなかったらここ
+    }
+    
+    return listBuyHist;
 }
 
 - (NSInteger) isDbUpdate:(NSInteger)idx {

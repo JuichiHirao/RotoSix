@@ -21,5 +21,6 @@
 - (NSInteger) isDbUpdate:(NSInteger)idx;
 - (void) setDbUpdate:(NSInteger)idx;
 + (NSArray *) makeDefaultTimesData;
++ (NSMutableArray *)getTimes:(NSInteger)times;
 
 @end

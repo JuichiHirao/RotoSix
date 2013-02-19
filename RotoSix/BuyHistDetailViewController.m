@@ -36,12 +36,10 @@
         [buyHist setUpdate:selBuyNo Status:1];
         NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
     }
-    
-    [histDetailView beginUpdates];
-    NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selBuyNo inSection:1];
-    NSArray *rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
-    [histDetailView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
-    [histDetailView endUpdates];
+
+    // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+    [histDetailView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -80,9 +78,6 @@
 
     NSString *str = buyHist.set01;
     NSLog(@"str [%@]", str);
-
-    // 当選情報をsqliteから取得する
-    lottery = [LotteryDataController getTimes:[buyHist lotteryTimes]];
 
     // 詳細画面のタイトルを設定、表示（抽選日と回数を表示）
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
@@ -394,7 +389,7 @@
 
     switch (indexPath.section) {
         case 0:
-            NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+            //NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
             CellIdentifier = @"CellBuyHistDetailSection00";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
@@ -428,7 +423,7 @@
             buySetNo = indexPath.row;
 
             if (cell==nil) {
-                NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+                //NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                 cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
@@ -463,7 +458,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
             if (cell==nil) {
-                NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+                //NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
@@ -511,7 +506,7 @@
     //((UIImageView *)cell.backgroundView).image = rowBackground;
 
     if (indexPath.section==0) {
-        NSArray *arrLotteryNo = [@"1,2,8,16,25,40,27" componentsSeparatedByString:@","];
+        NSArray *arrLotteryNo = [lottery.num_set componentsSeparatedByString:@","];
         
         for (int idx=0; idx < 7; idx++) {
             NSString *strNo = [arrLotteryNo objectAtIndex:idx];
@@ -588,6 +583,23 @@
     
     [win makeKeyAndVisible];
  */
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    NSLog(@"viewDidLoad [%d]", buyHist.lotteryTimes);
+    //[data createDemoFromDb];
+
+    // 当選情報をsqliteから取得する
+    lottery = [LotteryDataController getTimes:buyHist.lotteryTimes];
+    
+    if (lottery != nil
+        && lottery.times > 0) {
+        [buyHist lotteryCheck:lottery];
+        [buyHist save];
+    }
 }
 
 - (void)viewDidUnload {

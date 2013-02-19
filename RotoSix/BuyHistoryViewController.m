@@ -56,7 +56,7 @@
     
     if ([dataController countOfList] > 0) {
         // 更新した行だけをリロード、セル再表示する
-        if ([dataController isDbUpdate:selectedRowIndex.row]) {
+        //if ([dataController isDbUpdate:selectedRowIndex.row]) {
             [dataController reload:selectedRowIndex.row];
             
             NSIndexPath *rowToReload = [NSIndexPath indexPathForRow:selectedRowIndex.row inSection:0];
@@ -64,7 +64,7 @@
             [histTableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
             
             [dataController setDbUpdate:selectedRowIndex.row];
-        }
+        //}
     }
 }
 
@@ -138,17 +138,11 @@
     UIImage *rowBackground;
     
     BuyHistory *buyHistAtIndex = [dataController objectInListAtIndex:indexPath.row];
-    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]", indexPath.section, indexPath.row, buyHistAtIndex.lotteryTimes);
-
-    //if (indexPath.row == 0) {
-    //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-
     UILabel *lbl = (UILabel*)[cell.contentView viewWithTag:1];
 
-    NSInteger idxImgTag;
+    NSInteger idxImgTag, idxImgPlaceTag;
     if (lbl==nil) {
-        NSLog(@"cell create");
+        //NSLog(@"cell create");
         
         lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0.0, 120.0, 15.0)];
         lbLotteryDate.tag = 1;
@@ -172,10 +166,27 @@
         CGFloat y = 3.0;
         CGFloat width = 20.0;
         CGFloat height = 20.0;
-        
+
+        //if (buyHistAtIndex.lotteryStatus == 1) {
+            idxImgPlaceTag = 101;
+            for (int idx=0; idx < 5; idx++ ) {
+                x = 103.0;
+                
+                //NSLog(@"idxImgPlaceTag %d x [%f] y [%f]", idxImgPlaceTag, x, y);
+                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                img.tag = idxImgPlaceTag;
+                
+                [cell.contentView addSubview:img];
+                idxImgPlaceTag++;
+                y = y + 22;
+            }
+        //}
+
         idxImgTag = 11;
+        
+        y = 3.0;
         for (int idx=0; idx < 5; idx++ ) {
-            x = 121.0;
+            x = 126.0;
             for (int idxSub=0; idxSub < 6; idxSub++) {
 //                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
                 UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
@@ -207,7 +218,6 @@
     
     NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
     rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
-//    rowBackground = [UIImage imageNamed:@"CellBackground.png"];
     
     ((UIImageView *)cell.backgroundView).image = rowBackground;
 
@@ -218,13 +228,39 @@
     lbLotteryDate.text = [outputDateFormatter stringFromDate:buyHistAtIndex.lotteryDate];
     
     lbKaisuu.text = [NSString stringWithFormat:@"第%d回", buyHistAtIndex.lotteryTimes];      // @"第689回";
-    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]   lbLotteryDate.text [%@]"
-          , indexPath.section, indexPath.row, buyHistAtIndex.lotteryTimes, [outputDateFormatter stringFromDate:buyHistAtIndex.lotteryDate]);
+    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]   lbLotteryDate.text [%@] status [%d]"
+          , indexPath.section, indexPath.row, buyHistAtIndex.lotteryTimes, [outputDateFormatter stringFromDate:buyHistAtIndex.lotteryDate], buyHistAtIndex.lotteryStatus);
 
-//    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"BallIcon-48" ofType:@"png"];
-    // データの取得
-    //BuyHistory *buyHist = [dataController objectInListAtIndex:indexPath.row];
-    
+    // 当選結果画像の表示
+    idxImgPlaceTag = 101;
+    if (buyHistAtIndex.lotteryStatus == 1) {
+        for (int idxBuySet=0; idxBuySet<5; idxBuySet++) {
+            NSString *setNo = [buyHistAtIndex getSetNo:idxBuySet];
+            
+            if ([setNo length] <= 0) {
+                continue;
+            }
+            
+            NSString *imgName = [self getPlaceImageName:[buyHistAtIndex getPlace:idxBuySet]];
+            //NSLog(@"getPlaceImageName place [%@] ", imgName);
+            
+            NSString *imagePath = [[NSBundle mainBundle] pathForResource:imgName ofType:@"png"];
+            UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idxImgPlaceTag];
+            
+            img.image = theImage;
+            idxImgPlaceTag++;
+        }
+    }
+    else {
+        for (int idxBuySet=0; idxBuySet<5; idxBuySet++) {
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idxImgPlaceTag];
+            img.image = nil;
+            idxImgPlaceTag++;
+        }
+    }
+
+    // 選択番号の表示（6コ×5組）
     idxImgTag = 11;
     for (int idxBuySet=0; idxBuySet<5; idxBuySet++) {
         NSString *setNo = [buyHistAtIndex getSetNo:idxBuySet];
@@ -248,6 +284,26 @@
     }
 
     return cell;
+}
+
+- (NSString *)getPlaceImageName:(NSInteger) place {
+    //NSLog(@"getPlaceImageName place [%d] ", place);
+    if (place == 1) {
+        return @"Lottery-1st";
+    }
+    else if (place == 2) {
+        return @"Lottery-2nd";
+    }
+    else if (place == 3) {
+        return @"Lottery-3rd";
+    }
+    else if (place == 4) {
+        return @"Lottery-4th";
+    }
+    else if (place == 5) {
+        return @"Lottery-5th";
+    }
+    return @"Lottery-no";
 }
 
 #pragma mark - Table view delegate
