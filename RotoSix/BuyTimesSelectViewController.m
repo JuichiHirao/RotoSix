@@ -34,7 +34,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)btnEndPressed:(id)sender {
@@ -52,8 +51,14 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (IBAction)btnPastSettingPressed:(id)sender {
+    arrLottery = [BuyHistDataController makePastTimesData:arrLottery];
+    [self.picker reloadAllComponents];
+}
+
 - (void)viewDidUnload {
     [self setPicker:nil];
+    [self setBtnPastSetting:nil];
     [super viewDidUnload];
 }
 
@@ -64,7 +69,7 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
     if (component == 0) {
-        return 15;
+        return [arrLottery count]-10;
     }
     
     return 10;

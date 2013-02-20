@@ -21,6 +21,7 @@
 - (NSInteger) isDbUpdate:(NSInteger)idx;
 - (void) setDbUpdate:(NSInteger)idx;
 + (NSArray *) makeDefaultTimesData;
++ (NSArray *) makePastTimesData:(NSArray *)arrLottery;
 + (NSMutableArray *)getTimes:(NSInteger)times;
 
 @end

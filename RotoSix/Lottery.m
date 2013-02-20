@@ -26,6 +26,7 @@
     }
 }
 
+// 使用しないが参考のために保存
 - (NSString *)getCammaSales {
     //NSString *data = [NSString stringWithFormat:@"%lld", sales];
     NSMutableString *data = [NSMutableString string];

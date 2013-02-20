@@ -8,6 +8,7 @@
 
 #import "BuyRegistViewController.h"
 #import "BuyHistDataController.h"
+#import "LotteryDataController.h"
 
 @interface BuyRegistViewController ()
 
@@ -420,21 +421,51 @@
     
     NSLog(@"tabitemSavePress selIndex [%d]  selBuyTimes [%d]  arrLottery.count [%d]", selIndex, selBuyTimes, arrLottery.count);
 
-    for (int idx=selIndex; idx < selIndex+selBuyTimes; idx++) {
-
-        BuyHistory *data = [[BuyHistory alloc] init];
-        
-        data.set01 = buyHist.set01;
-        data.set02 = buyHist.set02;
-        data.set03 = buyHist.set03;
-        data.set04 = buyHist.set04;
-        data.set05 = buyHist.set05;
-        
-        Lottery *lotteryData = [arrLottery objectAtIndex:idx];
-        data.lotteryDate = lotteryData.lotteryDate;
-        data.lotteryTimes = lotteryData.times;
-        
-        [data save];
+    // 購入回数がarrLotteryに無い場合は過去データの保存処理を行う
+    bool isPastSave = YES;
+    for (int idx=0; idx<[arrLottery count]; idx++) {
+        Lottery *data = arrLottery[idx];
+        if (selLottery.times == data.times) {
+            isPastSave = NO;
+            break;
+        }
+    }
+    
+    if (isPastSave == YES) {
+        for (int idx=0; idx < selBuyTimes; idx++) {
+            
+            BuyHistory *data = [[BuyHistory alloc] init];
+            
+            data.set01 = buyHist.set01;
+            data.set02 = buyHist.set02;
+            data.set03 = buyHist.set03;
+            data.set04 = buyHist.set04;
+            data.set05 = buyHist.set05;
+            
+            Lottery *lotteryData = [LotteryDataController getTimes:selLottery.times+idx];
+            data.lotteryDate = lotteryData.lotteryDate;
+            data.lotteryTimes = lotteryData.times;
+            
+            [data save];
+        }
+    }
+    else {
+        for (int idx=selIndex; idx < selIndex+selBuyTimes; idx++) {
+            
+            BuyHistory *data = [[BuyHistory alloc] init];
+            
+            data.set01 = buyHist.set01;
+            data.set02 = buyHist.set02;
+            data.set03 = buyHist.set03;
+            data.set04 = buyHist.set04;
+            data.set05 = buyHist.set05;
+            
+            Lottery *lotteryData = [arrLottery objectAtIndex:idx];
+            data.lotteryDate = lotteryData.lotteryDate;
+            data.lotteryTimes = lotteryData.times;
+            
+            [data save];
+        }
     }
     
     // 購入情報画面もdelegateを実行

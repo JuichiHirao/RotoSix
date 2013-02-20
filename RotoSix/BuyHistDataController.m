@@ -42,6 +42,38 @@
     [list removeObjectAtIndex:theIndex];
 }
 
++ (NSArray *) makePastTimesData:(NSArray *)arrLottery {
+    NSMutableArray *marrLottery = [[NSMutableArray alloc] init];
+    [marrLottery addObjectsFromArray:arrLottery];
+    
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
+	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+	[outputDateFormatter setDateFormat:outputDateFormatterStr];
+    
+    // return用の配列へ格納するため退避
+    Lottery *oldLottery = arrLottery[0];
+    
+    // sqlite3から最新の回数を取得する
+    NSArray *arrOld = [LotteryDataController getPast:oldLottery.times MaxRow:30];
+
+    if (arrOld == nil) {
+        return arrLottery;
+    }
+    
+    // ログ出力
+    NSLog(@"設定最初の抽選日 %@ 回数 %d  ", [outputDateFormatter stringFromDate:oldLottery.lotteryDate], oldLottery.times);
+    
+    [marrLottery addObjectsFromArray:arrOld];
+    //for (int idx=0; idx <= 29; idx++) {
+    //    [marrLottery addObject:arrOld[idx]];
+    //}
+        
+    NSArray *sortedArray = [marrLottery sortedArrayUsingSelector:@selector(compareTimes:)];
+    
+    return sortedArray;
+}
+
 /** pickerviewに表示するための回数を取得する
  *
  * @return 0 〜 9 過去   10 直近   11 〜 14 未来
@@ -63,6 +95,10 @@
     // sqlite3から最新の回数を取得する
     Lottery *lottery = [LotteryDataController getNewest];
     
+    if (lottery.times <= 0) {
+        return nil;
+    }
+
     // 現在日付から直近の抽選日
     while (1==1) {
         date = [NSDate dateWithTimeIntervalSinceNow:diffDay*24*60*60];

@@ -21,8 +21,11 @@
 @property (strong, nonatomic) NSArray *arrLottery;
 @property (weak, nonatomic) id <BuyTimesSelectDelegate> delegate;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnPastSetting;
+
 - (IBAction)btnEndPressed:(id)sender;
 - (IBAction)btnCancelPressed:(id)sender;
+- (IBAction)btnPastSettingPressed:(id)sender;
 
 @end
 
