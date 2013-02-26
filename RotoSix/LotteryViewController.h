@@ -26,6 +26,7 @@
 @property (nonatomic, strong) LotteryDataController *dataController;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemRefresh;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 
 - (IBAction)tabitemRefreshPress:(id)sender;
 

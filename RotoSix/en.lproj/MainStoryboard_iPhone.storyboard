@@ -158,6 +158,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="BxZ-XH-pQO">
+                            <rect key="frame" x="0.0" y="66" width="320" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LotteryCell" id="YvI-EL-Gip">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -178,6 +182,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="indicator" destination="BxZ-XH-pQO" id="6mu-vV-xh2"/>
                         <outlet property="lotteryView" destination="ayL-wE-ZR4" id="5au-kA-0lv"/>
                         <outlet property="tabitemRefresh" destination="8Bx-vX-4ud" id="L22-wO-SGP"/>
                     </connections>
@@ -456,6 +461,7 @@
         <class className="BuyRegistViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyRegistViewController.h"/>
             <relationships>
+                <relationship kind="action" name="btnCancelPress:"/>
                 <relationship kind="action" name="tabitemSavePress:"/>
                 <relationship kind="outlet" name="buyRegistView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="tabitemSave" candidateClass="UIBarButtonItem"/>
@@ -475,6 +481,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LotteryViewController.h"/>
             <relationships>
                 <relationship kind="action" name="tabitemRefreshPress:"/>
+                <relationship kind="outlet" name="indicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="lotteryView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="tabitemRefresh" candidateClass="UIBarButtonItem"/>
             </relationships>

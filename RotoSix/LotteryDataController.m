@@ -80,7 +80,7 @@
 
 +(Lottery *)getTimes:(NSInteger) times {
     
-    Lottery *lottery;
+    Lottery *lottery = nil;
 
     //作成したテーブルからデータを取得
     FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getMasterFile]];

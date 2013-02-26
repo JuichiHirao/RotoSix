@@ -191,11 +191,18 @@
     
     NSLog(@"array受信 JSONRepresentation [%@]", [array JSONRepresentation]);
     
-    //NSArray* arr = [feed objectForKey:@"link"];
+    int updateRow = 0;
     NSEnumerator* data = [array objectEnumerator];
     NSDictionary* item;
     while (item = (NSDictionary*)[data nextObject]) {
         Lottery *lottery = [LotteryDataController getDataFromJson:item];
+        
+        Lottery *chkLottery = [LotteryDataController getTimes:lottery.times];
+        
+        if (chkLottery != nil) {
+            NSLog(@"already regist times %d", lottery.times);
+            continue;
+        }
         
         NSMutableArray *arrBuyHist = [BuyHistDataController getTimes:lottery.times];
         for (int idx=0; idx < [arrBuyHist count]; idx++) {
@@ -204,6 +211,16 @@
         }
         NSLog(@"change times %d", lottery.times);
         [lottery save];
+        updateRow++;
+    }
+    
+    if (updateRow > 0) {
+        // 更新された情報を含めて全て取り直す
+        [dataController createDemoFromDb];
+
+        // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
+        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
+        [lotteryView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -230,6 +247,7 @@
 - (void)viewDidUnload {
     [self setLotteryView:nil];
     [self setTabitemRefresh:nil];
+    [self setIndicator:nil];
     [super viewDidUnload];
 }
 
@@ -260,6 +278,23 @@
 	// JSON documents.
 	parser.supportMultipleDocuments = YES;
     
+    //UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    //[self.view addSubview:indicator];
+    
+    // 画面の中央に表示するようにframeを変更する
+    float w = _indicator.frame.size.width;
+    float h = _indicator.frame.size.height;
+    float x =self.view.frame.size.width/2- w/2;
+    float y =self.view.frame.size.height/2- h/2;
+    _indicator.frame =CGRectMake(x, y, w, h);
+    
+    self.view.userInteractionEnabled=NO;
+    self.navigationController.navigationBar.userInteractionEnabled = NO;
+	//UIView *grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
+    //[grayView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8]];
+    //[self.view addSubview:grayView];
+
+    [_indicator startAnimating];
 	[NSURLConnection connectionWithRequest:request delegate:self];
 }
 
@@ -269,12 +304,22 @@
 	NSString *encodingName = [response textEncodingName];
 	
 	NSLog(@"受信文字コード: %@", encodingName);
-	
+    
+    int statusCode = [((NSHTTPURLResponse *)response) statusCode];
+    
+    if (statusCode >= 400) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"サービスエラー" message:@"サーバ側の当選情報の取得機能が有効ではありません" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil ];
+        [alert show];
+        
+        return;
+    }
 	if ([encodingName isEqualToString: @"euc-jp"]) {
 		receivedDataEncoding = NSJapaneseEUCStringEncoding;
 	} else {
 		receivedDataEncoding = NSUTF8StringEncoding;
 	}
+    
+    return;
 }
 
 // サーバからデータを受け取るたびに呼び出される
@@ -303,4 +348,34 @@
 	//[receivedData release];
 }
 
+// 接続でエラーが発生した場合に呼び出される
+-(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error{
+    NSLog(@"Connection failed! Error - %@ %d %@",
+          [error domain],
+          [error code],
+          [error localizedDescription]);
+    
+    [_indicator stopAnimating];
+    self.view.userInteractionEnabled=YES;
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
+    _indicator.hidden = YES;
+    
+    //ネットワークに接続されていない時
+    if([error code] ==  NSURLErrorNotConnectedToInternet){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"接続エラー" message:@"ネットワークの接続ができません" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil ];
+        [alert show];
+
+        return;
+    }
+    //サーバ側が起動していない場合
+    if([error code] == NSURLErrorCannotConnectToHost){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"接続エラー" message:@"接続先が有効ではありません" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil ];
+        [alert show];
+        
+        return;
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"接続エラー" message:@"接続できません" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil ];
+    [alert show];
+}
 @end
