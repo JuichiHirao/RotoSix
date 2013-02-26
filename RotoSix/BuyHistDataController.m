@@ -361,7 +361,7 @@
         FMResultSet *rs = [db executeQuery:@"SELECT lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history WHERE id = ?", [NSNumber numberWithInteger:buyHist.dbId]];
 
         if ([db hadError]) {
-            NSLog(@"BuyHistroy.reloadAll Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            NSLog(@"BuyHistroy.reload Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
             return;
         }
 
@@ -403,10 +403,10 @@
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         
-        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history WHERE times = ? order by times desc "];
+        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history WHERE lottery_times = ? order by lottery_times desc ", [NSNumber numberWithInteger:times]];
         
         if ([db hadError]) {
-            NSLog(@"BuyHistroy.reloadAll Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            NSLog(@"BuyHistroy.getTimes Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
             return nil;
         }
         

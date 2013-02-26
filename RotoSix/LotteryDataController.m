@@ -503,7 +503,7 @@
 // SBJSONを使用して、取得した１件分の当選データ（NSDictionary）からLotteryを生成する
 + (Lottery *)getDataFromJson:(NSDictionary *)dict {
     Lottery *lottery = [[Lottery alloc]init];
-    NSLog(@"times %@", [dict objectForKey:@"times"]);
+    //NSLog(@"times %@", [dict objectForKey:@"times"]);
 
     NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
     [inputFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -524,7 +524,7 @@
     lottery.four_amount = [(NSString*)[dict objectForKey:@"four_unit"] intValue];
     lottery.five_unit = [(NSString*)[dict objectForKey:@"five_unit"] intValue];
     lottery.five_amount = [(NSString*)[dict objectForKey:@"five_amount"] intValue];
-    lottery.sales = [(NSString*)[dict objectForKey:@"sales"] intValue];
+    lottery.sales = [(NSString*)[dict objectForKey:@"sales"] longLongValue];
     lottery.carryover = [(NSString*)[dict objectForKey:@"carryover"] intValue];
 
     return lottery;

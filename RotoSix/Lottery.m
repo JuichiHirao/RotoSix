@@ -122,7 +122,7 @@
              ,[NSNumber numberWithInteger:three_unit], [NSNumber numberWithInteger:three_amount]
              ,[NSNumber numberWithInteger:four_unit], [NSNumber numberWithInteger:four_amount]
              ,[NSNumber numberWithInteger:five_unit], [NSNumber numberWithInteger:five_amount]
-             , sales, carryover]; 
+             , [NSNumber numberWithLongLong:sales], [NSNumber numberWithInteger:carryover]];
         }
         
         if ([db hadError]) {
