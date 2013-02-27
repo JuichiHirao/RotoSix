@@ -12,6 +12,7 @@
 #import "LotteryConnectionHandler.h"
 #import "SBJson.h"
 #import "BuyHistDataController.h"
+#import "BuyHistDetailViewController.h"
 
 @interface LotteryViewController () <SBJsonStreamParserAdapterDelegate>
 
@@ -378,4 +379,23 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"接続エラー" message:@"接続できません" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil ];
     [alert show];
 }
+
+#pragma mark Table view selection
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"BuyHistDetail"]) {
+        
+        NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+        BuyHistDetailViewController *detailViewController = [segue destinationViewController];
+        detailViewController.lottery = [dataController objectInListAtIndex:selectedRowIndex.row];
+    }
+}
+
+// アクセサリタイプがタップされた場合も行の選択と同じ動作をする（詳細画面へ遷移）
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"BuyHistDetail" sender:self];
+}
+
+
 @end

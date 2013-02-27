@@ -9,6 +9,7 @@
 #import "BuyHistDetailViewController.h"
 #import "BuyHistory.h"
 #import "NumberSelectViewController.h"
+#import "BuyHistDataController.h"
 #import "LotteryDataController.h"
 
 @interface BuyHistDetailViewController ()
@@ -48,17 +49,25 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"viewDidLoad [%d]", buyHist.lotteryTimes);
     //[data createDemoFromDb];
-    
-    // 当選情報をsqliteから取得する
-    lottery = [LotteryDataController getTimes:buyHist.lotteryTimes];
-    
-    // sqliteに当選情報が存在する場合
-    if (lottery != nil
-        && lottery.times > 0) {
-        [buyHist lotteryCheck:lottery];
-        [buyHist save];
+
+    // 購入画面からの遷移の場合
+    if (lottery.times <= 0) {
+        NSLog(@"viewDidLoad buyHist.lotteryTimes [%d]", buyHist.lotteryTimes);
+        // 当選情報をsqliteから取得する
+        lottery = [LotteryDataController getTimes:buyHist.lotteryTimes];
+        
+        // sqliteに当選情報が存在する場合
+        if (lottery != nil
+            && lottery.times > 0) {
+            [buyHist lotteryCheck:lottery];
+            [buyHist save];
+        }
+    }
+    else {
+        NSLog(@"viewDidLoad lottery.times [%d]", lottery.times);
+        NSMutableArray* arr = [BuyHistDataController getTimes:lottery.times];
+        buyHist = arr[0];
     }
 }
 
