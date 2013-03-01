@@ -67,7 +67,9 @@
     else {
         NSLog(@"viewDidLoad lottery.times [%d]", lottery.times);
         NSMutableArray* arr = [BuyHistDataController getTimes:lottery.times];
-        buyHist = arr[0];
+        if (arr.count > 0) {
+            buyHist = arr[0];
+        }
     }
 }
 
@@ -119,7 +121,12 @@
 	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
 	[outputDateFormatter setDateFormat:outputDateFormatterStr];
     
-    self.title = [NSString stringWithFormat:@"%@ (第%d回)", [outputDateFormatter stringFromDate:buyHist.lotteryDate], buyHist.lotteryTimes];
+    if (buyHist.lotteryTimes > 0) {
+        self.title = [NSString stringWithFormat:@"%@ (第%d回)", [outputDateFormatter stringFromDate:buyHist.lotteryDate], buyHist.lotteryTimes];
+    }
+    else {
+        self.title = [NSString stringWithFormat:@"%@ (第%d回)", [outputDateFormatter stringFromDate:lottery.lotteryDate], lottery.times];
+    }
     // Scroll the table view to the top before it appears
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointZero animated:NO];

@@ -223,6 +223,9 @@
         NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
         [lotteryView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+    self.view.userInteractionEnabled=YES;
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
+    _indicator.hidden = YES;
 }
 
 // OBJECTが1つの場合は、このdelegateが呼ばれる
@@ -230,6 +233,10 @@
 	NSString *times = [dict objectForKey:@"times"];
     
     NSLog(@"dict受信 times %@   JSONRepresentation [%@]", times, [dict JSONRepresentation]);
+    
+    self.view.userInteractionEnabled=YES;
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
+    _indicator.hidden = YES;
 }
 
 #pragma mark - Table view delegate
