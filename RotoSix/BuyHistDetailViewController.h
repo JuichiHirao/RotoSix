@@ -13,7 +13,7 @@
 @class BuyHistory;
 @class NumberSelectViewController;
 
-@interface BuyHistDetailViewController : UITableViewController <NumberSelectDelegate>
+@interface BuyHistDetailViewController : UITableViewController <NumberSelectDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *histDetailView;
 

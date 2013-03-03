@@ -31,13 +31,22 @@
 -(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
     NSString *beforeNo = [buyHist getSetNo:selBuyNo];
 
-    [buyHist changeSetNo:selBuyNo SetNo:name];
-    
-    if (![beforeNo isEqualToString:name]) {
-        [buyHist setUpdate:selBuyNo Status:1];
-        NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
+    if (buyHist.lotteryTimes > 0) {
+        [buyHist changeSetNo:selBuyNo SetNo:name];
+        
+        if (![beforeNo isEqualToString:name]) {
+            [buyHist setUpdate:selBuyNo Status:1];
+            NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
+        }
     }
-
+    else {
+        // 当選情報からの遷移だとBuyHistが無いので、生成
+        buyHist = [[BuyHistory alloc] init];
+        buyHist.lotteryTimes = lottery.times;
+        buyHist.lotteryDate = lottery.lotteryDate;
+        [buyHist changeSetNo:0 SetNo:name];
+    }
+    
     // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
     [histDetailView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -71,9 +80,23 @@
             buyHist = arr[0];
         }
     }
+    
+    // http://stackoverflow.com/questions/9367898/long-press-gesture-on-table-view-cell
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    [self.histDetailView addGestureRecognizer:lpgr];
+    
+    UITapGestureRecognizer *tapgr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(backgroundTap:)];
+    tapgr.delegate = self;
+    [self.histDetailView addGestureRecognizer:tapgr];
+    
+    // 下にヘルプの文字列を出す
+    // 行の長押しをすると、番号のコピーが行えます
 }
 
 - (void)viewDidUnload {
+    NSLog(@"BuyHistDetailVC viewDidUnload");
     [self setHistDetailView:nil];
     [super viewDidUnload];
 }
@@ -81,40 +104,23 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Update the view with current data before it is displayed.
     [super viewWillAppear:animated];
-
-//    histDetailView.backgroundColor = [UIColor clearColor];
+    
+    //    histDetailView.backgroundColor = [UIColor clearColor];
     
     NSInteger a = self.navigationController.navigationBar.frame.size.height;
     NSLog(@"navigationBar.frame.size.height [%d]", a);
-/*
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"DetailImage" ofType:@"png"];
-    UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+    /*
+     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"DetailImage" ofType:@"png"];
+     UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+     
+     imgBg.image = theImage;
+     
+     histDetailView.backgroundView = imgBg;
+     */
     
-    imgBg.image = theImage;
-    
-    histDetailView.backgroundView = imgBg;
- */
-
-    // 保存ボタン
-	UIButton *btn;
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(190,85,50,25);
-    [btn setTitle:@"保存" forState:UIControlStateNormal];
-	[btn addTarget:self action:@selector(btnSavePressed) forControlEvents:UIControlEventTouchUpInside];
-    btn.tag = 101;
-	[self.view addSubview:btn];
-
-    // 編集ボタン
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(250,85,50,25);
-    [btn setTitle:@"編集" forState:UIControlStateNormal];
-	[btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
-    btn.tag = 102;
-	[self.view addSubview:btn];
-
     NSString *str = buyHist.set01;
     NSLog(@"str [%@]", str);
-
+    
     // 詳細画面のタイトルを設定、表示（抽選日と回数を表示）
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
 	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
@@ -130,17 +136,76 @@
     // Scroll the table view to the top before it appears
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointZero animated:NO];
-//    self.title = play.title;
+    //    self.title = play.title;
+}
+
+#pragma mark - GestureRecognizer Delegate Method
+
+// 選択行が長押しされた場合
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint p = [gestureRecognizer locationInView:self.histDetailView];
+
+    if (gestureRecognizer.state == UIGestureRecognizerStateRecognized)
+    {
+        //Do something to tell the user!
+    }
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        NSIndexPath *indexPath = [self.histDetailView indexPathForRowAtPoint:p];
+        if (indexPath == nil)
+            NSLog(@"long press on table view but not on a row");
+        else
+            NSLog(@"long press on table view at section %d row %d", indexPath.section, indexPath.row);
+    }
+}
+
+// 画面から受け取ったタッチイベントを受け取るか、無視するかを判定するメソッド
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+
+    // http://stackoverflow.com/questions/8192480/uitapgesturerecognizer-breaks-uitableview-didselectrowatindexpath
+    // を参考にして実装したが、戻りが必ずYESか NOにしかならない、背景のviewの場合のみYESをリターンしたいがうまくいかない
+    // そのため、編集モードの場合は、解除する処理を本メソッドの中に実装（すっきりはしないが我慢！！）
+    //if (self.histDetailView.superview != nil) {
+    //    if ([touch.view isDescendantOfView:self.histDetailView]) {
+    //        NSLog(@"shouldReceiveTouch touch.view isDescendantOfView:self.histDetailView %d", touch.view.tag);
+    //        // we touched our control surface
+    //        return NO; // ignore the touch
+    //    }
+    //}
+    //return YES; // handle the touch
+
+    NSLog(@"shouldReceiveTouch touch.view isDescendantOfView:self.histDetailView %d", touch.view.tag);
+    
+    // TAG 102 ボタンが編集の場合
+    if (touch.view.tag == 102) {
+        if (self.editing) {
+            [self setEditing:NO animated:YES];
+            return NO; // ignore the touch
+        }
+        else {
+            [self setEditing:YES animated:YES];
+        }
+        return NO;
+    }
+    
+    if (self.editing) {
+        [self setEditing:NO animated:YES];
+    }
+    return NO; // ignore the touch
+}
+
+#pragma mark - Action Method
+
+- (void)backgroundTap:(id)sender {
+    // shouldReceiveTouchの中で処理は行っているので、UITapGestureRecognizerで指定しているので、一応用意しておく空メソッド
+    NSLog(@"backgroundTap");
 }
 
 - (void)btnEditPressed
 {
-    if (self.editing) {
-        [self setEditing:NO animated:YES];
-    }
-    else {
-        [self setEditing:YES animated:YES];
-    }
+    NSLog(@"btnEdtiPressed");
+    // shouldReceiveTouchで処理を行っているので、本メソッドでは何もしない
 }
 
 - (void)btnSavePressed
@@ -298,6 +363,62 @@
             break;
     }
     return title;
+}
+
+- (CAGradientLayer *) greyGradient {
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.startPoint = CGPointMake(0.5, 0.0);
+    gradient.endPoint = CGPointMake(0.5, 1.0);
+    
+    UIColor *color1 = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0];
+    UIColor *color2 = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
+    
+    [gradient setColors:[NSArray arrayWithObjects:(id)color1.CGColor, (id)color2.CGColor, nil]];
+    return gradient;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    // http://www.gersh.no/posts/view/default_styling_of_sections_headers_in_uitableview_grouped
+    CGFloat width = CGRectGetWidth(tableView.bounds);
+    CGFloat height = [self tableView:tableView heightForHeaderInSection:section];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0,width,height)];
+
+	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+	CGRect labelFrame = CGRectMake(20, 2, width, 30);
+	//if(section == 0) {
+	//	labelFrame.origin.y = 13;
+	//}
+	UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
+	label.backgroundColor = [UIColor clearColor];
+	label.font = [UIFont boldSystemFontOfSize:17];
+	label.shadowColor = [UIColor colorWithWhite:1.0 alpha:1];
+	label.shadowOffset = CGSizeMake(0, 1);
+	label.textColor = [UIColor colorWithRed:0.265 green:0.294 blue:0.367 alpha:1.000];
+	label.text = [self tableView:tableView titleForHeaderInSection:section];
+	[view addSubview:label];
+
+    if (section == 1) {
+        // 保存ボタン
+        UIButton *btn;
+        btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btn.frame = CGRectMake(190,2,50,25);
+        [btn setTitle:@"保存" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(btnSavePressed) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = 101;
+        [view addSubview:btn];
+        
+        // 編集ボタン
+        btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btn.frame = CGRectMake(250,2,50,25);
+        [btn setTitle:@"編集" forState:UIControlStateNormal];
+        //[btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = 102;
+        [view addSubview:btn];
+    }
+
+	return view;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

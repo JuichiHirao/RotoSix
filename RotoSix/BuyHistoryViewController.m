@@ -327,8 +327,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if ([[segue identifier] isEqualToString:@"BuyHistDetail"]) {
-        
-        NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+        NSIndexPath *selectedRowIndex;
+        if ([sender isKindOfClass:[NSIndexPath self]]) {
+            selectedRowIndex = (NSIndexPath *)sender;
+        }
+        else {
+            selectedRowIndex = [self.tableView indexPathForSelectedRow];
+        }
         BuyHistDetailViewController *detailViewController = [segue destinationViewController];
         detailViewController.buyHist= [dataController objectInListAtIndex:selectedRowIndex.row];
     }
@@ -340,7 +345,7 @@
 
 // アクセサリタイプがタップされた場合も行の選択と同じ動作をする（詳細画面へ遷移）
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"BuyHistDetail" sender:self];
+    [self performSegueWithIdentifier:@"BuyHistDetail" sender:indexPath];
 }
 
 @end

@@ -260,7 +260,10 @@
 }
 
 - (IBAction)tabitemRefreshPress:(id)sender {
-    NSURL *url = [NSURL URLWithString:@"http://192.168.11.119:3000/lotteries/"];
+    Lottery *newdata = [LotteryDataController getNewest];
+    NSString *urlStr = [NSString stringWithFormat:@"http://desolate-bayou-6096.herokuapp.com/lotteries/%d/newest", newdata.times];
+    NSLog(@"Request URL: %@", urlStr);
+    NSURL *url = [NSURL URLWithString:urlStr];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 //	[request setValue:@"application/xml"forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPMethod:@"GET"];
@@ -352,8 +355,10 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	NSString *result = [[NSString alloc] initWithData:receivedData encoding:receivedDataEncoding];
 	NSLog(@"データの受信完了: %@", result);
-	//[result release];
-	//[receivedData release];
+
+    self.view.userInteractionEnabled=YES;
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
+    _indicator.hidden = YES;
 }
 
 // 接続でエラーが発生した場合に呼び出される
