@@ -16,13 +16,14 @@
 @interface BuyHistDetailViewController : UITableViewController <NumberSelectDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *histDetailView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemSave;
 
 @property (nonatomic, strong) BuyHistory *buyHist;
 @property (nonatomic, strong) Lottery *lottery;
 @property (nonatomic, strong) NSString *selBuyNumbers;
 @property (nonatomic) NSInteger selBuyNo;
 
-- (void)btnSavePressed;
+- (IBAction)tabitemSavePress:(id)sender;
 - (void)btnEditPressed;
 
 @end

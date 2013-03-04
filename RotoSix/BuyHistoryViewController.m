@@ -238,10 +238,13 @@
             NSString *setNo = [buyHistAtIndex getSetNo:idxBuySet];
             
             if ([setNo length] <= 0) {
+                UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idxImgPlaceTag];
+                img.image = nil;
+                idxImgPlaceTag++;
                 continue;
             }
             
-            NSString *imgName = [self getPlaceImageName:[buyHistAtIndex getPlace:idxBuySet]];
+            NSString *imgName = [buyHistAtIndex getPlaceImageName:[buyHistAtIndex getPlace:idxBuySet]];
             //NSLog(@"getPlaceImageName place [%@] ", imgName);
             
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:imgName ofType:@"png"];
@@ -284,26 +287,6 @@
     }
 
     return cell;
-}
-
-- (NSString *)getPlaceImageName:(NSInteger) place {
-    //NSLog(@"getPlaceImageName place [%d] ", place);
-    if (place == 1) {
-        return @"Lottery-1st";
-    }
-    else if (place == 2) {
-        return @"Lottery-2nd";
-    }
-    else if (place == 3) {
-        return @"Lottery-3rd";
-    }
-    else if (place == 4) {
-        return @"Lottery-4th";
-    }
-    else if (place == 5) {
-        return @"Lottery-5th";
-    }
-    return @"Lottery-no";
 }
 
 #pragma mark - Table view delegate

@@ -274,11 +274,18 @@
                             <outlet property="delegate" destination="MAH-WE-nxU" id="JxF-ew-Pc9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="g6L-Fg-V0v"/>
+                    <navigationItem key="navigationItem" id="g6L-Fg-V0v">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VaY-KB-xjd">
+                            <connections>
+                                <action selector="tabitemSavePress:" destination="MAH-WE-nxU" id="SGL-N8-0cK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="histDetailView" destination="iaA-oA-Bj1" id="Ocd-cO-QGV"/>
+                        <outlet property="tabitemSave" destination="VaY-KB-xjd" id="3hL-v9-4Gr"/>
                         <segue destination="KqJ-gk-oxf" kind="modal" identifier="NumberInput" id="lRB-S0-njV"/>
                     </connections>
                 </tableViewController>
@@ -447,61 +454,6 @@
             <point key="canvasLocation" x="573" y="700"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="BuyHistDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyHistDetailViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="histDetailView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="BuyHistoryViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyHistoryViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="buyHistCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="histTableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="BuyRegistViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyRegistViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="btnCancelPress:"/>
-                <relationship kind="action" name="tabitemSavePress:"/>
-                <relationship kind="outlet" name="buyRegistView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tabitemSave" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="BuyTimesSelectViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyTimesSelectViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="btnCancelPressed:"/>
-                <relationship kind="action" name="btnEndPressed:"/>
-                <relationship kind="action" name="btnPastSettingPressed:"/>
-                <relationship kind="outlet" name="btnPastSetting" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="picker" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-        <class className="LotteryViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LotteryViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="tabitemRefreshPress:"/>
-                <relationship kind="outlet" name="indicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="lotteryView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tabitemRefresh" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="NumberSelectViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NumberSelectViewController.h"/>
-        </class>
-        <class className="SearchResultViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchResultViewController.h"/>
-        </class>
-        <class className="SearchViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchViewController.h"/>
-        </class>
-        <class className="SettingViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -238,6 +238,26 @@
     return place;
 }
 
+- (NSString *)getPlaceImageName:(NSInteger) place {
+    //NSLog(@"getPlaceImageName place [%d] ", place);
+    if (place == 1) {
+        return @"Lottery-1st";
+    }
+    else if (place == 2) {
+        return @"Lottery-2nd";
+    }
+    else if (place == 3) {
+        return @"Lottery-3rd";
+    }
+    else if (place == 4) {
+        return @"Lottery-4th";
+    }
+    else if (place == 5) {
+        return @"Lottery-5th";
+    }
+    return @"Lottery-no";
+}
+
 -(void)save {
     //作成したテーブルからデータを取得
     FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
@@ -294,6 +314,12 @@
             [db rollback];
         }
         else {
+            isSet01Update = 0;
+            isSet02Update = 0;
+            isSet03Update = 0;
+            isSet04Update = 0;
+            isSet05Update = 0;
+            isDbUpdate = 0;
             [db commit];
         }
 

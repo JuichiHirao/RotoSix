@@ -98,6 +98,7 @@
 - (void)viewDidUnload {
     NSLog(@"BuyHistDetailVC viewDidUnload");
     [self setHistDetailView:nil];
+    [self setTabitemSave:nil];
     [super viewDidUnload];
 }
 
@@ -109,29 +110,16 @@
     
     NSInteger a = self.navigationController.navigationBar.frame.size.height;
     NSLog(@"navigationBar.frame.size.height [%d]", a);
-    /*
-     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"DetailImage" ofType:@"png"];
-     UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-     
-     imgBg.image = theImage;
-     
-     histDetailView.backgroundView = imgBg;
-     */
     
     NSString *str = buyHist.set01;
     NSLog(@"str [%@]", str);
     
-    // 詳細画面のタイトルを設定、表示（抽選日と回数を表示）
-    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
-	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
-	[outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
-	[outputDateFormatter setDateFormat:outputDateFormatterStr];
-    
+    // 詳細画面のタイトルに回数を表示
     if (buyHist.lotteryTimes > 0) {
-        self.title = [NSString stringWithFormat:@"%@ (第%d回)", [outputDateFormatter stringFromDate:buyHist.lotteryDate], buyHist.lotteryTimes];
+        self.title = [NSString stringWithFormat:@"第%d回", buyHist.lotteryTimes];
     }
     else {
-        self.title = [NSString stringWithFormat:@"%@ (第%d回)", [outputDateFormatter stringFromDate:lottery.lotteryDate], lottery.times];
+        self.title = [NSString stringWithFormat:@"第%d回", lottery.times];
     }
     // Scroll the table view to the top before it appears
     [self.tableView reloadData];
@@ -208,10 +196,9 @@
     // shouldReceiveTouchで処理を行っているので、本メソッドでは何もしない
 }
 
-- (void)btnSavePressed
-{
+- (IBAction)tabitemSavePress:(id)sender {
     [buyHist save];
-
+    
     [histDetailView beginUpdates];
     for (int idx=0; idx < 5; idx++) {
         
@@ -226,7 +213,6 @@
     }
     buyHist.isDbUpdate = 1;
     [histDetailView endUpdates];
-    //sleep(5);
 }
 
 #pragma mark - Table view data source
@@ -387,9 +373,28 @@
 
 	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	CGRect labelFrame = CGRectMake(20, 2, width, 30);
-	//if(section == 0) {
-	//	labelFrame.origin.y = 13;
-	//}
+    
+    if (section == 0) {
+        labelFrame = CGRectMake(0, 2, width, 30);
+        // 詳細画面のタイトルに表示しきれない抽選日をヘッダに表示
+        NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+        NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
+        [outputDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"JST"]];
+        [outputDateFormatter setDateFormat:outputDateFormatterStr];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont boldSystemFontOfSize:20];
+        label.shadowColor = [UIColor colorWithWhite:1.0 alpha:1];
+        label.shadowOffset = CGSizeMake(0, 1);
+        label.textColor = [UIColor colorWithRed:0.265 green:0.294 blue:0.367 alpha:1.000];
+        label.textAlignment = UITextAlignmentCenter;
+        label.text = [outputDateFormatter stringFromDate:lottery.lotteryDate];
+        [view addSubview:label];
+        
+        labelFrame = CGRectMake(20, 32, width, 30);
+    }
+    
 	UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
 	label.backgroundColor = [UIColor clearColor];
 	label.font = [UIFont boldSystemFontOfSize:17];
@@ -399,29 +404,14 @@
 	label.text = [self tableView:tableView titleForHeaderInSection:section];
 	[view addSubview:label];
 
-    if (section == 1) {
-        // 保存ボタン
-        UIButton *btn;
-        btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        btn.frame = CGRectMake(190,2,50,25);
-        [btn setTitle:@"保存" forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(btnSavePressed) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag = 101;
-        [view addSubview:btn];
-        
-        // 編集ボタン
-        btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        btn.frame = CGRectMake(250,2,50,25);
-        [btn setTitle:@"編集" forState:UIControlStateNormal];
-        //[btn addTarget:self action:@selector(btnEditPressed) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag = 102;
-        [view addSubview:btn];
-    }
-
 	return view;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if(section == 0) {
+		return 60;
+	}
+
     return 30.0;
 }
 
@@ -605,33 +595,55 @@
             buySetNo = indexPath.row;
 
             if (cell==nil) {
-                //NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-                
-                x = 10.0;
-                y = 2.0;
-                width = 23.0;
-                height = 23.0;
-                
-                int idx=0;
-                for (idx=0; idx < 6; idx++) {
+                if (buyHist.getCount > buySetNo) {
+                    //NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+                    
+                    x = 10.0;
+                    y = 2.0;
+                    width = 23.0;
+                    height = 23.0;
+                    
+                    int idx=0;
+                    for (idx=0; idx < 6; idx++) {
+                        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                        //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                        img.tag = idx+1;
+                        x = x + 26;
+                        [cell.contentView addSubview:img];
+                        //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+                    }
+
+                    // 当選情報の表示用
+                    x = x + 4;
                     UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-                    //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
                     img.tag = idx+1;
-                    x = x + 26;
                     [cell.contentView addSubview:img];
-                    //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:idx]];
+                    idx++;
+
+                    // ステータスの表示用
+                    x = x + 30;
+                    img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+                    //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
+                    //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
+                    img.tag = idx+1;
+                    [cell.contentView addSubview:img];
                 }
-                
-                // ステータスの表示用
-                x = x + 26;
-                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-                //[arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-                //[cell.contentView addSubview:[arrmBuyNo objectAtIndex:6]];
-                img.tag = idx+1;
-                [cell.contentView addSubview:img];
+                else {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                    
+                    UILabel *lbl;
+                    
+                    lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 35)];
+                    lbl.backgroundColor = [UIColor clearColor];
+                    lbl.font = [UIFont systemFontOfSize:12.0];
+                    lbl.textAlignment = UITextAlignmentCenter;
+                    lbl.textColor = [UIColor blackColor];
+                    lbl.text = @"さらに追加";
+                    [cell.contentView addSubview:lbl];
+                }
             }
             
             break;
@@ -716,13 +728,21 @@
             //NSLog(@"cell Sec01 idx[%d]", idx);
         }
         
+        if (buyHist.lotteryStatus == 1) {
+            NSString *imagePath = [[NSBundle mainBundle] pathForResource:[buyHist getPlaceImageName:[buyHist getPlace:buySetNo]] ofType:@"png"];
+            UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+            
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:7];
+            img.image = theImage;
+        }
+        
         if ([buyHist isUpdate:buySetNo]) {
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"StatusUpdate35" ofType:@"png"];
             UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
             //UIImageView *img = [arrmBuyNo objectAtIndex:6];
             //img.image = theImage;
             
-            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:7];
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:8];
             img.image = theImage;
         }
     }

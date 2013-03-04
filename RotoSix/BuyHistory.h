@@ -40,6 +40,7 @@
 -(NSInteger) getPlace:(NSInteger)setNoIndex;
 -(NSInteger) getCount;
 -(void) lotteryCheck:(Lottery *) lottery;
+-(NSString *)getPlaceImageName:(NSInteger) place;
 -(BOOL) isUpdate:(NSInteger)selBuyNo;
 -(void) removeSetData:(NSInteger)setNoIndex;
 -(void) setUpdate:(NSInteger)selBuyNo Status:(NSInteger)status;
