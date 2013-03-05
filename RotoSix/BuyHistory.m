@@ -119,7 +119,7 @@
         return place05;
     }
     
-    return @"";
+    return -1;
 }
 
 -(NSString*) changeSetNo:(NSInteger)setNoIndex SetNo:(NSString *)setNo {

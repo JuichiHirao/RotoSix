@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lA3-DI-vQm">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="lA3-DI-vQm">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -214,7 +214,7 @@
         <scene sceneID="kB8-FN-GiW">
             <objects>
                 <tableViewController id="Vgp-uj-upC" customClass="BuyHistoryViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="E2g-oQ-wF0">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="E2g-oQ-wF0">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -234,7 +234,7 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="履歴" id="V5K-aI-QAV">
-                        <barButtonItem key="rightBarButtonItem" tag="1" style="plain" systemItem="add" id="4wf-yK-RvQ">
+                        <barButtonItem key="rightBarButtonItem" tag="1" style="done" systemItem="add" id="4wf-yK-RvQ">
                             <connections>
                                 <segue destination="EMU-9J-dyi" kind="push" identifier="BuyRegist" id="E1j-iK-Rzc"/>
                             </connections>
@@ -302,7 +302,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vo3-aO-U24">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BuyRegistCell" id="vo3-aO-U24">
                                 <rect key="frame" x="0.0" y="46" width="320" height="46"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -454,13 +454,69 @@
             <point key="canvasLocation" x="573" y="700"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="BuyHistDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyHistDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="tabitemSavePress:"/>
+                <relationship kind="outlet" name="histDetailView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="tabitemSave" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="BuyHistoryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyHistoryViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="buyHistCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="histTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="BuyRegistViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyRegistViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="tabitemSavePress:"/>
+                <relationship kind="outlet" name="buyRegistView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="tabitemSave" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="BuyTimesSelectViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyTimesSelectViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnCancelPressed:"/>
+                <relationship kind="action" name="btnEndPressed:"/>
+                <relationship kind="action" name="btnPastSettingPressed:"/>
+                <relationship kind="outlet" name="btnPastSetting" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="picker" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
+        <class className="LotteryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LotteryViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="tabitemRefreshPress:"/>
+                <relationship kind="outlet" name="indicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="lotteryView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="tabitemRefresh" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="NumberSelectViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NumberSelectViewController.h"/>
+        </class>
+        <class className="SearchResultViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchResultViewController.h"/>
+        </class>
+        <class className="SearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchViewController.h"/>
+        </class>
+        <class className="SettingViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ssB-wz-ZjK"/>
-        <segue reference="lRB-S0-njV"/>
+        <segue reference="Pe0-GW-1ml"/>
+        <segue reference="XSG-ad-JIG"/>
     </inferredMetricsTieBreakers>
 </document>

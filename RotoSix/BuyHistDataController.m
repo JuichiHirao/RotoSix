@@ -14,7 +14,6 @@
 
 @interface BuyHistDataController()
 @property (nonatomic, copy, readwrite) NSMutableArray *list;
-- (void)createDemoData;
 @end
 
 @implementation BuyHistDataController

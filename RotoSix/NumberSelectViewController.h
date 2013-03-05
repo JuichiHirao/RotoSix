@@ -26,7 +26,7 @@
 @property (nonatomic, strong) UILabel *lblNotice;
 @property (weak, nonatomic) id <NumberSelectDelegate> delegate;
 
-- (void)btnCancelPresed;
+- (void)btnCancelPressed;
 - (void)btnEndPressed;
 
 @end

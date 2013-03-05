@@ -15,6 +15,4 @@
 
 @property (nonatomic, strong) NSMutableArray *arrSelNo;
 
-- (NSString *)getImageName:(NSString *)selected;
-
 @end

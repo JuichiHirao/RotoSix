@@ -63,7 +63,7 @@
             [listLottery addObject:lottery];
             
             //ここでデータを展開
-            NSLog(@"%d %@ %d %@ one %d %d two %d %d three %d %d four %d %d five %d %d   %ld %d"
+            NSLog(@"%d %@ %d %@ one %d %d two %d %d three %d %d four %d %d five %d %d   %lld %d"
                   , lottery.dbId, lottery.lotteryDate, lottery.times
                   , lottery.num_set, lottery.one_unit, lottery.one_amount, lottery.two_unit, lottery.two_amount
                   , lottery.three_unit, lottery.three_amount, lottery.four_unit, lottery.four_amount
@@ -343,7 +343,7 @@
     return listLottery;
 }
 
-+(NSMutableArray *)getPast:(NSInteger *)times MaxRow:(NSInteger)maxrow {
++(NSMutableArray *)getPast:(NSInteger)times MaxRow:(NSInteger)maxrow {
     
     //NSLog(@"getSearchNumSet nameset %@", numset);
     NSMutableArray *listLottery = [[NSMutableArray alloc] init];
