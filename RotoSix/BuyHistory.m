@@ -258,6 +258,55 @@
     return @"Lottery-no";
 }
 
+// sqliteのデータベースから情報を再取得する
+//   detail画面から更新してdetail画面へ戻った場合に更新ステータス更新が戻らない現象の解消のため
+-(void)reload {
+    
+    //作成したテーブルからデータを取得
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        FMResultSet *rs = [db executeQuery:@"SELECT lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history WHERE id = ?", [NSNumber numberWithInteger:dbId]];
+        
+        if ([db hadError]) {
+            NSLog(@"BuyHistroy.reload Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            return;
+        }
+        
+        while ([rs next]) {
+            lotteryTimes = [rs intForColumn:@"lottery_times"];
+            set01 = [rs stringForColumn:@"set01"];
+            place01 = [rs intForColumn:@"place01"];
+            set02 = [rs stringForColumn:@"set02"];
+            place02 = [rs intForColumn:@"place02"];
+            set03 = [rs stringForColumn:@"set03"];
+            place03 = [rs intForColumn:@"place03"];
+            set04 = [rs stringForColumn:@"set04"];
+            place04 = [rs intForColumn:@"place04"];
+            set05 = [rs stringForColumn:@"set05"];
+            place05 = [rs intForColumn:@"place05"];
+            lotteryStatus = [rs intForColumn:@"lottery_status"];
+            lotteryDate = [rs dateForColumn:@"lottery_date"];
+            
+            isDbUpdate = 0;
+            isSet01Update = 0;
+            isSet02Update = 0;
+            isSet03Update = 0;
+            isSet04Update = 0;
+            isSet05Update = 0;
+            //ここでデータを展開
+            //NSLog(@"%d 01[%@] 02[%@] 03[%@] 04[%@] 05[%@]", buyHist.dbId, [rs stringForColumn:@"set01"]
+            //      , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
+            //      , [rs stringForColumn:@"set05"]);
+        }
+        [rs close];
+        [db close];
+    }else{
+        //DBが開けなかったらここ
+    }    
+}
+
 -(void)save {
     //作成したテーブルからデータを取得
     FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];

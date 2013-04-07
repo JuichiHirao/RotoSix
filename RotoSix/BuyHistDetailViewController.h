@@ -13,7 +13,7 @@
 @class BuyHistory;
 @class NumberSelectViewController;
 
-@interface BuyHistDetailViewController : UITableViewController <NumberSelectDelegate, UIGestureRecognizerDelegate>
+@interface BuyHistDetailViewController : UITableViewController <NumberSelectDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *histDetailView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemSave;

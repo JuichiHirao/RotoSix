@@ -36,7 +36,10 @@
         
         if (![beforeNo isEqualToString:name]) {
             [buyHist setUpdate:selBuyNo Status:1];
+            buyHist.isDbUpdate = 1;
             NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]", beforeNo, name, selBuyNo);
+            // Saveボタンを有効にする
+            [_tabitemSave setEnabled:TRUE];
         }
     }
     else {
@@ -45,6 +48,10 @@
         buyHist.lotteryTimes = lottery.times;
         buyHist.lotteryDate = lottery.lotteryDate;
         [buyHist changeSetNo:0 SetNo:name];
+        buyHist.isDbUpdate = 1;
+        
+        // Saveボタンを有効にする
+        [_tabitemSave setEnabled:TRUE];
     }
     
     // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
@@ -81,6 +88,13 @@
         }
     }
     
+    UIButton *button = [UIButton buttonWithType:101];
+    [button setTitle:@"戻る" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(tabitemLeftBackPress:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
     // http://stackoverflow.com/questions/9367898/long-press-gesture-on-table-view-cell
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
@@ -91,6 +105,9 @@
     tapgr.delegate = self;
     [self.histDetailView addGestureRecognizer:tapgr];
     
+    // Saveボタンは無効にする
+    [_tabitemSave setEnabled:FALSE];
+
     // 下にヘルプの文字列を出す
     // 行の長押しをすると、番号のコピーが行えます
 }
@@ -213,6 +230,9 @@
     }
     buyHist.isDbUpdate = 1;
     [histDetailView endUpdates];
+    
+    // Saveボタンは無効にする
+    [_tabitemSave setEnabled:FALSE];
 }
 
 #pragma mark - Table view data source
@@ -269,8 +289,64 @@
         
         [self performSegueWithIdentifier:@"NumberInput" sender:self];
     }
+    
+    if (UITableViewCellEditingStyleDelete == editingStyle) {
+        [buyHist removeSetData:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
+#pragma mark - Alert delegate
+- (void) tabitemLeftBackPress:(id)sender
+{
+    NSLog(@"tabitemLeftBackPress");
+
+    BOOL isUpdate = NO;
+    for (int idx=0; idx<5; idx++) {
+        if ([buyHist isUpdate:idx] == 1) {
+            isUpdate = YES;
+            break;
+        }
+    }
+    
+    // 行が追加された場合のチェック
+    if (buyHist.isDbUpdate == 1)
+        isUpdate = YES;
+    
+    if (isUpdate == NO) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+
+    UIAlertView *alert = [[UIAlertView alloc] init];
+    alert.delegate = self;
+    alert.title = @"保存の確認";
+    alert.message = @"変更されたデータは破棄されます。データを保存しますか？";
+    [alert addButtonWithTitle:@"いいえ"];
+    [alert addButtonWithTitle:@"はい"];
+    [alert addButtonWithTitle:@"Cancel"];
+    alert.cancelButtonIndex = 2;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"clickedButtonAtIndex [%d] Cancel [%d]", buttonIndex, alertView.cancelButtonIndex);
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        return;
+    }
+    
+    // 1 : はいの場合に保存する
+    if (buttonIndex == 1) {
+        [buyHist save];
+    }
+    else
+        [buyHist reload];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
+
+#pragma mark - NavigationController view delegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"NumberInput"]) {
@@ -375,6 +451,14 @@
 	CGRect labelFrame = CGRectMake(20, 2, width, 30);
     
     if (section == 0) {
+        NSDate *dispDate;
+        if (buyHist.lotteryTimes > 0) {
+            dispDate = buyHist.lotteryDate;
+        }
+        else {
+            dispDate = lottery.lotteryDate;
+        }
+
         labelFrame = CGRectMake(0, 2, width, 30);
         // 詳細画面のタイトルに表示しきれない抽選日をヘッダに表示
         NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
@@ -389,7 +473,7 @@
         label.shadowOffset = CGSizeMake(0, 1);
         label.textColor = [UIColor colorWithRed:0.265 green:0.294 blue:0.367 alpha:1.000];
         label.textAlignment = UITextAlignmentCenter;
-        label.text = [outputDateFormatter stringFromDate:lottery.lotteryDate];
+        label.text = [outputDateFormatter stringFromDate:dispDate];
         [view addSubview:label];
         
         labelFrame = CGRectMake(20, 32, width, 30);

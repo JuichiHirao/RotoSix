@@ -44,6 +44,7 @@
 -(BOOL) isUpdate:(NSInteger)selBuyNo;
 -(void) removeSetData:(NSInteger)setNoIndex;
 -(void) setUpdate:(NSInteger)selBuyNo Status:(NSInteger)status;
+-(void) reload;
 -(void) save;
 -(void) remove;
 
