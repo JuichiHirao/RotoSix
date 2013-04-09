@@ -338,6 +338,15 @@
     // 1 : はいの場合に保存する
     if (buttonIndex == 1) {
         [buyHist save];
+        
+        // 既に番号選択された行が存在しない場合はリストから削除？
+        // リストから無くなる警告が必要な上に、履歴リスト画面のスワイプで削除できるので特には行わない
+        NSInteger cnt;
+        cnt = [buyHist getCount];
+        
+        if (cnt <= 0) {
+            
+        }
     }
     else
         [buyHist reload];
