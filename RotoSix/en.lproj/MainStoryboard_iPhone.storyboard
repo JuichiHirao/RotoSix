@@ -158,10 +158,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="BxZ-XH-pQO">
-                            <rect key="frame" x="0.0" y="66" width="320" height="37"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LotteryCell" id="YvI-EL-Gip">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -177,17 +173,9 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="当選" id="IWd-sx-nDW">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="8Bx-vX-4ud">
-                            <connections>
-                                <action selector="tabitemRefreshPress:" destination="4Nz-wU-sjA" id="hgn-7B-F5T"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="当選" id="IWd-sx-nDW"/>
                     <connections>
-                        <outlet property="indicator" destination="BxZ-XH-pQO" id="6mu-vV-xh2"/>
                         <outlet property="lotteryView" destination="ayL-wE-ZR4" id="5au-kA-0lv"/>
-                        <outlet property="tabitemRefresh" destination="8Bx-vX-4ud" id="L22-wO-SGP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Mh-lS-MkO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -517,7 +505,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Pe0-GW-1ml"/>
+        <segue reference="ssB-wz-ZjK"/>
         <segue reference="lRB-S0-njV"/>
     </inferredMetricsTieBreakers>
 </document>

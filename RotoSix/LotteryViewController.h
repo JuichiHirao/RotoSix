@@ -15,6 +15,7 @@
 @class SBJsonStreamParserAdapter;
 
 @interface LotteryViewController : UITableViewController {
+    UIRefreshControl *_refreshControl;
     SBJsonStreamParser *parser;
     SBJsonStreamParserAdapter *adapter;
     
@@ -24,10 +25,5 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *lotteryView;
 @property (nonatomic, strong) LotteryDataController *dataController;
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemRefresh;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
-
-- (IBAction)tabitemRefreshPress:(id)sender;
 
 @end

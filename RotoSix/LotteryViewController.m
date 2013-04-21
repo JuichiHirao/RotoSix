@@ -49,6 +49,74 @@
     imgBg.image = theImage;
     
     lotteryView.backgroundView = imgBg;
+    
+    [self createRefreshControl];
+}
+
+-(void)createRefreshControl
+{
+    // UIRefreshControlの生成と実装
+    _refreshControl = [[UIRefreshControl alloc]init];
+    [_refreshControl addTarget:self action:@selector(refreshStart) forControlEvents:UIControlEventValueChanged];
+    [lotteryView addSubview:_refreshControl];
+    
+    //タイトルの設定
+    //NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    //[attributes setObject:[UIColor whiteColor] forKey:NSBackgroundColorAttributeName];  //タイトルの背景色
+    //[attributes setObject:[UIColor redColor] forKey:NSForegroundColorAttributeName];  //タイトルの文字色
+    
+    //NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"更新" attributes:attributes];
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"更新" attributes:nil];
+    _refreshControl.attributedTitle = title;  //タイトルの挿入
+    
+//    _refreshControl.tintColor = [UIColor orangeColor];  //色の設定
+}
+
+-(void)refreshStart
+{
+    NSLog(@"Refresh start!!");
+    
+    /*このメソッドでくるくる開始*/
+    [_refreshControl beginRefreshing];   //インスタンスメソッド
+    
+    //[self performSelector:@selector(refreshFinished) withObject:nil afterDelay:5.0f];
+    
+    Lottery *newdata = [LotteryDataController getNewest];
+    NSString *urlStr = [NSString stringWithFormat:@"http://desolate-bayou-6096.herokuapp.com/lotteries/%d/newest", newdata.times];
+    NSLog(@"Request URL: %@", urlStr);
+    NSURL *url = [NSURL URLWithString:urlStr];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    //	[request setValue:@"application/xml"forHTTPHeaderField:@"Content-Type"];
+	[request setHTTPMethod:@"GET"];
+    
+    // We don't want *all* the individual messages from the
+	// SBJsonStreamParser, just the top-level objects. The stream
+	// parser adapter exists for this purpose.
+	adapter = [[SBJsonStreamParserAdapter alloc] init];
+	
+	// Set ourselves as the delegate, so we receive the messages
+	// from the adapter.
+	adapter.delegate = self;
+	
+	// Create a new stream parser..
+	parser = [[SBJsonStreamParser alloc] init];
+	
+	// .. and set our adapter as its delegate.
+	parser.delegate = adapter;
+	
+	// Normally it's an error if JSON is followed by anything but
+	// whitespace. Setting this means that the parser will be
+	// expecting the stream to contain multiple whitespace-separated
+	// JSON documents.
+	parser.supportMultipleDocuments = YES;
+    
+    self.view.userInteractionEnabled=NO;
+    self.navigationController.navigationBar.userInteractionEnabled = NO;
+	//UIView *grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
+    //[grayView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8]];
+    //[self.view addSubview:grayView];
+    
+	[NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -225,7 +293,6 @@
     }
     self.view.userInteractionEnabled=YES;
     self.navigationController.navigationBar.userInteractionEnabled = YES;
-    _indicator.hidden = YES;
 }
 
 // OBJECTが1つの場合は、このdelegateが呼ばれる
@@ -236,7 +303,6 @@
     
     self.view.userInteractionEnabled=YES;
     self.navigationController.navigationBar.userInteractionEnabled = YES;
-    _indicator.hidden = YES;
 }
 
 #pragma mark - Table view delegate
@@ -254,59 +320,7 @@
 
 - (void)viewDidUnload {
     [self setLotteryView:nil];
-    [self setTabitemRefresh:nil];
-    [self setIndicator:nil];
     [super viewDidUnload];
-}
-
-- (IBAction)tabitemRefreshPress:(id)sender {
-    Lottery *newdata = [LotteryDataController getNewest];
-    NSString *urlStr = [NSString stringWithFormat:@"http://desolate-bayou-6096.herokuapp.com/lotteries/%d/newest", newdata.times];
-    NSLog(@"Request URL: %@", urlStr);
-    NSURL *url = [NSURL URLWithString:urlStr];
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//	[request setValue:@"application/xml"forHTTPHeaderField:@"Content-Type"];
-	[request setHTTPMethod:@"GET"];
-    
-    // We don't want *all* the individual messages from the
-	// SBJsonStreamParser, just the top-level objects. The stream
-	// parser adapter exists for this purpose.
-	adapter = [[SBJsonStreamParserAdapter alloc] init];
-	
-	// Set ourselves as the delegate, so we receive the messages
-	// from the adapter.
-	adapter.delegate = self;
-	
-	// Create a new stream parser..
-	parser = [[SBJsonStreamParser alloc] init];
-	
-	// .. and set our adapter as its delegate.
-	parser.delegate = adapter;
-	
-	// Normally it's an error if JSON is followed by anything but
-	// whitespace. Setting this means that the parser will be
-	// expecting the stream to contain multiple whitespace-separated
-	// JSON documents.
-	parser.supportMultipleDocuments = YES;
-    
-    //UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    //[self.view addSubview:indicator];
-    
-    // 画面の中央に表示するようにframeを変更する
-    float w = _indicator.frame.size.width;
-    float h = _indicator.frame.size.height;
-    float x =self.view.frame.size.width/2- w/2;
-    float y =self.view.frame.size.height/2- h/2;
-    _indicator.frame =CGRectMake(x, y, w, h);
-    
-    self.view.userInteractionEnabled=NO;
-    self.navigationController.navigationBar.userInteractionEnabled = NO;
-	//UIView *grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
-    //[grayView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8]];
-    //[self.view addSubview:grayView];
-
-    [_indicator startAnimating];
-	[NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 // サーバからレスポンスヘッダを受け取ったときに呼び出される
@@ -358,7 +372,8 @@
 
     self.view.userInteractionEnabled=YES;
     self.navigationController.navigationBar.userInteractionEnabled = YES;
-    _indicator.hidden = YES;
+    
+    [_refreshControl endRefreshing];  //インスタンスメソッド
 }
 
 // 接続でエラーが発生した場合に呼び出される
@@ -368,10 +383,8 @@
           [error code],
           [error localizedDescription]);
     
-    [_indicator stopAnimating];
     self.view.userInteractionEnabled=YES;
     self.navigationController.navigationBar.userInteractionEnabled = YES;
-    _indicator.hidden = YES;
     
     //ネットワークに接続されていない時
     if([error code] ==  NSURLErrorNotConnectedToInternet){
