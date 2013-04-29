@@ -20,6 +20,7 @@
 {
     NSArray *listData;
     id <BuyRegistDelegate> delegate;
+    BuyTimesSelectViewController *buyTimesSelectViewController;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *buyRegistView;

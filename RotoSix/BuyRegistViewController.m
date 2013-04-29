@@ -9,6 +9,8 @@
 #import "BuyRegistViewController.h"
 #import "BuyHistDataController.h"
 #import "LotteryDataController.h"
+#import "BuyTimesSelectViewController.h"
+#import "AppDelegate.h"
 
 @interface BuyRegistViewController ()
 
@@ -69,6 +71,11 @@
     
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
     [buyRegistView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self hideModal:controller.view];
+}
+
+- (void)BuyTimesSelectBtnCancel:(BuyTimesSelectViewController *)controller {
+    [self hideModal:controller.view];
 }
 
 #pragma mark - View Controller Method
@@ -350,6 +357,37 @@
     return cell;
 }
 
+#pragma mark - Modal View Method
+- (void) showModal:(UIView *) modalView
+{
+    UIWindow *mainWindow = (((AppDelegate *) [UIApplication sharedApplication].delegate).window);
+    CGPoint middleCenter = modalView.center;
+    CGSize offSize = [UIScreen mainScreen].bounds.size;
+    CGPoint offScreenCenter = CGPointMake(offSize.width * 0.5f, offSize.height * 1.5f);
+    modalView.center = offScreenCenter;
+    
+    [mainWindow addSubview:modalView];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.3f];
+    modalView.center = middleCenter;
+    [UIView commitAnimations];
+    self.view.alpha = 0.8f;
+}
+
+- (void) hideModal:(UIView*) modalView
+{
+    CGSize offSize = [UIScreen mainScreen].bounds.size;
+    CGPoint offScreenCenter = CGPointMake(offSize.width * 0.5f, offSize.height * 1.5f);
+    [UIView beginAnimations:nil context:(__bridge_retained void *)(modalView)];
+    [UIView setAnimationDuration:0.3f];
+    [UIView setAnimationDelegate:self];
+    //[UIView setAnimationDidStopSelector:@selector(hideModalEnded:finished:context:)];
+    modalView.center = offScreenCenter;
+    [UIView commitAnimations];
+    self.view.alpha = 1.0f;
+}
+
 #pragma mark - Item Action Method
 - (IBAction)btnCancelPress:(id)sender {
     [self dismissModalViewControllerAnimated:YES];
@@ -384,7 +422,15 @@
             selBuyNumbers = [buyHist getSetNo:indexPath.row];
             selBuyNo = indexPath.row;
         }
-        [self performSegueWithIdentifier:@"BuyTimesSelect" sender:self];
+        
+        UIStoryboard *myStoryBoard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+        buyTimesSelectViewController = [myStoryBoard instantiateViewControllerWithIdentifier:@"BuyTimesSelect"];
+        buyTimesSelectViewController.delegate = self;
+        buyTimesSelectViewController.arrLottery = arrLottery;
+        [self showModal:buyTimesSelectViewController.view];
+//        isDispDatePicker = YES;
+        
+        //[self performSegueWithIdentifier:@"BuyTimesSelect" sender:self];
     }
     
     if (indexPath.section == 1) {
