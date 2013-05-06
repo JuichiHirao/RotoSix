@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "NumberSelectViewController.h"
 #import "Lottery.h"
+#import "UseModalTableViewController.h"
 
 @class BuyHistory;
 @class NumberSelectViewController;
 
-@interface BuyHistDetailViewController : UITableViewController <NumberSelectDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
+@interface BuyHistDetailViewController : UseModalTableViewController <NumberSelectDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *histDetailView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemSave;

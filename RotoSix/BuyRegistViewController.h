@@ -10,17 +10,17 @@
 #import "NumberSelectViewController.h"
 #import "BuyTimesSelectViewController.h"
 #import "BuyHistory.h"
+#import "UseModalTableViewController.h"
 
 @class NumberSelectViewController;
 @class BuyTimesSelectViewController;
 
 @protocol BuyRegistDelegate;
 
-@interface BuyRegistViewController : UITableViewController <NumberSelectDelegate, BuyTimesSelectDelegate>
+@interface BuyRegistViewController : UseModalTableViewController <NumberSelectDelegate, BuyTimesSelectDelegate>
 {
     NSArray *listData;
     id <BuyRegistDelegate> delegate;
-    BuyTimesSelectViewController *buyTimesSelectViewController;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *buyRegistView;

@@ -11,6 +11,7 @@
 #import "LotteryDataController.h"
 #import "BuyTimesSelectViewController.h"
 #import "AppDelegate.h"
+#import "UseModalTableViewController.h"
 
 @interface BuyRegistViewController ()
 
@@ -40,21 +41,26 @@
     if (buyHist == nil ) {
         buyHist = [[BuyHistory alloc] init];
     }
-    NSString *beforeNo = [buyHist getSetNo:selBuyNo];
     
-    [buyHist changeSetNo:selBuyNo SetNo:name];
-    
-    if (![beforeNo isEqualToString:name]) {
-        NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]  buyHist getCount[%d]", beforeNo, name, selBuyNo, [buyHist getCount]);
+    if (![name isEqual:@"Cancel"]) {
+        NSString *beforeNo = [buyHist getSetNo:selBuyNo];
+        
+        [buyHist changeSetNo:selBuyNo SetNo:name];
+        
+        if (![beforeNo isEqualToString:name]) {
+            NSLog(@"NumberSelectBtnEnd change!! beforeNo [%@] -> [%@]  row [%d]  buyHist getCount[%d]", beforeNo, name, selBuyNo, [buyHist getCount]);
+        }
+        else {
+            NSLog(@"NumberSelectBtnEnd no change!! beforeNo [%@] -> [%@]  row [%d]  buyHist getCount[%d]", beforeNo, name, selBuyNo, [buyHist getCount]);
+        }
+        
+        // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
+        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+        [buyRegistView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        [buyRegistView endUpdates];
     }
-    else {
-        NSLog(@"NumberSelectBtnEnd no change!! beforeNo [%@] -> [%@]  row [%d]  buyHist getCount[%d]", beforeNo, name, selBuyNo, [buyHist getCount]);
-    }
     
-    // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
-    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
-    [buyRegistView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-    [buyRegistView endUpdates];
+    [self hideModal:controller.view];
 }
 
 - (void)BuyTimesSelectBtnEnd:(BuyTimesSelectViewController *)controller SelectIndex:(NSInteger)index SelectLottery:(Lottery *)lottery SelectTimes:(NSInteger)buyTimes {
@@ -357,57 +363,9 @@
     return cell;
 }
 
-#pragma mark - Modal View Method
-- (void) showModal:(UIView *) modalView
-{
-    UIWindow *mainWindow = (((AppDelegate *) [UIApplication sharedApplication].delegate).window);
-    CGPoint middleCenter = modalView.center;
-    CGSize offSize = [UIScreen mainScreen].bounds.size;
-    CGPoint offScreenCenter = CGPointMake(offSize.width * 0.5f, offSize.height * 1.5f);
-    modalView.center = offScreenCenter;
-    
-    [mainWindow addSubview:modalView];
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3f];
-    modalView.center = middleCenter;
-    [UIView commitAnimations];
-    self.view.alpha = 0.8f;
-}
-
-- (void) hideModal:(UIView*) modalView
-{
-    CGSize offSize = [UIScreen mainScreen].bounds.size;
-    CGPoint offScreenCenter = CGPointMake(offSize.width * 0.5f, offSize.height * 1.5f);
-    [UIView beginAnimations:nil context:(__bridge_retained void *)(modalView)];
-    [UIView setAnimationDuration:0.3f];
-    [UIView setAnimationDelegate:self];
-    //[UIView setAnimationDidStopSelector:@selector(hideModalEnded:finished:context:)];
-    modalView.center = offScreenCenter;
-    [UIView commitAnimations];
-    self.view.alpha = 1.0f;
-}
-
 #pragma mark - Item Action Method
 - (IBAction)btnCancelPress:(id)sender {
     [self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"NumberInput"]) {
-        
-        //NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
-        NumberSelectViewController *numInputlViewController = [segue destinationViewController];
-        numInputlViewController.buyNumbers = selBuyNumbers;
-        numInputlViewController.delegate = self;
-    }
-    else if ([[segue identifier] isEqualToString:@"BuyTimesSelect"]) {
-        BuyTimesSelectViewController *buyTimesSelectController = [segue destinationViewController];
-        buyTimesSelectController.arrLottery = arrLottery;
-        buyTimesSelectController.delegate = self;
-    }
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -423,29 +381,11 @@
             selBuyNo = indexPath.row;
         }
         
-        UIStoryboard *myStoryBoard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-        buyTimesSelectViewController = [myStoryBoard instantiateViewControllerWithIdentifier:@"BuyTimesSelect"];
-        buyTimesSelectViewController.delegate = self;
-        buyTimesSelectViewController.arrLottery = arrLottery;
-        [self showModal:buyTimesSelectViewController.view];
-//        isDispDatePicker = YES;
-        
-        //[self performSegueWithIdentifier:@"BuyTimesSelect" sender:self];
+        [self showModalBuyTimesSelect:arrLottery];
     }
     
-    if (indexPath.section == 1) {
-        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-        
-        NSLog(@" cell [%p]", cell);
-        NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
-        
-        if (indexPath.section==1) {
-            selBuyNumbers = [buyHist getSetNo:indexPath.row];
-            selBuyNo = indexPath.row;
-        }
-        
-        [self performSegueWithIdentifier:@"NumberInput" sender:self];
-    }
+    if (indexPath.section == 1)
+        [self showModalNumberInput:@""];
 }
 
 - (IBAction)tabitemSavePress:(id)sender {

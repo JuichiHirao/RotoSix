@@ -11,6 +11,7 @@
 #import "NumberSelectViewController.h"
 #import "BuyHistDataController.h"
 #import "LotteryDataController.h"
+#import "UseModalTableViewController.h"
 
 @interface BuyHistDetailViewController ()
 
@@ -30,6 +31,13 @@
 // DELEGATE 
 -(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
     NSString *beforeNo = [buyHist getSetNo:selBuyNo];
+
+    if ([name isEqual:@"Cancel"]) {
+//        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+        [self hideModal:controller.view];
+        [histDetailView deselectRowAtIndexPath:[histDetailView indexPathForSelectedRow] animated:YES];
+        return;
+    }
 
     if (buyHist.lotteryTimes > 0) {
         [buyHist changeSetNo:selBuyNo SetNo:name];
@@ -57,6 +65,8 @@
     // セクションを全て更新（各種のデリゲートメソッドも再実行される heightForRowAtIndexPath,numberOfRowsInSection etc...）
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
     [histDetailView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [self hideModal:controller.view];
 }
 
 #pragma mark - View Controller Method
@@ -287,7 +297,7 @@
         }
         selBuyNumbers = @"";
         
-        [self performSegueWithIdentifier:@"NumberInput" sender:self];
+        [self showModalNumberInput:selBuyNumbers];
     }
     
     if (UITableViewCellEditingStyleDelete == editingStyle) {
@@ -356,17 +366,6 @@
 }
 
 #pragma mark - NavigationController view delegate
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"NumberInput"]) {
-        
-        //NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
-        NumberSelectViewController *numInputlViewController = [segue destinationViewController];
-        numInputlViewController.buyNumbers = selBuyNumbers;
-        numInputlViewController.delegate = self;
-    }
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger rows = 0;
@@ -865,16 +864,10 @@
         selBuyNo = indexPath.row;
     }
     
-    [self performSegueWithIdentifier:@"NumberInput" sender:self];
-/*  黒の背景を止めたいので、以下の記述したが正しく動作せず
-    iOS View Controller プログラミングガイド120216.pdf P43 リスト2-4 View Controllerをウインドウのルートview Controllerとしてインストール
-    UIWindow *win = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    NumberSelectViewController *numInputlViewController = [[NumberSelectViewController alloc] init];
-    numInputlViewController.buyNumbers = selBuyNumbers;
-    win.rootViewController = numInputlViewController;
+    selBuyNumbers = [buyHist getSetNo:indexPath.row];
+    selBuyNo = indexPath.row;
     
-    [win makeKeyAndVisible];
- */
+    [self showModalNumberInput:selBuyNumbers];
 }
 
 @end

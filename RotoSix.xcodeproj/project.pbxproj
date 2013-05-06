@@ -144,6 +144,7 @@
 		A2D785C4165C498B004E0EF4 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D785C3165C498B004E0EF4 /* Background.png */; };
 		A2DA1B2115FA270400E036F7 /* DetailImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2015FA270400E036F7 /* DetailImage.png */; };
 		A2DA1B2315FA31E600E036F7 /* No03-35.png in Resources */ = {isa = PBXBuildFile; fileRef = A2DA1B2215FA31E600E036F7 /* No03-35.png */; };
+		A2E45EE61737A3E300254952 /* UseModalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E45EE51737A3E300254952 /* UseModalTableViewController.m */; };
 		A2E55BC216D25995001718BB /* Lottery-1st.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E55BBC16D25995001718BB /* Lottery-1st.png */; };
 		A2E55BC316D25995001718BB /* Lottery-2nd.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E55BBD16D25995001718BB /* Lottery-2nd.png */; };
 		A2E55BC416D25995001718BB /* Lottery-3rd.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E55BBE16D25995001718BB /* Lottery-3rd.png */; };
@@ -155,6 +156,7 @@
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
 		A2F1394D16665C7A005C6C1C /* LotteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F1394C16665C7A005C6C1C /* LotteryViewController.m */; };
 		A2F1426C163C01C500D6385D /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
+		A2F3F8D81726C3DF007B313C /* TimesDialog.png in Resources */ = {isa = PBXBuildFile; fileRef = A2F3F8D71726C3DF007B313C /* TimesDialog.png */; };
 		A2F8645B16CCF372008CFCE2 /* SearchDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F8645A16CCF372008CFCE2 /* SearchDataController.m */; };
 		A2F8645E16CCF4CF008CFCE2 /* Search.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F8645D16CCF4CF008CFCE2 /* Search.m */; };
 		A2FD1D6016611508001290F5 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FD1D5F16611508001290F5 /* SettingViewController.m */; };
@@ -351,6 +353,8 @@
 		A2D785C3165C498B004E0EF4 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		A2DA1B2015FA270400E036F7 /* DetailImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DetailImage.png; sourceTree = "<group>"; };
 		A2DA1B2215FA31E600E036F7 /* No03-35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No03-35.png"; sourceTree = "<group>"; };
+		A2E45EE41737A3E300254952 /* UseModalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UseModalTableViewController.h; sourceTree = "<group>"; };
+		A2E45EE51737A3E300254952 /* UseModalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UseModalTableViewController.m; sourceTree = "<group>"; };
 		A2E55BBC16D25995001718BB /* Lottery-1st.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lottery-1st.png"; sourceTree = "<group>"; };
 		A2E55BBD16D25995001718BB /* Lottery-2nd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lottery-2nd.png"; sourceTree = "<group>"; };
 		A2E55BBE16D25995001718BB /* Lottery-3rd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lottery-3rd.png"; sourceTree = "<group>"; };
@@ -364,6 +368,7 @@
 		A2ED92F015EF847D0051CD57 /* No01-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15.png"; sourceTree = "<group>"; };
 		A2F1394B16665C7A005C6C1C /* LotteryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LotteryViewController.h; sourceTree = "<group>"; };
 		A2F1394C16665C7A005C6C1C /* LotteryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LotteryViewController.m; sourceTree = "<group>"; };
+		A2F3F8D71726C3DF007B313C /* TimesDialog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TimesDialog.png; sourceTree = "<group>"; };
 		A2F8645916CCF372008CFCE2 /* SearchDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDataController.h; sourceTree = "<group>"; };
 		A2F8645A16CCF372008CFCE2 /* SearchDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDataController.m; sourceTree = "<group>"; };
 		A2F8645C16CCF4CF008CFCE2 /* Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Search.h; sourceTree = "<group>"; };
@@ -603,6 +608,7 @@
 				A214F2A51636D19A00AE0C36 /* FMResultSet.m */,
 				A226947116075F1E00A930EA /* ResourceImage */,
 				A20B00E916037FD60056F01A /* NumberSelectBackground.png */,
+				A2F3F8D71726C3DF007B313C /* TimesDialog.png */,
 				A2D785C3165C498B004E0EF4 /* Background.png */,
 				A26A3A0415FC35EF00181646 /* No01-20.png */,
 				A2DA1B2215FA31E600E036F7 /* No03-35.png */,
@@ -652,6 +658,8 @@
 				A2F8645A16CCF372008CFCE2 /* SearchDataController.m */,
 				A2F8645C16CCF4CF008CFCE2 /* Search.h */,
 				A2F8645D16CCF4CF008CFCE2 /* Search.m */,
+				A2E45EE41737A3E300254952 /* UseModalTableViewController.h */,
+				A2E45EE51737A3E300254952 /* UseModalTableViewController.m */,
 			);
 			path = RotoSix;
 			sourceTree = "<group>";
@@ -865,6 +873,7 @@
 				A2E55BC716D25995001718BB /* Lottery-no.png in Resources */,
 				A202788016E0AB7A00F22EFB /* Loto6-icon.png in Resources */,
 				A202788816E0B7A400F22EFB /* Loto6-icon@2x.png in Resources */,
+				A2F3F8D81726C3DF007B313C /* TimesDialog.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -939,6 +948,7 @@
 				A236AC3216C9317100C97590 /* SearchViewController.m in Sources */,
 				A2F8645B16CCF372008CFCE2 /* SearchDataController.m in Sources */,
 				A2F8645E16CCF4CF008CFCE2 /* Search.m in Sources */,
+				A2E45EE61737A3E300254952 /* UseModalTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

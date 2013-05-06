@@ -352,11 +352,12 @@
     }
 
     [[self delegate] NumberSelectBtnEnd:self SelectNumber:selNo];
-    [self dismissModalViewControllerAnimated:YES];
+    //[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)btnCancelPressed {
-    [self dismissModalViewControllerAnimated:YES];
+    [[self delegate] NumberSelectBtnEnd:self SelectNumber:@"Cancel"];
+    //[self dismissModalViewControllerAnimated:YES];
 }
 
 - (NSString *)getSelectNumber
@@ -366,7 +367,7 @@
 		if([[layer name] isEqualToString:@"NumberSelect"]) {
             for(CALayer *layerSub in layer.sublayers) {
                 NSString *selected = [layerSub valueForKey:@"selected"];
-                //NSLog(@"%@", [NSString stringWithFormat:@"getSelectNumber layername %@", [layerSub name]]);
+                NSLog(@"%@", [NSString stringWithFormat:@"getSelectNumber layername %@ selected [%@]", [layerSub name], selected]);
                 
                 if ([selected isEqualToString:@"1"]) {
                     NSString *layerNo = [NSString stringWithFormat:@",%@", [layerSub.name substringWithRange:NSMakeRange(2, 2)]];
@@ -376,7 +377,9 @@
             }
 		}
 	}
-    selNum = [selNum substringFromIndex:1];
+    
+    if (selNum.length > 0)
+        selNum = [selNum substringFromIndex:1];
     
     NSLog(@"%@", [NSString stringWithFormat:@"getSelectNumber %@", selNum]);
     

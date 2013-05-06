@@ -29,6 +29,10 @@
     NSLog(@"NumberSelectBtnEnd name [%@]", name );
 //    NSMutableArray *arrData = [LotteryDataController getSearchNumSet:name];
 
+    if ([name isEqual:@"Cancel"]) {
+        [self hideModal:controller.view];
+        return;
+    }
     if (selSearch == nil) {
         selSearch = [[Search alloc] init];
     }
@@ -253,22 +257,12 @@
 }
 
 - (void)btnSelectSearchNumberPress {
-    
-    [self performSegueWithIdentifier:@"NumberInput" sender:self];
+    [self showModalNumberInput:@"" MinSelectNumber:4 MaxSelectNumber:6];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([[segue identifier] isEqualToString:@"NumberInput"]) {
-        
-        //NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
-        NumberSelectViewController *numInputlViewController = [segue destinationViewController];
-        numInputlViewController.buyNumbers = @"";
-        numInputlViewController.minSelNum = 4;
-        numInputlViewController.maxSelNum = 6;
-        numInputlViewController.delegate = self;
-    }
-    else {
+    if ([[segue identifier] isEqualToString:@"SearchResult"]) {
         SearchResultViewController *searchResultViewController = [segue destinationViewController];
         searchResultViewController.delegate = self;
         searchResultViewController.search = selSearch;

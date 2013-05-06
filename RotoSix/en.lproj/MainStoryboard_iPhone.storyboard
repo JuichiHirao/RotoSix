@@ -26,7 +26,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="検索" id="dC5-hY-xYr"/>
                     <connections>
-                        <segue destination="KqJ-gk-oxf" kind="modal" identifier="NumberInput" id="KT0-nS-7lV"/>
                         <segue destination="MZI-Qf-Qnh" kind="push" identifier="SearchResult" id="zPF-Gf-olm"/>
                     </connections>
                 </tableViewController>
@@ -274,7 +273,6 @@
                     <connections>
                         <outlet property="histDetailView" destination="iaA-oA-Bj1" id="Ocd-cO-QGV"/>
                         <outlet property="tabitemSave" destination="VaY-KB-xjd" id="3hL-v9-4Gr"/>
-                        <segue destination="KqJ-gk-oxf" kind="modal" identifier="NumberInput" id="lRB-S0-njV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7V-z7-2p6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -313,7 +311,6 @@
                     <connections>
                         <outlet property="buyRegistView" destination="wax-yR-vZl" id="m2L-7p-eWC"/>
                         <outlet property="tabitemSave" destination="mUA-NW-W2J" id="D6i-A5-r4T"/>
-                        <segue destination="KqJ-gk-oxf" kind="modal" identifier="NumberInput" id="XSG-ad-JIG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3CI-Dz-0wl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -321,12 +318,12 @@
             <point key="canvasLocation" x="2152" y="408"/>
         </scene>
         <!--Number Select View Controller-->
-        <scene sceneID="60X-P2-icw">
+        <scene sceneID="EXP-GJ-0AI">
             <objects>
-                <viewController autoresizesArchivedViewToFullSize="NO" id="KqJ-gk-oxf" customClass="NumberSelectViewController" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fKg-wN-mEv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="NumberSelect" id="PKS-80-nbC" customClass="NumberSelectViewController" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kff-7X-lfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2644" y="263"/>
+            <point key="canvasLocation" x="2644" y="317"/>
         </scene>
         <!--Buy Times Select View Controller-->
         <scene sceneID="IQC-9l-2py">
@@ -449,12 +446,26 @@
             </objects>
             <point key="canvasLocation" x="573" y="700"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="RsC-xV-zJk">
+            <objects>
+                <viewController id="ukI-7F-Bfd" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Jg0-Hr-1xI">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tee-VT-GOP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="TimesDialog.png" width="640" height="200"/>
     </resources>
     <classes>
-        <class className="BuyHistDetailViewController" superclassName="UITableViewController">
+        <class className="BuyHistDetailViewController" superclassName="UseModalTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyHistDetailViewController.h"/>
             <relationships>
                 <relationship kind="action" name="tabitemSavePress:"/>
@@ -469,7 +480,7 @@
                 <relationship kind="outlet" name="histTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
-        <class className="BuyRegistViewController" superclassName="UITableViewController">
+        <class className="BuyRegistViewController" superclassName="UseModalTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyRegistViewController.h"/>
             <relationships>
                 <relationship kind="action" name="btnCancelPress:"/>
@@ -506,11 +517,14 @@
         <class className="SearchResultViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchResultViewController.h"/>
         </class>
-        <class className="SearchViewController" superclassName="UITableViewController">
+        <class className="SearchViewController" superclassName="UseModalTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchViewController.h"/>
         </class>
         <class className="SettingViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingViewController.h"/>
+        </class>
+        <class className="UseModalTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UseModalTableViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -520,6 +534,5 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ssB-wz-ZjK"/>
-        <segue reference="lRB-S0-njV"/>
     </inferredMetricsTieBreakers>
 </document>
