@@ -36,7 +36,8 @@
     if (selSearch == nil) {
         selSearch = [[Search alloc] init];
     }
-    
+    [self hideModal:controller.view];
+
     selSearch.num_set = name;
     [self performSegueWithIdentifier:@"SearchResult" sender:self];
 }

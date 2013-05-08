@@ -109,6 +109,10 @@
 -(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewCellEditingStyleDelete == editingStyle) {
         int count = [buyHist getCount];
+        
+        if (indexPath.row+1 > count)
+            return;
+        
         [buyHist removeSetData:indexPath.row];
         // 最大まで追加されている場合にdeleteRowsAtIndexPathsを実行すると
         // 「さらに追加」があるので行数は変わらないのに、行を削除しようとするのでExceptionになるので
@@ -376,16 +380,15 @@
         NSLog(@" cell [%p]", cell);
         NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
         
-        if (indexPath.section==1) {
-            selBuyNumbers = [buyHist getSetNo:indexPath.row];
-            selBuyNo = indexPath.row;
-        }
-        
         [self showModalBuyTimesSelect:arrLottery];
     }
     
-    if (indexPath.section == 1)
-        [self showModalNumberInput:@""];
+    if (indexPath.section==1) {
+        selBuyNumbers = [buyHist getSetNo:indexPath.row];
+        selBuyNo = indexPath.row;
+        
+        [self showModalNumberInput:selBuyNumbers];
+    }
 }
 
 - (IBAction)tabitemSavePress:(id)sender {
