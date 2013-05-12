@@ -18,6 +18,8 @@
 #pragma mark - Modal View Method
 - (void) showModal:(UIView *) modalView
 {
+    self.view.userInteractionEnabled=NO;
+    
     UIWindow *mainWindow = (((AppDelegate *) [UIApplication sharedApplication].delegate).window);
     CGPoint middleCenter = modalView.center;
     CGSize offSize = [UIScreen mainScreen].bounds.size;
@@ -63,6 +65,8 @@
 
 - (void) hideModal:(UIView*) modalView
 {
+    self.view.userInteractionEnabled=YES;
+
     CGSize offSize = [UIScreen mainScreen].bounds.size;
     CGPoint offScreenCenter = CGPointMake(offSize.width * 0.5f, offSize.height * 1.5f);
     
