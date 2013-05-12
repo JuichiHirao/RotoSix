@@ -483,7 +483,6 @@
         <class className="BuyRegistViewController" superclassName="UseModalTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BuyRegistViewController.h"/>
             <relationships>
-                <relationship kind="action" name="btnCancelPress:"/>
                 <relationship kind="action" name="tabitemSavePress:"/>
                 <relationship kind="outlet" name="buyRegistView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="tabitemSave" candidateClass="UIBarButtonItem"/>
