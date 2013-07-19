@@ -521,7 +521,7 @@
     lottery.three_unit = [(NSString*)[dict objectForKey:@"three_unit"] intValue];
     lottery.three_amount = [(NSString*)[dict objectForKey:@"three_amount"] intValue];
     lottery.four_unit = [(NSString*)[dict objectForKey:@"four_unit"] intValue];
-    lottery.four_amount = [(NSString*)[dict objectForKey:@"four_unit"] intValue];
+    lottery.four_amount = [(NSString*)[dict objectForKey:@"four_amount"] intValue];
     lottery.five_unit = [(NSString*)[dict objectForKey:@"five_unit"] intValue];
     lottery.five_amount = [(NSString*)[dict objectForKey:@"five_amount"] intValue];
     lottery.sales = [(NSString*)[dict objectForKey:@"sales"] longLongValue];
