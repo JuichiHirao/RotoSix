@@ -46,7 +46,7 @@
         imgview.hidden = NO;
         [self.view addSubview:imgview];
         
-        [UIView animateWithDuration:2.0f animations:^{
+        [UIView animateWithDuration:0.5f animations:^{
             //imgview.alpha = 0.7; // 正常に動作しないので後回し
             modalView.center = middleCenter;
         }];
