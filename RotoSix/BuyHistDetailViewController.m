@@ -681,12 +681,18 @@
 
             break;
         case 1:
-            CellIdentifier = @"CellBuyHistDetailSection01";
+            buySetNo = indexPath.row;
+            if (buyHist.getCount > buySetNo) {
+                CellIdentifier = @"CellBuyHistDetailSection01Normal";
+            }
+            else {
+                CellIdentifier = @"CellBuyHistDetailSection01Add";
+            }
+                
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-            buySetNo = indexPath.row;
-
             if (cell==nil) {
+                //NSLog(@"buyHist.getCount [%d] buySetNo = indexPath.row [%d]", buyHist.getCount, buySetNo);
                 if (buyHist.getCount > buySetNo) {
                     //NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -735,7 +741,11 @@
                     lbl.textColor = [UIColor blackColor];
                     lbl.text = @"さらに追加";
                     [cell.contentView addSubview:lbl];
+                    //NSLog(@"cell さらに追加 [%p]  [%@]", cell, CellIdentifier);
                 }
+            }
+            else {
+                //NSLog(@"cell is not null [%p] [%@]", cell, CellIdentifier);
             }
             
             break;
@@ -806,6 +816,7 @@
     }
     else if (indexPath.section==1) {
         NSString *setNo = [buyHist getSetNo:buySetNo];
+        //NSLog(@"indexPath.section==1 [buyHist getSetNo:buySetNo] [%@] ", [buyHist getSetNo:buySetNo]);
         
         NSArray *arrBuySingleNo = [setNo componentsSeparatedByString:@","];
         

@@ -172,27 +172,10 @@
 	return nil;
 }
 
-/* ビューから指定されたlayer.nameでレイヤーを探す
-- (CALayer *)layerForName:(NSString *)name
-{
-	for(CALayer *layer in selpanelView.layer.sublayers) {
-        NSLog(@"%@", [NSString stringWithFormat:@"selpanelView.layer.sublayers %@", [layer name]]);
-		if([[layer name] isEqualToString:name]) {
-			return layer;
-		}
-	}
-    
-	return nil;
-}
- */
-
 - (void)loadView {
 
     selpanelView = [[NumberSelectView alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
-//    selpanelView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
-//    selpanelView = [[UIView alloc] initWithFrame:self.view.frame]; // 落ちる
     selpanelView.opaque = NO;
-//    selpanelView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
     selpanelView.backgroundColor = [UIColor clearColor];
     
     NSArray *arrBuyNo = [buyNumbers componentsSeparatedByString:@","];
@@ -206,7 +189,7 @@
     if (buyNumbers.length > 0) {
         selectNoCount = [arrBuyNo count];
     }
-    NSLog(@"loadView selectNoCount %d  buyNumbers [%@]", selectNoCount, buyNumbers);
+    // NSLog(@"loadView selectNoCount %d  buyNumbers [%@]", selectNoCount, buyNumbers);
 
     // 番号選択の最大数の設定
     if (maxSelNum <= 0)
@@ -218,52 +201,41 @@
     LayerNumberSelect *selpanel = [LayerNumberSelect layer];
     //selpanel.bounds = CGRectMake(0, 0, 300, 340);
     selpanel.name = @"NumberSelect";
-    selpanel.frame = CGRectMake(0, 0, 300, 450);
-    selpanel.position = CGPointMake(160, 270);
+    CGFloat panelSizeY = 410;
+    selpanel.frame = CGRectMake(0, 0, 300, panelSizeY);
+    
+    CGFloat posY = (selpanelView.bounds.size.height / 2 ) + (selpanelView.bounds.size.height / 2 - panelSizeY / 2);
+    // NSLog(@"loadView posY [%f]   selpanelView.bounds.size.height [%f]", posY, selpanelView.bounds.size.height);
+    selpanel.position = CGPointMake(160, posY); // posY <-- iPhone5 : 284(568/2) + 59(568/2-panelSizeY/2) =  343, other 240 + 15 = 255
     selpanel.arrSelNo = marrBuyNo;
 
-/*  背景画像（表示されない）
-    CALayer *bgLayer = [CALayer layer];
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"NumberSelectBackground" ofType:@"png"];
-    UIImage *bgImage = [UIImage imageWithContentsOfFile:imagePath];
-    CGRect  bgFrame = CGRectMake(0.0, 0.0, 300, 460);
-    selpanel.contents = (id)bgImage.CGImage;
-    selpanel.frame = bgFrame;
-    
-    [selpanelView.layer addSublayer:bgLayer];
- */
     // 背景色の設定
     CGColorSpaceRef rgbColorspace = CGColorSpaceCreateDeviceRGB();
     // R, G, B, Alpha
-//    CGFloat values[4] = {0.0, 0.0, 0.0, 0.0}; // black
-    CGFloat values[4] = {1.0, 1.0, 1.0, 1.0}; // white
+    CGFloat values[4] = {1.0, 1.0, 1.0, 1.0}; // white (blackだと{0.0, 0.0, 0.0, 0.0})
     CGColorRef red = CGColorCreate(rgbColorspace, values);
     selpanel.backgroundColor = red;
     selpanel.opacity = YES;
 
     [selpanel setNeedsDisplay];
     [selpanelView.layer addSublayer:selpanel];
-//    [self.view clearsContextBeforeDrawing];
+    
+    CGFloat posBarY = selpanelView.bounds.size.height - panelSizeY - 44;
+    UIToolbar *barTool = [ [ UIToolbar alloc ] initWithFrame:CGRectMake( 10, posBarY, 300, 44 ) ];
+    
+    UIBarButtonItem *barBtnCancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector( barBtnCancel: )];
+    UIBarButtonItem *barBtnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector( barBtnDone: )];
+    UIBarButtonItem *barBtnSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    barTool.items = [NSArray arrayWithObjects:barBtnCancel, barBtnSpacer, barBtnDone, nil];
+
+    [selpanelView addSubview:barTool];
+
     self.view = selpanelView;
 
 }
 
 - (void)viewDidLoad
 {
-/*
-    img1_1 = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 5.0, 45.0, 45.0)];
-    [super viewDidLoad];
-    LayerNumberSelect *selpanel = [LayerNumberSelect layer];
-    selpanel.bounds = CGRectMake(0, 0, 300, 340);
-    selpanel.position = CGPointMake(0, 10);
-    
-    selpanelView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
-    [selpanelView.layer addSublayer:selpanel];
-    
-//    [self.view clearsContextBeforeDrawing];
-    [self.view addSubview:selpanelView];
-  */
-
     int viewCnt = 0;
     for (UIView *subView in [self.view subviews]) {
         viewCnt++;
@@ -272,52 +244,18 @@
 
     self.view.opaque = NO;
     self.view.backgroundColor = [UIColor clearColor];
-//    selpanelView.opaque = NO;
-//    selpanelView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
-
-	// Do any additional setup after loading the view.
-    // 決定ボタン
-	UIButton *btn;
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(230,430,70,30);
-    //[btn setFont:[UIFont systemFontOfSize:14.0]];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [btn setTitle:@"選択" forState:UIControlStateNormal];
-	[btn addTarget:self action:@selector(btnEndPressed) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:btn];
-
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(155,430,70,30);
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:12.0]];
-    [btn setTitle:@"キャンセル" forState:UIControlStateNormal];
-	[btn addTarget:self action:@selector(btnCancelPressed) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:btn];
     
-    lblNotice = [[UILabel alloc] initWithFrame:CGRectMake(90.0, 420, 200.0, 10.0)];
-//    lbl.backgroundColor = [UIColor clearColor];
+    lblNotice = [[UILabel alloc] initWithFrame:CGRectMake(45 + 10 + 5, selpanelView.bounds.size.height - 45 - 10, 250.0, 50.0)];
     lblNotice.font = [UIFont systemFontOfSize:11.0];
-//    lbl.textAlignment = UITextAlignmentRight;
+    lblNotice.textAlignment = UITextAlignmentCenter;
     lblNotice.textColor = [UIColor blackColor];
-    lblNotice.text = @"これはテストだよ、12345678903434535";
-    lblNotice.hidden = YES;
-//    lbl.opaque = 1.0;
+
     [self.view addSubview:lblNotice];
-  
-/*
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(15,420,70,30);
-    [btn setFont:[UIFont systemFontOfSize:12.0]];
-    [btn setTitle:@"元に戻す" forState:UIControlStateNormal];
-	[btn addTarget:self action:@selector(btnEndPressed) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:btn];
- */
-//    [self.view addSubview:img1_1];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -325,13 +263,13 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)btnEndPressed {
+- (void)barBtnDone:(id)sender {
     NSString *selNo = [self getSelectNumber];
-
+    
     NSArray *arrBuySingleNo = [selNo componentsSeparatedByString:@","];
-
+    
     if (!([arrBuySingleNo count] <= maxSelNum
-        && [arrBuySingleNo count] >= minSelNum)) {
+          && [arrBuySingleNo count] >= minSelNum)) {
         if (minSelNum < maxSelNum) {
             lblNotice.text = [NSString stringWithFormat:@"%d〜%d個の数字を選択して下さい", minSelNum, maxSelNum];
         }
@@ -350,14 +288,14 @@
                                         repeats:NO];
         return;
     }
-
+    
     [[self delegate] NumberSelectBtnEnd:self SelectNumber:selNo];
-    //[self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)btnCancelPressed {
+- (void)barBtnCancel:(id)sender
+{
     [[self delegate] NumberSelectBtnEnd:self SelectNumber:@"Cancel"];
-    //[self dismissModalViewControllerAnimated:YES];
+	return;
 }
 
 - (NSString *)getSelectNumber
