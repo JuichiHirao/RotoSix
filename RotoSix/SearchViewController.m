@@ -228,7 +228,7 @@
     return cell;
 }
 
-- (void)btnSelectSearchNumberPress {
+- (IBAction)tabitemSearchAddPress:(id)sender {
     [self showModalNumberInput:@"" MinSelectNumber:4 MaxSelectNumber:6];
 }
 
