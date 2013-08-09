@@ -21,4 +21,7 @@
 
 @property (nonatomic, strong) SearchDataController *dataController;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemSearchAdd;
+- (IBAction)tabitemSearchAddPress:(id)sender;
+
 @end

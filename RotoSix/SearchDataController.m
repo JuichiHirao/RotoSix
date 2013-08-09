@@ -34,6 +34,9 @@
 }
 
 - (void)removeObjectInListAtIndex:(unsigned)theIndex {
+    Search *search = [list objectAtIndex:theIndex];
+    [search remove];
+
     [list removeObjectAtIndex:theIndex];
 }
 

@@ -16,5 +16,6 @@
 @property (nonatomic, assign) NSInteger matchCount;
 
 -(void)save;
+-(void)remove;
 
 @end

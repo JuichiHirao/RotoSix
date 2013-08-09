@@ -45,7 +45,7 @@
 - (void)RegistSearchEnd {
     NSLog(@"RegistSearchEnd");
     [dataController load];
-    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
     [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 //    [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -67,7 +67,9 @@
     dataController = data;
 
     self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    //[self setEditing:YES animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,43 +82,33 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    }
-    else {
-        return [dataController countOfList];
-    }
-    
-    return 1;
+    return [dataController countOfList];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = 0;
-    
-    switch (indexPath.section) {
-        case 0:
-            height = 50.0;
-            break;
-        case 1:
-            height = 50.0;
-            break;
-        default:
-            break;
-    }
-    return height;
+
+    return 50.0;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
-        return NO;
-    else
-        return YES;
+    return YES;
+}
+
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (UITableViewCellEditingStyleDelete == editingStyle) {
+        [dataController removeObjectInListAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,27 +124,6 @@
     switch (indexPath.section) {
         case 0:
         {
-            CellIdentifier = @"CellSearchSec00";
-            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            }
-            NSLog(@"cell nil CellIdentifier [%@] [%p]", CellIdentifier, cell);
-
-            // 保存ボタン
-            UIButton *btn;
-            btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            btn.frame = CGRectMake(10,5,300,40);
-            [btn setTitle:@"検索する番号の選択" forState:UIControlStateNormal];
-            [btn addTarget:self action:@selector(btnSelectSearchNumberPress) forControlEvents:UIControlEventTouchUpInside];
-            //btn.tag = 101;
-            [cell.contentView addSubview:btn];
-            
-            break;
-        }
-        case 1:
-        {
             searchAtIndex = [dataController objectInListAtIndex:indexPath.row];
             
             CellIdentifier = @"CellSearchSec01";
@@ -161,7 +132,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
-            
+
             UILabel *lbl = (UILabel*)[cell.contentView viewWithTag:1];
             
             if (lbl==nil) {
@@ -222,7 +193,7 @@
     
     NSString *imageCellBgPath;
     switch (indexPath.section) {
-        case 1:
+        case 0:
             imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
             rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
             
@@ -285,6 +256,11 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+- (void)viewDidUnload {
+    [self setTabitemSearchAdd:nil];
+    [super viewDidUnload];
 }
 
 @end

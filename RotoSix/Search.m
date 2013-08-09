@@ -56,4 +56,33 @@
     }
 }
 
+-(void)remove {
+    
+    //作成したテーブルからデータを取得
+    FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        [db beginTransaction];
+        
+        NSString *strSql = [NSString stringWithFormat:@"DELETE FROM search WHERE id = ?"];
+        NSLog(@"DELETE FROM search WHERE id = %d", dbId);
+        
+        [db executeUpdate:strSql, [NSNumber numberWithInteger:dbId]];
+        
+        if ([db hadError]) {
+            NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+            [db rollback];
+        }
+        else {
+            [db commit];
+        }
+        
+        [db close];
+        
+    }else{
+        //DBが開けなかったらここ
+    }
+}
+
 @end
