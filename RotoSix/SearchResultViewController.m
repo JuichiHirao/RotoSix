@@ -44,6 +44,20 @@
     }
     else
         search.matchCount = 0;
+    
+    int total = 0;
+    int bestLottery = 10;
+    for (int idx=0; idx < [arrResult count]; idx++) {
+        Lottery *data = arrResult[idx];
+        
+        total += [data getRankingAmount];
+        
+        if (data.lotteryRanking < bestLottery)
+            bestLottery = data.lotteryRanking;
+    }
+    search.totalAmount = total;
+    search.bestLottery = bestLottery;
+    NSLog(@"lottery totalAmount [%d] bestLottery [%d]", total, bestLottery);
 
     [search save];
 
@@ -109,17 +123,13 @@
         return cell;
     }
     Lottery *lotteryAtIndex = arrResult[indexPath.row];
-    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]", indexPath.section, indexPath.row, lotteryAtIndex.times);
-    
-    //if (indexPath.row == 0) {
-    //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    //NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]  lotteryRanking [%d]", indexPath.section, indexPath.row, lotteryAtIndex.times, lotteryAtIndex.lotteryRanking);
     
     UILabel *lbl = (UILabel*)[cell.contentView viewWithTag:1];
     
     NSInteger idxImgTag;
     if (lbl==nil) {
-        NSLog(@"cell create");
+        //NSLog(@"cell create");
         
         lbLotteryDate = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0.0, 120.0, 15.0)];
         lbLotteryDate.tag = 1;
@@ -140,7 +150,7 @@
         [cell.contentView addSubview:lbKaisuu];
 
         lbLotteryRanking = [[UILabel alloc] initWithFrame:CGRectMake(180.0, 5.0, 50.0, 20.0)];
-        lbLotteryRanking.tag = 2;
+        lbLotteryRanking.tag = 3;
         lbLotteryRanking.backgroundColor = [UIColor clearColor];
         lbLotteryRanking.font = [UIFont systemFontOfSize:18.0];
         lbLotteryRanking.textAlignment = UITextAlignmentCenter;
@@ -169,6 +179,7 @@
     else {
         lbLotteryDate = (UILabel*)[cell.contentView viewWithTag:1];
         lbKaisuu = (UILabel*)[cell.contentView viewWithTag:2];
+        lbLotteryRanking = (UILabel*)[cell.contentView viewWithTag:3];
         
         UIImageView *img;
         for (idxImgTag = 11; idxImgTag <= 17; idxImgTag++) {
@@ -195,12 +206,8 @@
     
     lbKaisuu.text = [NSString stringWithFormat:@"第%d回", lotteryAtIndex.times];      // @"第689回";
     lbLotteryRanking.text = [NSString stringWithFormat:@"%d等", lotteryAtIndex.lotteryRanking];
-    NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  buyHist.lotteryTimes [%d]   lbLotteryDate.text [%@]"
-          , indexPath.section, indexPath.row, lotteryAtIndex.times, [outputDateFormatter stringFromDate:lotteryAtIndex.lotteryDate]);
-    
-    //NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"BallIcon-48" ofType:@"png"];
-    // データの取得
-    //BuyHistory *buyHist = [dataController objectInListAtIndex:indexPath.row];
+    //NSLog(@"cellForRowAtIndexPath sec[%d] row[%d]  lotteryAtIndex lotteryTimes [%d]   lbLotteryDate.text [%@]  lotteryRanking [%d]"
+    //      , indexPath.section, indexPath.row, lotteryAtIndex.times, [outputDateFormatter stringFromDate:lotteryAtIndex.lotteryDate], lotteryAtIndex.lotteryRanking);
     
     idxImgTag = 11;
     NSString *setNo = [lotteryAtIndex num_set];

@@ -26,6 +26,28 @@
     }
 }
 
+- (NSInteger)getRankingAmount {
+    if (lotteryRanking <= 0)
+        return 0;
+    
+    if (lotteryRanking == 1)
+        return one_amount;
+    
+    if (lotteryRanking == 2)
+        return two_amount;
+    
+    if (lotteryRanking == 3)
+        return three_amount;
+    
+    if (lotteryRanking == 4)
+        return four_amount;
+    
+    if (lotteryRanking == 5)
+        return five_amount;
+    
+    return 0;
+}
+
 // 使用しないが参考のために保存
 - (NSString *)getCammaSales {
     //NSString *data = [NSString stringWithFormat:@"%lld", sales];

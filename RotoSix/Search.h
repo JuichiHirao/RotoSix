@@ -14,8 +14,11 @@
 @property (nonatomic, strong) NSString *num_set;
 @property (nonatomic, strong) NSDate *registDate;
 @property (nonatomic, assign) NSInteger matchCount;
+@property (nonatomic, assign) NSInteger totalAmount;
+@property (nonatomic, assign) NSInteger bestLottery;
 
 -(void)save;
 -(void)remove;
+-(NSString *)getBestLotteryImageName;
 
 @end

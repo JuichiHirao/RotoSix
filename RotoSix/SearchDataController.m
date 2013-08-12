@@ -57,7 +57,7 @@
             }
         }
  */
-        FMResultSet *rs = [db executeQuery:@"SELECT id, num_set, regist_date, match_count FROM search order by regist_date desc"];
+        FMResultSet *rs = [db executeQuery:@"SELECT id, num_set, regist_date, match_count, total_amount, best_lottery FROM search order by regist_date desc"];
         
         if (db.lastErrorCode > 0) {
             NSString *msg = db.lastErrorMessage;
@@ -66,7 +66,17 @@
                 [db executeUpdate:@"create table search(id integer primary key autoincrement, num_set text, regist_date date, match_count integer)"];
                 NSLog(@"db.lastErrorCode %d  [%@]", db.lastErrorCode, db.lastErrorMessage);
                 
-                rs = [db executeQuery:@"SELECT id, num_set, regist_date, match_count FROM search order by regist_date desc"];
+                rs = [db executeQuery:@"SELECT id, num_set, regist_date, match_count, total_amount, best_lottery FROM search order by regist_date desc"];
+            }
+            if ([msg isEqualToString:@"no such column: total_amount"] == YES) {
+                [db executeUpdate:@"alter table search add column total_amount integer"];
+                NSLog(@"db.lastErrorCode %d  [%@]", db.lastErrorCode, db.lastErrorMessage);
+                [db executeUpdate:@"alter table search add column best_lottery integer"];
+                NSLog(@"db.lastErrorCode %d  [%@]", db.lastErrorCode, db.lastErrorMessage);
+                [db executeUpdate:@"vacuum"];
+                NSLog(@"db.lastErrorCode %d  [%@]", db.lastErrorCode, db.lastErrorMessage);
+                
+                rs = [db executeQuery:@"SELECT id, num_set, regist_date, match_count, total_amount, best_lottery FROM search order by regist_date desc"];
             }
         }
 
@@ -78,6 +88,8 @@
             search.num_set = [rs stringForColumn:@"num_set"];
             search.registDate = [rs dateForColumn:@"regist_date"];
             search.matchCount = [rs intForColumn:@"match_count"];
+            search.totalAmount = [rs intForColumn:@"total_amount"];
+            search.bestLottery = [rs intForColumn:@"best_lottery"];
             
             [listSearch addObject:search];
             

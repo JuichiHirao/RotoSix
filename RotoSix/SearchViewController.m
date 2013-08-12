@@ -92,7 +92,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    return 50.0;
+    return 80.0;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,7 +116,7 @@
     static NSString *CellIdentifier = @"";
     UITableViewCell *cell;
     
-    UILabel *lbMatchCount, *lbCreateDate;
+    UILabel *lbMatchCount, *lbCreateDate, *lblTotal, *lblTotalAmount;
     UIImage *rowBackground;
     Search *searchAtIndex;
     NSInteger idxImgTag;
@@ -155,17 +155,40 @@
                 lbMatchCount.textColor = [UIColor blackColor];
                 
                 [cell.contentView addSubview:lbMatchCount];
+
+                lblTotal = [[UILabel alloc] initWithFrame:CGRectMake(60.0, 60.0, 80.0, 20.0)];
+                lblTotal.tag = 3;
+                lblTotal.backgroundColor = [UIColor clearColor];
+                lblTotal.font = [UIFont systemFontOfSize:11.0];
+                lblTotal.textAlignment = UITextAlignmentLeft;
+                lblTotal.textColor = [UIColor blackColor];
                 
+                [cell.contentView addSubview:lblTotal];
+
+                lblTotalAmount = [[UILabel alloc] initWithFrame:CGRectMake(140.0, 62.0, 100.0, 15.0)];
+                lblTotalAmount.tag = 4;
+                lblTotalAmount.backgroundColor = [UIColor clearColor];
+                lblTotalAmount.font = [UIFont systemFontOfSize:14.0];
+                lblTotalAmount.textAlignment = UITextAlignmentLeft;
+                lblTotalAmount.textColor = [UIColor blackColor];
+                
+                [cell.contentView addSubview:lblTotalAmount];
+
+                UIImageView *imgBestLottery = [[UIImageView alloc] initWithFrame:CGRectMake(10, 45, 30, 30)];
+                imgBestLottery.tag = 5;
+                
+                [cell.contentView addSubview:imgBestLottery];
+
                 CGFloat x = 10.0;
                 CGFloat y = 15.0;
-                CGFloat width = 30.0;
-                CGFloat height = 30.0;
+                CGFloat width = 25.0;
+                CGFloat height = 25.0;
                 
                 idxImgTag = 11;
                 for (int idxSub=0; idxSub < 6; idxSub++) {
                     UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
                     img.tag = idxImgTag;
-                    x = x + 45;
+                    x = x + 30;
                     
                     [cell.contentView addSubview:img];
                     idxImgTag++;
@@ -176,6 +199,8 @@
             else {
                 lbCreateDate = (UILabel*)[cell.contentView viewWithTag:1];
                 lbMatchCount = (UILabel*)[cell.contentView viewWithTag:2];
+                lblTotal = (UILabel*)[cell.contentView viewWithTag:3];
+                lblTotalAmount = (UILabel*)[cell.contentView viewWithTag:4];
                 
                 UIImageView *img;
                 for (idxImgTag = 11; idxImgTag <= 40; idxImgTag++) {
@@ -206,6 +231,20 @@
             lbCreateDate.text = [outputDateFormatter stringFromDate:searchAtIndex.registDate];
             
             lbMatchCount.text = [NSString stringWithFormat:@"%d", searchAtIndex.matchCount];
+
+            NSString *imagePath = [[NSBundle mainBundle] pathForResource:[searchAtIndex getBestLotteryImageName] ofType:@"png"];
+            UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
+            
+            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:5];
+            img.image = theImage;
+            
+
+            lblTotal.text = @"当選合計金額";
+            NSNumberFormatter *fmtNum = [[NSNumberFormatter alloc]init];
+            [fmtNum setPositiveFormat:@"###,###,###,##0"];
+            NSString *dispText = [NSString stringWithFormat:@"%@円", [fmtNum stringFromNumber:[NSNumber numberWithInt:searchAtIndex.totalAmount]]];
+            lblTotalAmount.text = dispText;
+
             NSLog(@"cellForRowAtIndexPath sec[%d] row[%d] search.num_set [%@]  search.matchCount [%d]   lbLotteryDate.text [%@]"
                   , indexPath.section, indexPath.row, searchAtIndex.num_set, searchAtIndex.matchCount, [outputDateFormatter stringFromDate:searchAtIndex.registDate]);
             
