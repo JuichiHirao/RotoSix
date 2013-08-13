@@ -245,8 +245,8 @@
             NSString *dispText = [NSString stringWithFormat:@"%@円", [fmtNum stringFromNumber:[NSNumber numberWithInt:searchAtIndex.totalAmount]]];
             lblTotalAmount.text = dispText;
 
-            NSLog(@"cellForRowAtIndexPath sec[%d] row[%d] search.num_set [%@]  search.matchCount [%d]   lbLotteryDate.text [%@]"
-                  , indexPath.section, indexPath.row, searchAtIndex.num_set, searchAtIndex.matchCount, [outputDateFormatter stringFromDate:searchAtIndex.registDate]);
+            //NSLog(@"cellForRowAtIndexPath sec[%d] row[%d] search.num_set [%@]  search.matchCount [%d]   lbLotteryDate.text [%@]"
+            //      , indexPath.section, indexPath.row, searchAtIndex.num_set, searchAtIndex.matchCount, [outputDateFormatter stringFromDate:searchAtIndex.registDate]);
             
             idxImgTag = 11;
             for (int idxBuySet=0; idxBuySet<5; idxBuySet++) {

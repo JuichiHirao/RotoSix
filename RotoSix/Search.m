@@ -37,7 +37,7 @@
         else {
             NSString *strSql = [NSString stringWithFormat:@"INSERT INTO search ( "
                                 @"num_set, regist_date, match_count, total_amount, best_lottery"
-                                @" ) VALUES(?, ?, ?)"];
+                                @" ) VALUES(?, ?, ?, ?, ?)"];
 
             [db executeUpdate:strSql
              , num_set, registDate
