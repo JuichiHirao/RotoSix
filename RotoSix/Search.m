@@ -14,6 +14,18 @@
 
 @synthesize dbId, num_set, registDate, matchCount, totalAmount, bestLottery;
 
+- (id)init
+{
+    if (self = [super init]) {
+        self.dbId = -1;
+        self.num_set = @"";
+        self.matchCount = 0;
+        self.totalAmount = 0;
+        self.bestLottery = 0;
+    }
+    return self;
+}
+
 -(void)save {
     //作成したテーブルからデータを取得
     FMDatabase* db = [FMDatabase databaseWithPath:[DatabaseFileController getTranFile]];
