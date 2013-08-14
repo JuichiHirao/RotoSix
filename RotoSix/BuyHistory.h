@@ -47,5 +47,6 @@
 -(void) reload;
 -(void) save;
 -(void) remove;
++(BOOL) validateNumSet:(NSString *)data;
 
 @end

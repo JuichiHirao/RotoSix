@@ -258,6 +258,28 @@
     return @"Lottery-no";
 }
 
+// パラメータの文字列がNumSetのデータとして正しいかの検証をする
++(BOOL) validateNumSet:(NSString *)data {
+    if (data.length != 17) {
+        return FALSE;
+    }
+    
+    NSArray *arrData = [data componentsSeparatedByString:@","];
+    
+    if ([arrData count] != 6) {
+        return FALSE;
+    }
+    
+    int val;
+    for (int idx=0; idx < [arrData count]; idx++) {
+        NSScanner* scan = [NSScanner scannerWithString:arrData[idx]];
+        if ([scan scanInt:&val] == FALSE)
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
 // sqliteのデータベースから情報を再取得する
 //   detail画面から更新してdetail画面へ戻った場合に更新ステータス更新が戻らない現象の解消のため
 -(void)reload {

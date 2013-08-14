@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LayerNumberSelect.h"
 #import "NumberSelectView.h"
+#import "BuyHistory.h"
 
 @protocol NumberSelectDelegate;
 
@@ -18,6 +19,8 @@
     NSInteger selectNoCount;
     id <NumberSelectDelegate> delegate;
     bool isAnimation;
+    bool isPaste;
+    NSInteger pasteNumCount;
 }
 
 @property (nonatomic, strong) NSString *buyNumbers;
@@ -25,9 +28,6 @@
 @property (nonatomic) NSInteger maxSelNum;
 @property (nonatomic, strong) UILabel *lblNotice;
 @property (weak, nonatomic) id <NumberSelectDelegate> delegate;
-
-- (void)btnCancelPressed;
-- (void)btnEndPressed;
 
 @end
 

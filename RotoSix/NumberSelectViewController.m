@@ -7,6 +7,7 @@
 //
 
 #import "NumberSelectViewController.h"
+#import "BuyHistory.h"
 
 @interface NumberSelectViewController ()
 
@@ -94,7 +95,6 @@
 {
 	// CAAnimationにKEY-VALUEで格納されているLayer名を取得する
 	NSString *animName = [theAnimation valueForKey:@"layername"];
-    NSLog(@"%@", [NSString stringWithFormat:@"animationDidStop animName %@", animName]);
 
     CALayer *findlayer = [self layerForName:animName];
 
@@ -112,17 +112,31 @@
     else
         selectNoCount--;
 
-    if (selectNoCount > maxSelNum) {
-        // エラーメッセージは２秒で自動的に消す
-        lblNotice.text = @"どれかを選択解除してから番号を選択して下さい";
-        lblNotice.hidden = NO;
-        [NSTimer scheduledTimerWithTimeInterval:2
-                                         target:self
-                                       selector:@selector(finishErrorMessage:)
-                                       userInfo:nil
-                                        repeats:NO];
-        selectNoCount--;
-        return;
+    if (isPaste == FALSE) {
+        if (selectNoCount > maxSelNum) {
+            // エラーメッセージは２秒で自動的に消す
+            lblNotice.text = @"どれかを選択解除してから番号を選択して下さい";
+            lblNotice.hidden = NO;
+            [NSTimer scheduledTimerWithTimeInterval:2
+                                             target:self
+                                           selector:@selector(finishErrorMessage:)
+                                           userInfo:nil
+                                            repeats:NO];
+            selectNoCount--;
+            return;
+        }
+    }
+    
+    if (pasteNumCount > 0) {
+        NSLog(@"%@", [NSString stringWithFormat:@"animationDidStop animName %@ pasteNumCount [%d]", animName, pasteNumCount]);
+        pasteNumCount--;
+        
+        if (pasteNumCount <= 0) {
+            isPaste = FALSE;
+        }
+    }
+    else {
+        NSLog(@"%@", [NSString stringWithFormat:@"animationDidStop animName %@", animName]);
     }
     
     isAnimation = NO;
@@ -224,14 +238,34 @@
     UIToolbar *barTool = [ [ UIToolbar alloc ] initWithFrame:CGRectMake( 10, posBarY, 300, 44 ) ];
     
     UIBarButtonItem *barBtnCancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector( barBtnCancel: )];
+    UIBarButtonItem *barBtnPaste = [[UIBarButtonItem alloc] initWithTitle:@"Paste" style:UIBarButtonItemStyleBordered target:self action:@selector( barBtnPaste: )];
     UIBarButtonItem *barBtnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector( barBtnDone: )];
     UIBarButtonItem *barBtnSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    barTool.items = [NSArray arrayWithObjects:barBtnCancel, barBtnSpacer, barBtnDone, nil];
+    barTool.items = [NSArray arrayWithObjects:barBtnCancel, barBtnSpacer, barBtnPaste, barBtnDone, nil];
 
     [selpanelView addSubview:barTool];
 
     self.view = selpanelView;
 
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    
+    NSString *data = pasteboard.string;
+    
+    if (data == nil ) {
+        [barBtnPaste setEnabled:FALSE];
+        NSLog(@"pasteboard nil");
+    }
+    else  {
+        NSLog(@"pasteboard [%@]", pasteboard.string);
+        
+        // ペースとされたデータのチェックは他のオブジェクトで実装して共通化する
+        if ([BuyHistory validateNumSet:data]) {
+            [barBtnPaste setEnabled:TRUE];
+        }
+        else {
+            [barBtnPaste setEnabled:FALSE];
+        }
+    }
 }
 
 - (void)viewDidLoad
@@ -292,6 +326,83 @@
     [[self delegate] NumberSelectBtnEnd:self SelectNumber:selNo];
 }
 
+- (void)barBtnPaste:(id)sender {
+    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    
+    NSString *pasteData = pasteboard.string;
+    
+    // 番号情報の場合は、番号の全てをアニメーションで反転
+    if ([BuyHistory validateNumSet:pasteData]) {
+        isPaste = TRUE;
+        NSString *selNow = [self getSelectNumber];
+
+        NSArray *arrSelNow = [selNow componentsSeparatedByString:@","];
+        NSArray *arrPasteData = [pasteData componentsSeparatedByString:@","];
+        
+        // 既に選択済みの番号はアニメーション不要
+        NSMutableArray *arrmSel = [[NSMutableArray alloc] init];
+        for (int idx=0; idx < [arrPasteData count]; idx++) {
+            BOOL isExist = FALSE;
+            for (int idxSub=0; idxSub < [arrSelNow count]; idxSub++) {
+                if ([arrPasteData[idx] isEqual:arrSelNow[idxSub]]) {
+                    isExist = TRUE;
+                    break;
+                }
+            }
+            if (isExist == FALSE) {
+                [arrmSel addObject:arrPasteData[idx]];
+            }
+        }
+        // 未選択にする必要がある番号を取得
+        for (int idx=0; idx < [arrSelNow count]; idx++) {
+            BOOL isExist = FALSE;
+            for (int idxSub=0; idxSub < [arrPasteData count]; idxSub++) {
+                if ([arrSelNow[idx] isEqual:arrPasteData[idxSub]]) {
+                    isExist = TRUE;
+                    break;
+                }
+            }
+            if (isExist == FALSE) {
+                [arrmSel addObject:arrSelNow[idx]];
+            }
+        }
+        pasteNumCount = [arrmSel count];
+        
+        for (int idx=0; idx < [arrmSel count]; idx++) {
+            NSString *layerName = [NSString stringWithFormat:@"No%@", arrmSel[idx]];
+
+            CALayer *findlayer = [self layerForName:layerName];
+            
+            if (findlayer == nil) {
+                NSLog(@"%@", [NSString stringWithFormat:@"not findlayer %@", layerName]);
+                continue;
+            }
+            CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+            anim.duration = 0.3f;
+            anim.toValue = [NSNumber numberWithFloat:M_PI];
+            [anim setValue:findlayer.name forKey:@"layername"];
+            anim.delegate = self;
+            
+            CATransform3D pers = CATransform3DIdentity;
+            pers.m34 = -1.0f/200.0f;
+            pers = CATransform3DRotate(pers, 0, 0, 1, 0);
+            findlayer.transform = pers;
+            
+            [findlayer addAnimation:anim forKey:@"rotation.y"];
+        }
+    }
+    else {
+        lblNotice.text = [NSString stringWithFormat:@"有効な番号情報ではありません"];
+        lblNotice.hidden = NO;
+        [NSTimer scheduledTimerWithTimeInterval:2
+                                         target:self
+                                       selector:@selector(finishErrorMessage:)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
+}
+
 - (void)barBtnCancel:(id)sender
 {
     [[self delegate] NumberSelectBtnEnd:self SelectNumber:@"Cancel"];
@@ -305,7 +416,7 @@
 		if([[layer name] isEqualToString:@"NumberSelect"]) {
             for(CALayer *layerSub in layer.sublayers) {
                 NSString *selected = [layerSub valueForKey:@"selected"];
-                NSLog(@"%@", [NSString stringWithFormat:@"getSelectNumber layername %@ selected [%@]", [layerSub name], selected]);
+                //NSLog(@"%@", [NSString stringWithFormat:@"getSelectNumber layername %@ selected [%@]", [layerSub name], selected]);
                 
                 if ([selected isEqualToString:@"1"]) {
                     NSString *layerNo = [NSString stringWithFormat:@",%@", [layerSub.name substringWithRange:NSMakeRange(2, 2)]];

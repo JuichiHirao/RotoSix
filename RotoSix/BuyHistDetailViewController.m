@@ -170,8 +170,14 @@
         NSIndexPath *indexPath = [self.histDetailView indexPathForRowAtPoint:p];
         if (indexPath == nil)
             NSLog(@"long press on table view but not on a row");
-        else
-            NSLog(@"long press on table view at section %d row %d", indexPath.section, indexPath.row);
+        else {
+            NSString *selNumSet = [buyHist getSetNo:indexPath.row];
+            NSLog(@"long press on table view at section %d row %d  NumSet [%@]", indexPath.section, indexPath.row, selNumSet);
+            
+            // http://reiji1020.hatenablog.com/entry/2013/01/26/010353
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            [pasteboard setValue:selNumSet forPasteboardType:@"public.text"];
+        }
     }
 }
 
