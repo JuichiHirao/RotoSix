@@ -375,10 +375,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        //UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         
-        NSLog(@" cell [%p]", cell);
-        NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
+        //NSLog(@" cell [%p]", cell);
+        //NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
         
         [self showModalBuyTimesSelect:arrLottery];
     }

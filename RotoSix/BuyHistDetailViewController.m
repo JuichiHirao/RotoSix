@@ -633,7 +633,7 @@
     UITableViewCell *cell;
     
     NSString *cellText = nil;
-    NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
+    //NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
     //NSLog(@"cellForRowAtIndexPath before %f,%f",cell.contentView.frame.origin.x,cell.contentView.frame.size.width);
     
     int buySetNo = -1;
@@ -869,8 +869,8 @@
     
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSLog(@" cell [%p]", cell);
-    NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
+    //NSLog(@" cell [%p]", cell);
+    //NSLog(@"indexPath row [%d] section [%d]", indexPath.row, indexPath.section);
     
     if (_numberSelViewController == nil) {
         _numberSelViewController = [[NumberSelectViewController alloc] init];
