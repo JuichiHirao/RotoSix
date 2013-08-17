@@ -10,6 +10,7 @@
 #import "LayerNumberSelect.h"
 #import "NumberSelectView.h"
 #import "BuyHistory.h"
+#import "QuartzTextNumDelegate.h"
 
 @protocol NumberSelectDelegate;
 
@@ -21,6 +22,8 @@
     bool isAnimation;
     bool isPaste;
     NSInteger pasteNumCount;
+    
+    QuartzTextNumDelegate *_layerDelegate;
 }
 
 @property (nonatomic, strong) NSString *buyNumbers;

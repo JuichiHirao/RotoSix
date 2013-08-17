@@ -244,8 +244,15 @@
     barTool.items = [NSArray arrayWithObjects:barBtnCancel, barBtnSpacer, barBtnPaste, barBtnDone, nil];
 
     [selpanelView addSubview:barTool];
-
-    self.view = selpanelView;
+/*
+    UIButton *button5 = [UIButton buttonWithType:UIButtonTypeCustom];
+	//[button5 setTitle:@"button5" forState:UIControlStateNormal];
+	//button5.titleLabel.font = [UIFont systemFontOfSize:14.0];
+	button5.frame = CGRectMake(265, selpanelView.bounds.size.height-40, 48, 48);
+	[button5 setBackgroundImage:[UIImage imageNamed:@"paste_48"] forState:UIControlStateNormal];
+ 
+	[selpanelView addSubview:button5];
+ */
 
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     
@@ -266,6 +273,24 @@
             [barBtnPaste setEnabled:FALSE];
         }
     }
+
+    CALayer *layerNum = [CALayer layer];
+    layerNum.needsDisplayOnBoundsChange = YES;
+    layerNum.bounds = CGRectMake(0, 0, 157.0, 20.0);
+    layerNum.name = [NSString stringWithFormat:@"Num01"];
+    layerNum.position = CGPointMake(180, selpanelView.bounds.size.height-10);
+    
+    CGAffineTransform t = CGAffineTransformMake(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f);
+    layerNum.affineTransform = t;
+    layerNum.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"BgSelectNumber157"]].CGColor;
+    layerNum.opacity = YES;
+    _layerDelegate = [[QuartzTextNumDelegate alloc] init];
+    _layerDelegate.strNum = data;
+    layerNum.delegate = _layerDelegate;
+    
+    [selpanelView.layer addSublayer:layerNum];
+
+    self.view = selpanelView;
 }
 
 - (void)viewDidLoad
@@ -279,7 +304,7 @@
     self.view.opaque = NO;
     self.view.backgroundColor = [UIColor clearColor];
     
-    lblNotice = [[UILabel alloc] initWithFrame:CGRectMake(45 + 10 + 5, selpanelView.bounds.size.height - 45 - 10, 250.0, 50.0)];
+    lblNotice = [[UILabel alloc] initWithFrame:CGRectMake(45 + 10 + 5, selpanelView.bounds.size.height - 45 - 10, 250.0, 25.0)];
     lblNotice.font = [UIFont systemFontOfSize:11.0];
     lblNotice.textAlignment = UITextAlignmentCenter;
     lblNotice.textColor = [UIColor blackColor];
