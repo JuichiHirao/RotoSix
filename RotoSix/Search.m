@@ -36,6 +36,7 @@
         
         // IDが0以上で設定されている場合は、更新
         if (dbId > 0) {
+            //NSLog(@"Search save ID [%d]   update", dbId );
             NSString *strSql = [NSString stringWithFormat:@"UPDATE search SET num_set = ?, regist_date = ?, match_count = ?, total_amount = ?, best_lottery = ?  WHERE id = ?"];
 //          NSLog(@"UPDATE buy_history set set%02d = ? [set%02d:%@]  WHERE id = ? [dbId:%d] ", idx+1, idx+1, [self getSetNo:idx], dbId);
                     
@@ -47,6 +48,7 @@
         }
         // IDが0の場合は挿入
         else {
+            //NSLog(@"Search save ID [%d]   insert", dbId );
             NSString *strSql = [NSString stringWithFormat:@"INSERT INTO search ( "
                                 @"num_set, regist_date, match_count, total_amount, best_lottery"
                                 @" ) VALUES(?, ?, ?, ?, ?)"];

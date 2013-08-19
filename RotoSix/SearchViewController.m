@@ -26,7 +26,6 @@
 #pragma mark - from SelectView Delegate
 -(void)NumberSelectBtnEnd:(NumberSelectViewController *)controller SelectNumber:(NSString *)name {
     
-    NSLog(@"NumberSelectBtnEnd name [%@]", name );
 //    NSMutableArray *arrData = [LotteryDataController getSearchNumSet:name];
 
     if ([name isEqual:@"Cancel"]) {
@@ -39,6 +38,7 @@
     [self hideModal:controller.view];
 
     selSearch.num_set = name;
+    //NSLog(@"NumberSelectBtnEnd selSearch ID [%d]   num_set [%@]", selSearch.dbId, selSearch.num_set );
     [self performSegueWithIdentifier:@"SearchResult" sender:self];
 }
 
@@ -268,6 +268,7 @@
 }
 
 - (IBAction)tabitemSearchAddPress:(id)sender {
+    selSearch = nil;
     [self showModalNumberInput:@"" MinSelectNumber:4 MaxSelectNumber:6];
 }
 
