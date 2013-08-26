@@ -16,6 +16,8 @@
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)myContext
 {
+	//NSLog(@"%@", [NSString stringWithFormat:@"drawLayer strNum %@", strNum]);
+    
 	// CGContextShowTextAtPointの引数のchar*型に合わせる
     NSArray *arrData = [strNum componentsSeparatedByString:@","];
 

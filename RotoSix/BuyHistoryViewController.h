@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "BuyRegistViewController.h"
+#import "QuartzTextNumDelegate.h"
 
 @class BuyHistDataController;
 @class BuyRegistViewController;
 
 @interface BuyHistoryViewController : UITableViewController <BuyRegistDelegate> {
     BOOL isCellSetting;
+    NSMutableArray *marrQuartzTextDelegate;
 }
 
 @property (nonatomic, strong) BuyHistDataController *dataController;

@@ -11,6 +11,7 @@
 #import "BuyHistDataController.h"
 #import "BuyHistory.h"
 #import "BuyRegistViewController.h"
+#import "QuartzTextNumDelegate.h"
 
 @interface BuyHistoryViewController ()
 
@@ -89,8 +90,7 @@
     
     isCellSetting = NO;
     
-    //[super setEditing:NO animated:YES];
-
+    marrQuartzTextDelegate = [[NSMutableArray alloc] init];
 }
 
 - (void)viewDidUnload
@@ -161,44 +161,41 @@
         lbKaisuu.textColor = [UIColor blackColor];
 
         [cell.contentView addSubview:lbKaisuu];
-        
-        CGFloat x = 121.0;
-        CGFloat y = 3.0;
-        CGFloat width = 20.0;
-        CGFloat height = 20.0;
 
-        //if (buyHistAtIndex.lotteryStatus == 1) {
-            idxImgPlaceTag = 101;
-            for (int idx=0; idx < 5; idx++ ) {
-                x = 103.0;
-                
-                //NSLog(@"idxImgPlaceTag %d x [%f] y [%f]", idxImgPlaceTag, x, y);
-                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-                img.tag = idxImgPlaceTag;
-                
-                [cell.contentView addSubview:img];
-                idxImgPlaceTag++;
-                y = y + 22;
-            }
-        //}
+        CGFloat x = 204.5; //126.0;
+        CGFloat y = 13.0;
 
-        idxImgTag = 11;
-        
-        y = 3.0;
         for (int idx=0; idx < 5; idx++ ) {
-            x = 126.0;
-            for (int idxSub=0; idxSub < 6; idxSub++) {
-//                [arrmBuyNo addObject:[[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)]];
-                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-                img.tag = idxImgTag;
-                x = x + 26;
-                
-                [cell.contentView addSubview:img];
-                idxImgTag++;
-            }
+            
+            CALayer *layerNum = [CALayer layer];
+            //layerNum.needsDisplayOnBoundsChange = YES;
+            layerNum.bounds = CGRectMake(0, 0, 157.0, 20.0);
+            layerNum.name = [NSString stringWithFormat:@"NumRow%02d", idx+1];
+            layerNum.position = CGPointMake(x, y);
+            
+            CGAffineTransform t = CGAffineTransformMake(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f);
+            layerNum.affineTransform = t;
+            layerNum.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"BgSelectNumber157"]].CGColor;
+            layerNum.opacity = YES;
+
+            [cell.contentView.layer addSublayer:layerNum];
             y = y + 22;
         }
-        
+
+        idxImgPlaceTag = 101;
+        y = 3.0;
+        for (int idx=0; idx < 5; idx++ ) {
+            x = 103.0;
+            
+            //NSLog(@"idxImgPlaceTag %d x [%f] y [%f]", idxImgPlaceTag, x, y);
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 20, 20)];
+            img.tag = idxImgPlaceTag;
+            
+            [cell.contentView addSubview:img];
+            idxImgPlaceTag++;
+            y = y + 22;
+        }
+
         cell.backgroundView = [[UIImageView alloc] init];
     }
     else {
@@ -263,30 +260,46 @@
         }
     }
 
-    // 選択番号の表示（6コ×5組）
-    idxImgTag = 11;
     for (int idxBuySet=0; idxBuySet<5; idxBuySet++) {
         NSString *setNo = [buyHistAtIndex getSetNo:idxBuySet];
         
+        CALayer *findlayer = [self layerForName:[NSString stringWithFormat:@"NumRow%02d", idxBuySet+1] Cell:cell];
+
         if ([setNo length] <= 0) {
+            findlayer.hidden = YES;
             continue;
         }
-        
-        NSArray *arrBuySingleNo = [setNo componentsSeparatedByString:@","];
-        
-        for (int idx=0; idx < [arrBuySingleNo count]; idx++) {
-            NSString *strNo = [arrBuySingleNo objectAtIndex:idx];
-            NSString *imageNoName = [NSString stringWithFormat:@"No%02d-45", [strNo intValue]];
-            NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageNoName ofType:@"png"];
-            UIImage *theImage = [UIImage imageWithContentsOfFile:imagePath];
-            UIImageView *img = (UIImageView*)[cell.contentView viewWithTag:idxImgTag];
 
-            img.image = theImage;
-            idxImgTag++;
+        if (findlayer == nil) {
+            //NSLog(@"%@", [NSString stringWithFormat:@"not findlayer %@", [NSString stringWithFormat:@"NumRow%02d", idxBuySet+1]]);
+            continue;
         }
+        //NSLog(@"%@", [NSString stringWithFormat:@"findlayer %@", [NSString stringWithFormat:@"NumRow%02d", idxBuySet+1]]);
+
+        QuartzTextNumDelegate* _layerDelegate = [[QuartzTextNumDelegate alloc] init];
+        _layerDelegate.strNum = setNo;
+        
+        NSLog(@"%@", [NSString stringWithFormat:@"findlayer %@", [NSString stringWithFormat:@"setNo %@", setNo]]);
+        
+        [marrQuartzTextDelegate addObject:_layerDelegate];
+
+        findlayer.delegate = _layerDelegate;
+        [findlayer setNeedsDisplay];
     }
 
     return cell;
+}
+
+- (CALayer *)layerForName:(NSString *)name Cell:(UITableViewCell *)cell
+{
+	for(CALayer *layer in cell.contentView.layer.sublayers) {
+        //NSLog(@"%@", [NSString stringWithFormat:@"layer.name %@", [layer name]]);
+		if([[layer name] isEqualToString:name]) {
+			return layer;
+		}
+	}
+    
+	return nil;
 }
 
 #pragma mark - Table view delegate
