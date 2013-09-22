@@ -97,6 +97,7 @@
 {
     [self setHistTableView:nil];
     [self setBuyHistCell:nil];
+    [self setTabitemDisplaySetting:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -342,6 +343,96 @@
 // アクセサリタイプがタップされた場合も行の選択と同じ動作をする（詳細画面へ遷移）
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"BuyHistDetail" sender:indexPath];
+}
+
+- (IBAction)tabitemDisplaySettingPress:(id)sender {
+
+    //TableDisplaySetting *dispSetting = (TableDisplaySetting*)[self viewWithTagNotCountingSelf:201];
+    TableDisplaySetting *dispSetting = (TableDisplaySetting*)[self.view viewWithTag:201];
+
+    /*
+    CALayer *layer = [self getDisplaySettingLayer];
+    
+    if (layer != nil) {
+        BOOL bHidden = layer.hidden;
+        
+        if (bHidden == YES)
+            layer.hidden = NO;
+        else
+            layer.hidden = YES;
+
+        return;
+    }
+    
+    LayerTableDisplaySetting *selpanel = [LayerTableDisplaySetting layer];
+    //selpanel.bounds = CGRectMake(0, 0, 300, 340);
+    selpanel.name = @"DisplaySetting";
+    selpanel.frame = CGRectMake(0, 0, 190.5, 110);
+    selpanel.position = CGPointMake(160, 200); // posY <-- iPhone5 : 284(568/2) + 59(568/2-panelSizeY/2) =  343, other 240 + 15 = 255
+    //selpanel.backgroundColor = [UIColor clearColor].CGColor;
+    selpanel.backgroundColor = [UIColor whiteColor].CGColor;
+    //selpanel.opacity = 0.5;
+    //selpanel.opacity = YES;
+    
+    [selpanel setNeedsDisplay];
+    [self.view.layer addSublayer:selpanel];
+
+     */
+
+    if (dispSetting == nil) {
+        dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds];
+        //    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds CGRectMake(10, 10, 180, 100)];
+        dispSetting.tag = 201;
+        [self.view addSubview:dispSetting];
+    }
+    else {
+        BOOL bHidden = dispSetting.hidden;
+        
+        if (bHidden == YES)
+            dispSetting.hidden = NO;
+        else
+            dispSetting.hidden = YES;
+        
+        return;
+    }
+    
+//    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds];
+//    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds CGRectMake(10, 10, 180, 100)];
+//    [dispSetting viewWithTag:201];
+//    [self.view addSubview:dispSetting];
+//    self.window.rootViewController.view = [[[bubbleView alloc] initWithFrame:self.window.bounds] autorelease];
+//    [self showModalTableDisplaySetting];
+}
+
+- (UIView *)viewWithTagNotCountingSelf:(NSInteger)tag
+{
+    UIView *toReturn = nil;
+    
+    for (UIView *subView in self.view.subviews)
+    {
+        toReturn = [subView viewWithTag:tag];
+        
+        if (toReturn)
+            break;
+    }
+    
+    return toReturn;
+}
+
+- (void) displaySetting
+{
+
+}
+
+- (CALayer *)getDisplaySettingLayer
+{
+	for(CALayer *layer in self.view.layer.sublayers) {
+		if([[layer name] isEqualToString:@"DisplaySetting"]) {
+            return layer;
+		}
+	}
+    
+	return nil;
 }
 
 @end

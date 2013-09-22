@@ -9,18 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "BuyRegistViewController.h"
 #import "QuartzTextNumDelegate.h"
+#import "TableDisplaySetting.h"
 
 @class BuyHistDataController;
 @class BuyRegistViewController;
 
-@interface BuyHistoryViewController : UITableViewController <BuyRegistDelegate> {
+@interface BuyHistoryViewController : UseModalTableViewController <BuyRegistDelegate> {
     BOOL isCellSetting;
     NSMutableArray *marrQuartzTextDelegate;
 }
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemDisplaySetting;
 
 @property (nonatomic, strong) BuyHistDataController *dataController;
 
 @property (strong, nonatomic) IBOutlet UITableView *histTableView;
 @property (strong, nonatomic) IBOutlet UITableViewCell *buyHistCell;
+
+- (IBAction)tabitemDisplaySettingPress:(id)sender;
 
 @end

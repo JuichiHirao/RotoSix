@@ -24,6 +24,7 @@
 		A20B8B8316C168CD00074FF2 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = A20B8B7516C168CD00074FF2 /* SBJsonTokeniser.m */; };
 		A20B8B8416C168CD00074FF2 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = A20B8B7716C168CD00074FF2 /* SBJsonUTF8Stream.m */; };
 		A20B8B8516C168CD00074FF2 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A20B8B7916C168CD00074FF2 /* SBJsonWriter.m */; };
+		A2109C8A17EF2ADE00AA2282 /* btnSort20.png in Resources */ = {isa = PBXBuildFile; fileRef = A2109C8917EF2ADE00AA2282 /* btnSort20.png */; };
 		A214F29A1636D12500AE0C36 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A214F2991636D12500AE0C36 /* libsqlite3.0.dylib */; };
 		A214F2A61636D19A00AE0C36 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F29D1636D19900AE0C36 /* FMDatabase.m */; };
 		A214F2A71636D19A00AE0C36 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A214F29F1636D19900AE0C36 /* FMDatabaseAdditions.m */; };
@@ -40,6 +41,7 @@
 		A260B5041642A8BE001032EB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A260B5031642A8BE001032EB /* Default-568h@2x.png */; };
 		A26A3A0515FC35EF00181646 /* No01-20.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A3A0415FC35EF00181646 /* No01-20.png */; };
 		A26A3A3115FC924400181646 /* NumberSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A3A3015FC924400181646 /* NumberSelectViewController.m */; };
+		A27EAC9917BD0E7300C3DF5E /* QuartzTextNumDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A27EAC9817BD0E7300C3DF5E /* QuartzTextNumDelegate.m */; };
 		A2A5228A15C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
 		A2A5228C15C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
 		A2A5228E15C6AF0C00D65863 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228D15C6AF0C00D65863 /* CoreGraphics.framework */; };
@@ -154,6 +156,7 @@
 		A2E82ECF16C0105400EB7ED5 /* LotteryConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E82ECE16C0105400EB7ED5 /* LotteryConnectionHandler.m */; };
 		A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */; };
 		A2ED92F215EF847D0051CD57 /* No01-15.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED92F015EF847D0051CD57 /* No01-15.png */; };
+		A2EDDC0D17BFB9B50028E181 /* BgSelectNumber157.png in Resources */ = {isa = PBXBuildFile; fileRef = A2EDDC0C17BFB9B40028E181 /* BgSelectNumber157.png */; };
 		A2F1394D16665C7A005C6C1C /* LotteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F1394C16665C7A005C6C1C /* LotteryViewController.m */; };
 		A2F1426C163C01C500D6385D /* mst.db in Resources */ = {isa = PBXBuildFile; fileRef = A214F2AB1636D3BD00AE0C36 /* mst.db */; };
 		A2F3F8D81726C3DF007B313C /* TimesDialog.png in Resources */ = {isa = PBXBuildFile; fileRef = A2F3F8D71726C3DF007B313C /* TimesDialog.png */; };
@@ -162,6 +165,8 @@
 		A2FD1D6016611508001290F5 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FD1D5F16611508001290F5 /* SettingViewController.m */; };
 		A2FD1D63166126DB001290F5 /* tr.db in Resources */ = {isa = PBXBuildFile; fileRef = A2FD1D62166126DA001290F5 /* tr.db */; };
 		A2FD1D6416612AA9001290F5 /* tr.db in Resources */ = {isa = PBXBuildFile; fileRef = A2FD1D62166126DA001290F5 /* tr.db */; };
+		E602E16B17DDAF7D00F87555 /* tabitemBuyHistory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E602E16A17DDAF7D00F87555 /* tabitemBuyHistory@2x.png */; };
+		E632E87117CF38DB004475BE /* TableDisplaySetting.m in Sources */ = {isa = PBXBuildFile; fileRef = E632E87017CF38DB004475BE /* TableDisplaySetting.m */; };
 		E660B880165DDDD300794350 /* DatabaseFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = E660B87F165DDDD300794350 /* DatabaseFileController.m */; };
 		E6689B0915F253420026CBC3 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E6689B0815F253420026CBC3 /* CellBackground.png */; };
 		E66BC18716153BC200056B40 /* No43-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18516153BC200056B40 /* No43-45.png */; };
@@ -212,6 +217,7 @@
 		A20B8B7716C168CD00074FF2 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		A20B8B7816C168CD00074FF2 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		A20B8B7916C168CD00074FF2 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		A2109C8917EF2ADE00AA2282 /* btnSort20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnSort20.png; sourceTree = "<group>"; };
 		A214F2991636D12500AE0C36 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		A214F29C1636D19900AE0C36 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		A214F29D1636D19900AE0C36 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
@@ -238,6 +244,8 @@
 		A26A3A0415FC35EF00181646 /* No01-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-20.png"; sourceTree = "<group>"; };
 		A26A3A2F15FC924400181646 /* NumberSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectViewController.h; sourceTree = "<group>"; };
 		A26A3A3015FC924400181646 /* NumberSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberSelectViewController.m; sourceTree = "<group>"; };
+		A27EAC9717BD0E7300C3DF5E /* QuartzTextNumDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzTextNumDelegate.h; path = ../QuartzTextNumDelegate.h; sourceTree = "<group>"; };
+		A27EAC9817BD0E7300C3DF5E /* QuartzTextNumDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzTextNumDelegate.m; path = ../QuartzTextNumDelegate.m; sourceTree = "<group>"; };
 		A2A5228515C6AF0C00D65863 /* RotoSix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotoSix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A5228915C6AF0C00D65863 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A2A5228B15C6AF0C00D65863 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -366,6 +374,7 @@
 		A2EA41B315EAFD4C00A568F1 /* BuyHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyHistoryViewController.h; sourceTree = "<group>"; };
 		A2EA41B415EAFD4C00A568F1 /* BuyHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyHistoryViewController.m; sourceTree = "<group>"; };
 		A2ED92F015EF847D0051CD57 /* No01-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No01-15.png"; sourceTree = "<group>"; };
+		A2EDDC0C17BFB9B40028E181 /* BgSelectNumber157.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BgSelectNumber157.png; sourceTree = "<group>"; };
 		A2F1394B16665C7A005C6C1C /* LotteryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LotteryViewController.h; sourceTree = "<group>"; };
 		A2F1394C16665C7A005C6C1C /* LotteryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LotteryViewController.m; sourceTree = "<group>"; };
 		A2F3F8D71726C3DF007B313C /* TimesDialog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TimesDialog.png; sourceTree = "<group>"; };
@@ -376,6 +385,9 @@
 		A2FD1D5E16611508001290F5 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		A2FD1D5F16611508001290F5 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		A2FD1D62166126DA001290F5 /* tr.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = tr.db; sourceTree = "<group>"; };
+		E602E16A17DDAF7D00F87555 /* tabitemBuyHistory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabitemBuyHistory@2x.png"; sourceTree = "<group>"; };
+		E632E86F17CF38DB004475BE /* TableDisplaySetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableDisplaySetting.h; sourceTree = "<group>"; };
+		E632E87017CF38DB004475BE /* TableDisplaySetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableDisplaySetting.m; sourceTree = "<group>"; };
 		E660B87E165DDDD300794350 /* DatabaseFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseFileController.h; sourceTree = "<group>"; };
 		E660B87F165DDDD300794350 /* DatabaseFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseFileController.m; sourceTree = "<group>"; };
 		E6689B0815F253420026CBC3 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackground.png; sourceTree = "<group>"; };
@@ -448,6 +460,8 @@
 		A226947116075F1E00A930EA /* ResourceImage */ = {
 			isa = PBXGroup;
 			children = (
+				E602E16A17DDAF7D00F87555 /* tabitemBuyHistory@2x.png */,
+				A2109C8917EF2ADE00AA2282 /* btnSort20.png */,
 				A202787E16E0AB7A00F22EFB /* Loto6-icon.png */,
 				A202788616E0B70400F22EFB /* Loto6-icon@2x.png */,
 				A2E55BBC16D25995001718BB /* Lottery-1st.png */,
@@ -608,6 +622,7 @@
 				A214F2A51636D19A00AE0C36 /* FMResultSet.m */,
 				A226947116075F1E00A930EA /* ResourceImage */,
 				A20B00E916037FD60056F01A /* NumberSelectBackground.png */,
+				A2EDDC0C17BFB9B40028E181 /* BgSelectNumber157.png */,
 				A2F3F8D71726C3DF007B313C /* TimesDialog.png */,
 				A2D785C3165C498B004E0EF4 /* Background.png */,
 				A26A3A0415FC35EF00181646 /* No01-20.png */,
@@ -640,6 +655,8 @@
 				A2BE7EEE15F625A900FD98B9 /* BuyHistDataController.m */,
 				A26A3A2F15FC924400181646 /* NumberSelectViewController.h */,
 				A26A3A3015FC924400181646 /* NumberSelectViewController.m */,
+				A27EAC9717BD0E7300C3DF5E /* QuartzTextNumDelegate.h */,
+				A27EAC9817BD0E7300C3DF5E /* QuartzTextNumDelegate.m */,
 				A2008C5315FE283F0089F0B8 /* LayerNumberSelect.h */,
 				A2008C5415FE283F0089F0B8 /* LayerNumberSelect.m */,
 				E6E416E81631579F00F14725 /* NumberSelectView.h */,
@@ -660,6 +677,8 @@
 				A2F8645D16CCF4CF008CFCE2 /* Search.m */,
 				A2E45EE41737A3E300254952 /* UseModalTableViewController.h */,
 				A2E45EE51737A3E300254952 /* UseModalTableViewController.m */,
+				E632E86F17CF38DB004475BE /* TableDisplaySetting.h */,
+				E632E87017CF38DB004475BE /* TableDisplaySetting.m */,
 			);
 			path = RotoSix;
 			sourceTree = "<group>";
@@ -874,6 +893,9 @@
 				A202788016E0AB7A00F22EFB /* Loto6-icon.png in Resources */,
 				A202788816E0B7A400F22EFB /* Loto6-icon@2x.png in Resources */,
 				A2F3F8D81726C3DF007B313C /* TimesDialog.png in Resources */,
+				A2EDDC0D17BFB9B50028E181 /* BgSelectNumber157.png in Resources */,
+				E602E16B17DDAF7D00F87555 /* tabitemBuyHistory@2x.png in Resources */,
+				A2109C8A17EF2ADE00AA2282 /* btnSort20.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,6 +971,8 @@
 				A2F8645B16CCF372008CFCE2 /* SearchDataController.m in Sources */,
 				A2F8645E16CCF4CF008CFCE2 /* Search.m in Sources */,
 				A2E45EE61737A3E300254952 /* UseModalTableViewController.m in Sources */,
+				A27EAC9917BD0E7300C3DF5E /* QuartzTextNumDelegate.m in Sources */,
+				E632E87117CF38DB004475BE /* TableDisplaySetting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
