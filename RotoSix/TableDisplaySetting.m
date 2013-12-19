@@ -158,14 +158,14 @@ void CGContextBubblePath(CGContextRef context, CGRect rect)
     
     // CGRectMake(60.5, 40.5, 170, 70)
     // 東西南北の東が起点で、時計回り
-    //   40 + 
-    CGContextAddArc(context, rx+rad, ty+rad, rad, RADIANS(270), RADIANS(360), 0); //右上のカーブ
-    CGContextAddArc(context, rx+rad, by-rad, rad, RADIANS(0), RADIANS(90), 0); //右下のカーブ
-    CGContextAddArc(context, lx+rad, by-rad, rad, RADIANS(90), RADIANS(180), 0); //左下のカーブ
-//    CGContextAddArc(context, lx+rad, ty+rad, rad, RADIANS(180), RADIANS(270), 0); //左上のカーブ
-    CGContextAddArc(context, lx+rad, ty-rad, rad, RADIANS(180), RADIANS(215), 0); //くちばしの付け根(下の凹み)
-    CGContextAddQuadCurveToPoint(context, ty, lx, ty-qx, lx); //くちばしの先端
-    CGContextAddQuadCurveToPoint(context, ty, lx-cqy, ty, lx-qy); //くちばしの付け根(上)
+    CGContextAddArc(context, rx+rad, ty+rad, rad, RADIANS(270), RADIANS(360), 0);   //右上のカーブ 1
+    CGContextAddArc(context, rx+rad, by-rad, rad, RADIANS(0), RADIANS(90), 0);      //右下のカーブ 2
+    CGContextAddArc(context, lx-rad, by-rad, rad, RADIANS(90), RADIANS(180), 0);    //左下のカーブ 3
+    CGContextAddArc(context, lx-rad, ty+rad, rad, RADIANS(180), RADIANS(270), 0);   //左上のカーブ 4
+    CGContextAddLineToPoint(context, lx+rad+10, ty);    // くちばしまで開始までの直線    5
+    CGContextAddLineToPoint(context, lx+rad+15, ty-20); // くちばしの上端までの直線      6
+    CGContextAddLineToPoint(context, lx+rad+25, ty);    // くちばし上端から下までの直線   7
+    CGContextAddLineToPoint(context, rx+rad, ty);       // くちばし終了点から右上まで直線 8
     
     CGContextClosePath(context); //左上の点まで閉じる
 }
