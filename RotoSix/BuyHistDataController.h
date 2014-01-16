@@ -11,7 +11,16 @@
 @class BuyHistory;
 @class Lottery;
 
-@interface BuyHistDataController : NSObject
+@interface BuyHistDataController : NSObject {
+    NSInteger filterMode;
+    bool isLottery;
+    bool isUnLottery;
+    bool isLotteried;
+}
+
+@property (nonatomic) bool isLottery;
+@property (nonatomic) bool isUnLottery;
+@property (nonatomic) bool isLotteried;
 
 - (unsigned)countOfList;
 - (BuyHistory *)objectInListAtIndex:(unsigned)theIndex;

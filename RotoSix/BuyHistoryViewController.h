@@ -14,7 +14,7 @@
 @class BuyHistDataController;
 @class BuyRegistViewController;
 
-@interface BuyHistoryViewController : UseModalTableViewController <BuyRegistDelegate> {
+@interface BuyHistoryViewController : UseModalTableViewController <BuyRegistDelegate, TableDisplaySettingEnd> {
     BOOL isCellSetting;
     NSMutableArray *marrQuartzTextDelegate;
 }

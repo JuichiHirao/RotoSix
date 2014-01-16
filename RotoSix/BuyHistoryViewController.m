@@ -36,6 +36,32 @@
     [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (void)TableDisplaySettingSelected:(NSString *)label DisplayFlag:(BOOL)isDisplay {
+    NSLog(@"TableDisplaySettingEnd %@", label);
+    
+    if ([label isEqualToString:@"当選"]) {
+        dataController.isLottery = isDisplay;
+    }
+    else if ([label isEqualToString:@"抽選済み"]) {
+        dataController.isLotteried = isDisplay;
+    }
+    else if ([label isEqualToString:@"未抽選"]) {
+        dataController.isUnLottery = isDisplay;
+    }
+    else {// 全て
+        dataController.isLottery = NO;
+        dataController.isLotteried = NO;
+        dataController.isUnLottery = NO;
+    }
+
+    TableDisplaySetting *dispSetting = (TableDisplaySetting*)[self.view viewWithTag:201];
+    dispSetting.hidden = YES;
+
+    [dataController loadAll];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
+    [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - UIView Override Method
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -345,6 +371,19 @@
     [self performSegueWithIdentifier:@"BuyHistDetail" sender:indexPath];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"%@", @"LayerBuyHistory touch x %f  y %f");
+	UITouch *aTouch = [touches anyObject];
+    if ([touches count] == 1) {
+        for (UITouch *touch in touches) {
+            CGPoint pos = [aTouch locationInView:[touch view]];
+            pos = [[touch view] convertPoint:pos toView:nil];
+            NSLog(@"%@", [NSString stringWithFormat:@"LayerSelectPanel touch x %f  y %f", pos.x, pos.y]);
+        }
+	}
+}
+
 - (IBAction)tabitemDisplaySettingPress:(id)sender {
 
     //TableDisplaySetting *dispSetting = (TableDisplaySetting*)[self viewWithTagNotCountingSelf:201];
@@ -380,8 +419,17 @@
      */
 
     if (dispSetting == nil) {
-        dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds];
+        dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.frame];
+        dispSetting.delegate = self;
+/*
+        NSArray *arrVisiRows = [self.tableView indexPathsForVisibleRows];
+//        NSIndexPath *selectedRowIndex = [self.tableView indexPathsForVisibleRows indexPathForSelectedRow];
+        CGRect rectInTableView = [histTableView rectForRowAtIndexPath:arrVisiRows[0]];
+        CGRect rectInSuperview = [histTableView convertRect:rectInTableView toView:[histTableView superview]];
+        //CGPoint point = [self.view convertRect:self.view.frame.origin toView:nil];
+        dispSetting.frame = rectInTableView; //CGRectOffset( dispSetting.frame, 10, 10 );
         //    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds CGRectMake(10, 10, 180, 100)];
+ */
         dispSetting.tag = 201;
         [self.view addSubview:dispSetting];
     }
@@ -395,6 +443,7 @@
         
         return;
     }
+    //self.view.userInteractionEnabled=NO;
     
 //    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds];
 //    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds CGRectMake(10, 10, 180, 100)];

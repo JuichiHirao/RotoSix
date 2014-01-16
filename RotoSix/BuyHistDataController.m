@@ -18,9 +18,24 @@
 
 @implementation BuyHistDataController
 
-@synthesize list;
+@synthesize list, isLotteried, isLottery, isUnLottery;
 
 -(id)init {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [defaults arrayForKey:@"DisplaySetting"];
+    if (array) {
+        for (NSString *data in array) {
+            NSLog(@"%@", data);
+        }
+    } else {
+        NSLog(@"%@", @"データが存在しません。");
+        filterMode = 0;
+        isLottery = NO;
+        isUnLottery = NO;
+        isLotteried = NO;
+
+    }
+    
     if (self = [super init]) {
         [self loadAll];
     }
@@ -258,7 +273,20 @@
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         
-        FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history order by lottery_date desc"];
+        NSString *sql = @"";
+        NSString *sWhere = @"";
+
+        if (isLotteried == YES) {
+            sWhere = @" ( place01 >= 1 or place02 >= 1 or place03 >= 1 or place04 >= 1 or place05 >= 1 ) ";
+//            sWhere = @" lottery_status = 1 ";
+        }
+        if (isLottery == YES) {
+            sWhere = @"where ( place01 >= 1 or place02 >= 1 or place03 >= 1 or place04 >= 1 or place05 >= 1 ) ";
+        }
+        sql = [NSString stringWithFormat:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history %@ order by lottery_date desc", sWhere];
+        NSLog(@"sql %@", sql);
+        FMResultSet *rs = [db executeQuery:sql];
+        //FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history order by lottery_date desc"];
         
         if ([db hadError]) {
             NSLog(@"BuyHistDataController.loadAll Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);

@@ -77,7 +77,7 @@
 
     CGContextShowTextAtPoint (myContext, posX, (h-fontSize)/2+1, charNum, strlen(charNum));
 
-	NSLog(@"%@", [NSString stringWithFormat:@"drawLayer startPosX %f  posX %f  width %f  num[%@] ", startPosX, posX, width, num]);
+	//NSLog(@"%@", [NSString stringWithFormat:@"drawLayer startPosX %f  posX %f  width %f  num[%@] ", startPosX, posX, width, num]);
     
     return;
 }

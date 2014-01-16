@@ -8,7 +8,25 @@
 
 #import "TableDisplaySetting.h"
 
+@implementation UIView (FindFirstResponder)
+- (BOOL)findAndResignFirstResponder
+{
+    if (self.isFirstResponder) {
+        [self resignFirstResponder];
+        return YES;
+    }
+    for (UIView *subView in self.subviews) {
+        if ([subView findAndResignFirstResponder])
+            return YES;
+    }
+    return NO;
+}
+@end
+
 @implementation TableDisplaySetting
+
+@synthesize delegate = _delegate;
+
 /* Default
 - (id)initWithFrame:(CGRect)frame
 {
@@ -41,16 +59,16 @@
     CGContextSaveGState(context);
     
     //Path作成
-    CGRect bubbleRect = CGRectMake(60.5, 40.5, 170, 70);
+    CGRect bubbleRect = CGRectMake(15, 20, 170, 300);
     CGContextBubblePath(context, bubbleRect);
     CGPathRef bubblePath = CGContextCopyPath(context);
     
     //影
     CGContextSetShadow(context,CGSizeMake(0,1), 3);
-    CGContextSetRGBFillColor(context, 1, 1, 1, 1);
+    CGContextSetRGBFillColor(context, 0.97, 0.97, 0.97, 1);
     CGContextFillPath(context);
     CGContextSetShadow(context,CGSizeZero,0);
-    
+/*
     //背景
     CGContextAddPath(context, bubblePath);
     CGContextClip(context);
@@ -70,69 +88,187 @@
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation);
     CGColorSpaceRelease(space);
     CGGradientRelease(gradient);
-    /*
-    //縁取り
-    CGContextAddPath(context, bubblePath);
-    CGContextSetRGBStrokeColor(context, 0, 0, 0, 0.3);
-    CGContextSetLineWidth(context, 1);
-    CGContextStrokePath(context);
-    */
+ */
     //Path解放
     CGPathRelease(bubblePath);
     
     //保存してた状態に戻す
     CGContextRestoreGState(context);
     
-    
     //---------
     // 何か書く
-    
+/*
     CGRect textRect = CGRectMake(75, 45, 150, 60);
     NSString *text = @"こんにちは。\n吹き出し描いたよ。\nくちばし部分の構造は下の絵を見てね。";
     [[UIColor colorWithWhite:0.1 alpha:1] set];
     [text drawInRect:textRect withFont:[UIFont systemFontOfSize:12]];
+ */
+    UILabel *label = [[UILabel alloc] init];
+    //label.backgroundColor = [UIColor clearColor];
+    //label.font = [UIFont boldSystemFontOfSize:20];
+    //label.shadowColor = [UIColor colorWithWhite:1.0 alpha:1];
+    //label.shadowOffset = CGSizeMake(0, 1);
+    //label.textColor = [UIColor colorWithRed:0.265 green:0.294 blue:0.367 alpha:1.000];
+    //label.textAlignment = UITextAlignmentCenter;
+    label.text = @"表示順";
+    label.frame =CGRectMake(20, 30, 100, 30);
+    [self addSubview:label];
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"当選日の昇順" forState:UIControlStateNormal];
+    [button titleLabel].textAlignment = UITextAlignmentCenter;
+    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
+    button.frame = CGRectMake(20, 60, 160, 30);
+    [self addSubview:button];
+
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"当選日の降順" forState:UIControlStateNormal];
+    [button titleLabel].textAlignment = UITextAlignmentCenter;
+    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
+    button.frame = CGRectMake(20, 100, 160, 30);
+    [self addSubview:button];
+
+    label = [[UILabel alloc] init];
+    label.text = @"表示内容";
+    label.frame =CGRectMake(20, 130, 100, 30);
+    [self addSubview:label];
     
-    //---------
-    // 顔Icon
+    UIImage *bgOffImg = createImageFromUIColor([UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]);
+    UIImage *bgOnImg = createImageFromUIColor([UIColor colorWithRed:0.878 green:1.0 blue:1.0 alpha:1.0]);
+
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"全て" forState:UIControlStateNormal];
+    [button titleLabel].textAlignment = UITextAlignmentCenter;
+    //[button setBackgroundColor:[UIColor colorWithRed:0.878 green:1.0 blue:1.0 alpha:1.0]];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
+    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
+    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
+    button.frame = CGRectMake(20, 160, 160, 30);
+    button.tag = 300;
+    button.selected = YES;
+    [self addSubview:button];
     
-    //状態保存
-    CGContextSaveGState(context);
-    
-    //Path作成
-    CGRect profRect = CGRectMake(15, 80, 40, 40);
-    CGContextRoundRectPath(context, profRect, 4.0);
-    CGPathRef profPath = CGContextCopyPath(context);
-    
-    //画像描画
-    CGContextClip(context);
-    UIImage *profImage = [UIImage imageNamed:@"profile.png"];
-    [profImage drawInRect:profRect];
-    
-    //縁取り
-    CGContextAddPath(context, profPath);
-    CGContextSetRGBStrokeColor(context, 0, 0, 0, 0.3);
-    CGContextSetLineWidth(context, 1);
-    CGContextStrokePath(context);
-    
-    //Path解放
-    CGPathRelease(profPath);
-    
-    //保存してた状態に戻す
-    CGContextRestoreGState(context);
-    
-    
-    
-    
-    //---------
-    // くちばしの構造
-    
-    CGRect bubbleRect2 = CGRectMake(50, 150, 600, 290);
-    CGContextBubblePathWithScale(context, bubbleRect2, 8);
-    CGContextSetRGBStrokeColor(context, 0, 0, 0, 1);
-    CGContextSetLineWidth(context, 2);
-    CGContextStrokePath(context);
-    
-    CGContextDrawAdditionalLine(context, bubbleRect2, 8);
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"当選" forState:UIControlStateNormal];
+    [button titleLabel].textAlignment = UITextAlignmentCenter;
+    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
+    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
+
+    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
+    button.frame = CGRectMake(20, 190, 160, 30);
+    button.tag = 301;
+    [self addSubview:button];
+
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"抽選済み" forState:UIControlStateNormal];
+    [button titleLabel].textAlignment = UITextAlignmentCenter;
+    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
+    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
+
+    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
+    button.frame = CGRectMake(20, 220, 160, 30);
+    button.tag = 302;
+    [self addSubview:button];
+
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"未抽選" forState:UIControlStateNormal];
+    [button titleLabel].textAlignment = UITextAlignmentCenter;
+    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
+    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
+
+    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
+    button.frame = CGRectMake(20, 250, 160, 30);
+    button.tag = 303;
+    [self addSubview:button];
+
+/*
+ button = [UIButton buttonWithType:UIButtonTypeCustom];
+ [button setTitle:@"当選" forState:UIControlStateNormal];
+ [button titleLabel].textAlignment = UITextAlignmentCenter;
+
+    UIImage *bgOffImg = createImageFromUIColor([UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]);
+    UIImage *bgOnImg = createImageFromUIColor([UIColor colorWithRed:0.878 green:1.0 blue:1.0 alpha:1.0]);
+
+    // OFFの画像設定
+    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
+    // OFFでボタンをタップ中の画像設定
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
+    // ONの画像設定
+    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
+    // ONでボタンをタップ中の画像設定
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
+ 
+    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
+    button.frame = CGRectMake(20, 190, 160, 30);
+    [self addSubview:button];
+ */
+}
+
+UIImage *(^createImageFromUIColor)(UIColor *) = ^(UIColor *color)
+{
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(contextRef, [color CGColor]);
+    CGContextFillRect(contextRef, rect);
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+};
+
+- (void) testtest:(UIButton *)sender
+{
+    sender.selected=!sender.selected;
+    NSString *label = [sender titleLabel].text;
+    BOOL isDisplay = NO;
+    if (sender.selected){
+        // ON に変わった場合
+        isDisplay = YES;
+    }
+    else{
+        // OFF に変わった場合
+        isDisplay = NO;
+    }
+
+    if (![label isEqualToString:@"全て"]) {
+        bool isOne = NO, isTwo = NO, isThree = NO;
+        UIButton *btn = (UIButton *)[self viewWithTag:301];
+        isOne = btn.selected;
+        btn = (UIButton *)[self viewWithTag:302];
+        isTwo = btn.selected;
+        btn = (UIButton *)[self viewWithTag:303];
+        isThree = btn.selected;
+        
+        btn = (UIButton *)[self viewWithTag:300];
+        
+        if (isOne == NO && isTwo == NO && isThree == NO) {
+            btn.selected = YES;
+        }
+        else {
+            btn.selected = NO;
+        }
+    }
+    else {
+        UIButton *btn = (UIButton *)[self viewWithTag:301];
+        btn.selected = NO;
+        btn = (UIButton *)[self viewWithTag:302];
+        btn.selected = NO;
+        btn = (UIButton *)[self viewWithTag:303];
+        btn.selected = NO;
+    }
+
+    [[self delegate] TableDisplaySettingSelected:label DisplayFlag:isDisplay];
+
+    //NSLog(@"TESTTESTTEST %@", [btn titleLabel].text );
+    return;
 }
 
 //角度→ラジアン変換
@@ -194,26 +330,6 @@ void CGContextBubblePathOrg(CGContextRef context, CGRect rect)
     
     CGContextClosePath(context); //左上の点まで閉じる
 }
-
-//角丸の図形を描く
-void CGContextRoundRectPath(CGContextRef context, CGRect rect, CGFloat radius)
-{
-    CGFloat lx = CGRectGetMinX(rect);
-    CGFloat rx = CGRectGetMaxX(rect);
-    CGFloat ty = CGRectGetMinY(rect);
-    CGFloat by = CGRectGetMaxY(rect);
-    
-    CGContextBeginPath(context);
-    
-    CGContextMoveToPoint(context, lx+radius, by);
-    CGContextAddArcToPoint(context, lx, by, lx, by-radius, radius);
-    CGContextAddArcToPoint(context, lx, ty, lx+radius, ty, radius);
-    CGContextAddArcToPoint(context, rx, ty, rx, ty+radius, radius);
-    CGContextAddArcToPoint(context, rx, by, rx-radius, by, radius);
-    
-    CGContextClosePath(context);
-}
-
 
 
 void CGContextBubblePathWithScale(CGContextRef context, CGRect rect, CGFloat scale)
