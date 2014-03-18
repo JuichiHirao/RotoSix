@@ -173,6 +173,7 @@
 		E66BC18816153BC200056B40 /* No43NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18616153BC200056B40 /* No43NoSel-45.png */; };
 		E66BC18B161540B600056B40 /* No42NoSel-45.png in Resources */ = {isa = PBXBuildFile; fileRef = E66BC18A161540B600056B40 /* No42NoSel-45.png */; };
 		E6E416EA1631579F00F14725 /* NumberSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E416E91631579F00F14725 /* NumberSelectView.m */; };
+		E6F8347A1867EE7D00ED626E /* UIView+FindFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F834781867EE7D00ED626E /* UIView+FindFirstResponder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -396,6 +397,8 @@
 		E66BC18A161540B600056B40 /* No42NoSel-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No42NoSel-45.png"; sourceTree = "<group>"; };
 		E6E416E81631579F00F14725 /* NumberSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSelectView.h; sourceTree = "<group>"; };
 		E6E416E91631579F00F14725 /* NumberSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberSelectView.m; sourceTree = "<group>"; };
+		E6F834781867EE7D00ED626E /* UIView+FindFirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FindFirstResponder.m"; sourceTree = "<group>"; };
+		E6F834791867EE7D00ED626E /* UIView+FindFirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FindFirstResponder.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -607,6 +610,8 @@
 		A2A5228F15C6AF0C00D65863 /* RotoSix */ = {
 			isa = PBXGroup;
 			children = (
+				E6F834781867EE7D00ED626E /* UIView+FindFirstResponder.m */,
+				E6F834791867EE7D00ED626E /* UIView+FindFirstResponder.h */,
 				A20B8B6016C168A200074FF2 /* JSON */,
 				A2FD1D62166126DA001290F5 /* tr.db */,
 				A214F2AB1636D3BD00AE0C36 /* mst.db */,
@@ -933,6 +938,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2A5229615C6AF0C00D65863 /* main.m in Sources */,
+				E6F8347A1867EE7D00ED626E /* UIView+FindFirstResponder.m in Sources */,
 				A2A5229A15C6AF0C00D65863 /* AppDelegate.m in Sources */,
 				A2EA41B515EAFD4C00A568F1 /* BuyHistoryViewController.m in Sources */,
 				A2C0051415F4452E0081A14E /* BuyHistDetailViewController.m in Sources */,
@@ -1041,7 +1047,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1056,8 +1063,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "42D9D3CE-5673-465D-9076-E27D17B667F5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "42D9D3CE-5673-465D-9076-E27D17B667F5";
+				PROVISIONING_PROFILE = "153BBC2B-71F0-4A30-B656-3F3C4C093E30";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "153BBC2B-71F0-4A30-B656-3F3C4C093E30";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1074,7 +1081,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1083,8 +1091,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "42D9D3CE-5673-465D-9076-E27D17B667F5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "42D9D3CE-5673-465D-9076-E27D17B667F5";
+				PROVISIONING_PROFILE = "153BBC2B-71F0-4A30-B656-3F3C4C093E30";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "153BBC2B-71F0-4A30-B656-3F3C4C093E30";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1094,14 +1102,14 @@
 		A2A522C215C6AF0C00D65863 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
 				INFOPLIST_FILE = "RotoSix/RotoSix-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42D9D3CE-5673-465D-9076-E27D17B667F5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "42D9D3CE-5673-465D-9076-E27D17B667F5";
+				PROVISIONING_PROFILE = "CC57F89A-D2AA-45F6-BD7E-503266A1E639";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CC57F89A-D2AA-45F6-BD7E-503266A1E639";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1109,14 +1117,14 @@
 		A2A522C315C6AF0C00D65863 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
 				INFOPLIST_FILE = "RotoSix/RotoSix-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42D9D3CE-5673-465D-9076-E27D17B667F5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "42D9D3CE-5673-465D-9076-E27D17B667F5";
+				PROVISIONING_PROFILE = "CC57F89A-D2AA-45F6-BD7E-503266A1E639";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CC57F89A-D2AA-45F6-BD7E-503266A1E639";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

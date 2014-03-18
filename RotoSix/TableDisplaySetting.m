@@ -48,10 +48,27 @@
     return self;
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"%@", @"TableDisplaySetting touch x %f  y %f");
+    self.hidden = YES;
+    /*
+	UITouch *aTouch = [touches anyObject];
+    if ([touches count] == 1) {
+        for (UITouch *touch in touches) {
+            CGPoint pos = [aTouch locationInView:[touch view]];
+            pos = [[touch view] convertPoint:pos toView:nil];
+            NSLog(@"%@", [NSString stringWithFormat:@"TableDisplaySetting touch x %f  y %f", pos.x, pos.y]);
+        }
+	}
+     */
+}
+
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
+    CGFloat width = 120;
     //---------
     // フキダシ
     
@@ -59,7 +76,7 @@
     CGContextSaveGState(context);
     
     //Path作成
-    CGRect bubbleRect = CGRectMake(15, 20, 170, 300);
+    CGRect bubbleRect = CGRectMake(15, 20, width, 220);
     CGContextBubblePath(context, bubbleRect);
     CGPathRef bubblePath = CGContextCopyPath(context);
     
@@ -114,44 +131,68 @@
     label.frame =CGRectMake(20, 30, 100, 30);
     [self addSubview:label];
 
+    UIButton *button = [self getButton:@"新しい順"];
+    button.frame = CGRectMake(20, 60, width, 30);
+    button.tag = 310;
+    button.selected = YES;
+    [button addTarget:self action:@selector(ButtonSortPress:) forControlEvents:UIControlEventTouchDown];
+    [self addSubview:button];
+
+    button = [self getButton:@"古い順"];
+    button.frame = CGRectMake(20, 100, width, 30);
+    button.tag = 311;
+    button.selected = NO;
+    [button addTarget:self action:@selector(ButtonSortPress:) forControlEvents:UIControlEventTouchDown];
+    [self addSubview:button];
+/*
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"当選日の昇順" forState:UIControlStateNormal];
+    [button setTitle:@"新しい順" forState:UIControlStateNormal];
     [button titleLabel].textAlignment = UITextAlignmentCenter;
     [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
-    button.frame = CGRectMake(20, 60, 160, 30);
+    button.frame = CGRectMake(20, 60, width, 30);
     [self addSubview:button];
 
     button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"当選日の降順" forState:UIControlStateNormal];
+    [button setTitle:@"古い順" forState:UIControlStateNormal];
     [button titleLabel].textAlignment = UITextAlignmentCenter;
     [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
-    button.frame = CGRectMake(20, 100, 160, 30);
+    button.frame = CGRectMake(20, 100, width, 30);
     [self addSubview:button];
-
+ */
     label = [[UILabel alloc] init];
     label.text = @"表示内容";
     label.frame =CGRectMake(20, 130, 100, 30);
     [self addSubview:label];
     
-    UIImage *bgOffImg = createImageFromUIColor([UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]);
-    UIImage *bgOnImg = createImageFromUIColor([UIColor colorWithRed:0.878 green:1.0 blue:1.0 alpha:1.0]);
-
+    //UIImage *bgOnImg = createImageFromUIColor([UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]);
+/*
     button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button setTitle:@"全て" forState:UIControlStateNormal];
     [button titleLabel].textAlignment = UITextAlignmentCenter;
-    //[button setBackgroundColor:[UIColor colorWithRed:0.878 green:1.0 blue:1.0 alpha:1.0]];
-    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
-    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
-    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
-    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
+    //[button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
+    //[button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
+    //[button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
+    //[button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
     [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
-    button.frame = CGRectMake(20, 160, 160, 30);
+    [button setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted|UIControlStateSelected];
+ */
+    button = [self getButton:@"全て"];
+    button.frame = CGRectMake(20, 160, width, 30);
     button.tag = 300;
     button.selected = YES;
+    [button addTarget:self action:@selector(ButtonFilterPress:) forControlEvents:UIControlEventTouchDown];
     [self addSubview:button];
-    
+
+    button = [self getButton:@"当選のみ"];
+    button.frame = CGRectMake(20, 190, width, 30);
+    button.tag = 301;
+    button.selected = NO;
+    [button addTarget:self action:@selector(ButtonFilterPress:) forControlEvents:UIControlEventTouchDown];
+    [self addSubview:button];
+
+    /*
     button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"当選" forState:UIControlStateNormal];
+    [button setTitle:@"当選のみ" forState:UIControlStateNormal];
     [button titleLabel].textAlignment = UITextAlignmentCenter;
     [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
     [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
@@ -159,57 +200,43 @@
     [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
 
     [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
-    button.frame = CGRectMake(20, 190, 160, 30);
+     */
+    button.frame = CGRectMake(20, 190, width, 30);
     button.tag = 301;
     [self addSubview:button];
+}
 
-    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"抽選済み" forState:UIControlStateNormal];
-    [button titleLabel].textAlignment = UITextAlignmentCenter;
-    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
-    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
-    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
-    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
-
-    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
-    button.frame = CGRectMake(20, 220, 160, 30);
-    button.tag = 302;
-    [self addSubview:button];
-
-    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"未抽選" forState:UIControlStateNormal];
-    [button titleLabel].textAlignment = UITextAlignmentCenter;
-    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
-    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
-    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
-    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
-
-    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
-    button.frame = CGRectMake(20, 250, 160, 30);
-    button.tag = 303;
-    [self addSubview:button];
-
-/*
- button = [UIButton buttonWithType:UIButtonTypeCustom];
- [button setTitle:@"当選" forState:UIControlStateNormal];
- [button titleLabel].textAlignment = UITextAlignmentCenter;
-
-    UIImage *bgOffImg = createImageFromUIColor([UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]);
+- (UIButton *) getButton:(NSString *)buttonLabel
+{
+    UIImage *bgOffImg = createImageFromUIColor([UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]);
     UIImage *bgOnImg = createImageFromUIColor([UIColor colorWithRed:0.878 green:1.0 blue:1.0 alpha:1.0]);
 
-    // OFFの画像設定
-    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
-    // OFFでボタンをタップ中の画像設定
-    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
-    // ONの画像設定
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:buttonLabel forState:UIControlStateNormal];
+    [button titleLabel].textAlignment = UITextAlignmentCenter;
+    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal|UIControlStateHighlighted|UIControlStateSelected];
     [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
-    // ONでボタンをタップ中の画像設定
+
+    /* Original
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:buttonLabel forState:UIControlStateNormal];
+    [button titleLabel].textAlignment = UITextAlignmentCenter;
+    [button setBackgroundImage:bgOffImg forState:UIControlStateNormal];
+    [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted];
+    [button setBackgroundImage:bgOnImg forState:UIControlStateNormal|UIControlStateSelected];
     [button setBackgroundImage:bgOffImg forState:UIControlStateHighlighted|UIControlStateSelected];
- 
-    [button addTarget:self action:@selector(testtest:) forControlEvents:UIControlEventTouchDown];
-    button.frame = CGRectMake(20, 190, 160, 30);
-    [self addSubview:button];
+     */
+    [button setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+/*
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 120, 30)];
+    [label setText:buttonLabel];
+    label.backgroundColor=[UIColor clearColor];
+    label.textColor = [UIColor blackColor];
+    [button addSubview:label];
  */
+    return button;
 }
 
 UIImage *(^createImageFromUIColor)(UIColor *) = ^(UIColor *color)
@@ -224,7 +251,7 @@ UIImage *(^createImageFromUIColor)(UIColor *) = ^(UIColor *color)
     return img;
 };
 
-- (void) testtest:(UIButton *)sender
+- (void) ButtonFilterPress:(UIButton *)sender
 {
     sender.selected=!sender.selected;
     NSString *label = [sender titleLabel].text;
@@ -267,6 +294,54 @@ UIImage *(^createImageFromUIColor)(UIColor *) = ^(UIColor *color)
 
     [[self delegate] TableDisplaySettingSelected:label DisplayFlag:isDisplay];
 
+    //NSLog(@"TESTTESTTEST %@", [btn titleLabel].text );
+    return;
+}
+
+- (void) ButtonSortPress:(UIButton *)sender
+{
+    sender.selected=!sender.selected;
+    NSString *label = [sender titleLabel].text;
+    BOOL isDisplay = NO;
+    if (sender.selected){
+        // ON に変わった場合
+        isDisplay = YES;
+    }
+    else{
+        // OFF に変わった場合
+        isDisplay = NO;
+    }
+
+    NSInteger sortKind = 0;
+    NSInteger tagNo = 0;
+    if ([label isEqualToString:@"新しい順"]) {
+        sortKind = 1;
+        tagNo = 311;
+    }
+    else {
+        sortKind = 2;
+        tagNo = 310;
+    }
+    
+    UIButton *btn = (UIButton *)[self viewWithTag:tagNo];
+    bool isSelected = btn.selected;
+    
+    if (isDisplay == YES && isSelected == YES) {
+        btn.selected = NO;
+    }
+    else if (isDisplay == YES && isSelected == NO) {
+        return;
+    }
+    else if (isDisplay == NO && isSelected == YES) {
+        return;
+    }
+    else if (isDisplay == NO && isSelected == NO) {
+        btn.selected = YES;
+    }
+
+    
+    [[self delegate] TableDisplaySettingSortSelected:sortKind];
+    
     //NSLog(@"TESTTESTTEST %@", [btn titleLabel].text );
     return;
 }

@@ -16,11 +16,13 @@
     bool isLottery;
     bool isUnLottery;
     bool isLotteried;
+    NSInteger sortKind;
 }
 
 @property (nonatomic) bool isLottery;
 @property (nonatomic) bool isUnLottery;
 @property (nonatomic) bool isLotteried;
+@property (nonatomic) NSInteger sortKind;
 
 - (unsigned)countOfList;
 - (BuyHistory *)objectInListAtIndex:(unsigned)theIndex;

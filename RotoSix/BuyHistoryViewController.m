@@ -12,6 +12,7 @@
 #import "BuyHistory.h"
 #import "BuyRegistViewController.h"
 #import "QuartzTextNumDelegate.h"
+#import "AppDelegate.h"
 
 @interface BuyHistoryViewController ()
 
@@ -39,14 +40,8 @@
 - (void)TableDisplaySettingSelected:(NSString *)label DisplayFlag:(BOOL)isDisplay {
     NSLog(@"TableDisplaySettingEnd %@", label);
     
-    if ([label isEqualToString:@"当選"]) {
+    if ([label isEqualToString:@"当選のみ"]) {
         dataController.isLottery = isDisplay;
-    }
-    else if ([label isEqualToString:@"抽選済み"]) {
-        dataController.isLotteried = isDisplay;
-    }
-    else if ([label isEqualToString:@"未抽選"]) {
-        dataController.isUnLottery = isDisplay;
     }
     else {// 全て
         dataController.isLottery = NO;
@@ -57,6 +52,19 @@
     TableDisplaySetting *dispSetting = (TableDisplaySetting*)[self.view viewWithTag:201];
     dispSetting.hidden = YES;
 
+    [dataController loadAll];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
+    [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)TableDisplaySettingSortSelected:(NSInteger)sortKind {
+    NSLog(@"TableDisplaySettingSortSelected %d", sortKind);
+    
+    dataController.sortKind = sortKind;
+    
+    TableDisplaySetting *dispSetting = (TableDisplaySetting*)[self.view viewWithTag:201];
+    dispSetting.hidden = YES;
+    
     [dataController loadAll];
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
     [histTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -306,7 +314,7 @@
         QuartzTextNumDelegate* _layerDelegate = [[QuartzTextNumDelegate alloc] init];
         _layerDelegate.strNum = setNo;
         
-        NSLog(@"%@", [NSString stringWithFormat:@"findlayer %@", [NSString stringWithFormat:@"setNo %@", setNo]]);
+        //NSLog(@"%@", [NSString stringWithFormat:@"findlayer %@", [NSString stringWithFormat:@"setNo %@", setNo]]);
         
         [marrQuartzTextDelegate addObject:_layerDelegate];
 
@@ -384,75 +392,58 @@
 	}
 }
 
-- (IBAction)tabitemDisplaySettingPress:(id)sender {
-
-    //TableDisplaySetting *dispSetting = (TableDisplaySetting*)[self viewWithTagNotCountingSelf:201];
-    TableDisplaySetting *dispSetting = (TableDisplaySetting*)[self.view viewWithTag:201];
-
-    /*
-    CALayer *layer = [self getDisplaySettingLayer];
-    
-    if (layer != nil) {
-        BOOL bHidden = layer.hidden;
-        
-        if (bHidden == YES)
-            layer.hidden = NO;
-        else
-            layer.hidden = YES;
-
-        return;
-    }
-    
-    LayerTableDisplaySetting *selpanel = [LayerTableDisplaySetting layer];
-    //selpanel.bounds = CGRectMake(0, 0, 300, 340);
-    selpanel.name = @"DisplaySetting";
-    selpanel.frame = CGRectMake(0, 0, 190.5, 110);
-    selpanel.position = CGPointMake(160, 200); // posY <-- iPhone5 : 284(568/2) + 59(568/2-panelSizeY/2) =  343, other 240 + 15 = 255
-    //selpanel.backgroundColor = [UIColor clearColor].CGColor;
-    selpanel.backgroundColor = [UIColor whiteColor].CGColor;
-    //selpanel.opacity = 0.5;
-    //selpanel.opacity = YES;
-    
-    [selpanel setNeedsDisplay];
-    [self.view.layer addSublayer:selpanel];
-
-     */
+#pragma mark - Tap into Display Event
+- (IBAction)tabitemDisplaySettingPress:(id)sender
+{
+    dispSetting = (TableDisplaySetting*)[self.view viewWithTag:201];
 
     if (dispSetting == nil) {
-        dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.frame];
+        CGRect loadingViewRect = CGRectMake(self.view.window.frame.origin.x
+                                            , scrollPosiHeight + 64 // StatusBar 20, NavigationBar 44
+                                            , self.view.window.frame.size.width
+                                            , self.view.window.frame.size.height);
+        NSLog(@"self.view.window.frame.origin.x %lf origin.y %lf window.fram.size.width %lf self.view.window.frame.size.height %lf",
+              self.view.window.frame.origin.x, scrollPosiHeight, self.view.window.frame.size.width, self.view.window.frame.size.height);
+        dispSetting = [[TableDisplaySetting alloc] initWithFrame:loadingViewRect];
         dispSetting.delegate = self;
-/*
-        NSArray *arrVisiRows = [self.tableView indexPathsForVisibleRows];
-//        NSIndexPath *selectedRowIndex = [self.tableView indexPathsForVisibleRows indexPathForSelectedRow];
-        CGRect rectInTableView = [histTableView rectForRowAtIndexPath:arrVisiRows[0]];
-        CGRect rectInSuperview = [histTableView convertRect:rectInTableView toView:[histTableView superview]];
-        //CGPoint point = [self.view convertRect:self.view.frame.origin toView:nil];
-        dispSetting.frame = rectInTableView; //CGRectOffset( dispSetting.frame, 10, 10 );
-        //    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds CGRectMake(10, 10, 180, 100)];
- */
+        
         dispSetting.tag = 201;
         [self.view addSubview:dispSetting];
     }
     else {
         BOOL bHidden = dispSetting.hidden;
         
-        if (bHidden == YES)
+        if (bHidden == YES) {
+            //NSLog(@"self.view.window.frame.origin.x %lf origin.y %lf window.fram.size.width %lf self.view.window.frame.size.height %lf",
+            //      self.view.window.frame.origin.x, scrollPosition.origin.y, self.view.window.frame.size.width, self.view.window.frame.size.height);
+            dispSetting.frame = CGRectMake(self.view.window.frame.origin.x, scrollPosiHeight + 64, self.view.window.frame.size.width, self.view.window.frame.size.height);
             dispSetting.hidden = NO;
-        else
+        }
+        else {
+            //NSLog(@"dispSetting.hidden YES -> NO");
             dispSetting.hidden = YES;
+        }
         
         return;
     }
-    //self.view.userInteractionEnabled=NO;
-    
-//    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds];
-//    TableDisplaySetting *dispSetting = [[TableDisplaySetting alloc] initWithFrame:self.view.window.bounds CGRectMake(10, 10, 180, 100)];
-//    [dispSetting viewWithTag:201];
-//    [self.view addSubview:dispSetting];
-//    self.window.rootViewController.view = [[[bubbleView alloc] initWithFrame:self.window.bounds] autorelease];
-//    [self showModalTableDisplaySetting];
 }
 
+#pragma mark - Scroll Delegate Method
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    dispSetting = (TableDisplaySetting*)[self.view viewWithTag:201];
+    
+    if (dispSetting != nil) {
+        dispSetting.hidden = YES;
+    }
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    scrollPosiHeight = self.tableView.contentOffset.y;
+}
+
+#pragma mark - Common Method
 - (UIView *)viewWithTagNotCountingSelf:(NSInteger)tag
 {
     UIView *toReturn = nil;

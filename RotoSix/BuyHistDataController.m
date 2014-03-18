@@ -18,7 +18,7 @@
 
 @implementation BuyHistDataController
 
-@synthesize list, isLotteried, isLottery, isUnLottery;
+@synthesize list, isLotteried, isLottery, isUnLottery, sortKind;
 
 -(id)init {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -33,7 +33,7 @@
         isLottery = NO;
         isUnLottery = NO;
         isLotteried = NO;
-
+        sortKind = 1;
     }
     
     if (self = [super init]) {
@@ -275,15 +275,40 @@
         
         NSString *sql = @"";
         NSString *sWhere = @"";
+        NSString *sOrder = @"";
 
         if (isLotteried == YES) {
-            sWhere = @" ( place01 >= 1 or place02 >= 1 or place03 >= 1 or place04 >= 1 or place05 >= 1 ) ";
-//            sWhere = @" lottery_status = 1 ";
+            sWhere = @" lottery_status = 1 ";
         }
         if (isLottery == YES) {
-            sWhere = @"where ( place01 >= 1 or place02 >= 1 or place03 >= 1 or place04 >= 1 or place05 >= 1 ) ";
+            if ([sWhere length] > 0) {
+                sWhere = [NSString stringWithFormat:@"%@ and %@", sWhere, @" ( place01 >= 1 or place02 >= 1 or place03 >= 1 or place04 >= 1 or place05 >= 1 ) "];
+            }
+            else {
+                sWhere = @" ( place01 >= 1 or place02 >= 1 or place03 >= 1 or place04 >= 1 or place05 >= 1 ) ";
+            }
         }
-        sql = [NSString stringWithFormat:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history %@ order by lottery_date desc", sWhere];
+        if (isUnLottery == YES) {
+            if ([sWhere length] > 0) {
+                sWhere = [NSString stringWithFormat:@"%@ and %@", sWhere, @" lottery_status = 0 "];
+            }
+            else {
+                sWhere = @" lottery_status = 0 ";
+            }
+        }
+        
+        if ([sWhere length] > 0) {
+            sWhere = [NSString stringWithFormat:@" where %@", sWhere];
+        }
+        
+        if (sortKind == 1) {
+            sOrder = @"order by lottery_date desc";
+        }
+        else {
+            sOrder = @"order by lottery_date ";
+        }
+        
+        sql = [NSString stringWithFormat:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history %@ %@", sWhere, sOrder];
         NSLog(@"sql %@", sql);
         FMResultSet *rs = [db executeQuery:sql];
         //FMResultSet *rs = [db executeQuery:@"SELECT id, lottery_times, set01, place01, set02, place02, set03, place03, set04, place04, set05, place05, lottery_status, lottery_date FROM buy_history order by lottery_date desc"];
@@ -315,9 +340,9 @@
             [listBuyHist addObject:buyHist];
             
             //ここでデータを展開
-            NSLog(@"BuyHistDataController.loadAll %d %@ %@ %@ %@ %@ %d %@", [rs intForColumn:@"lottery_times"], [rs stringForColumn:@"set01"]
-                  , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
-                  , [rs stringForColumn:@"set05"], [rs intForColumn:@"lottery_status"], [rs dateForColumn:@"lottery_date"]);
+            //NSLog(@"BuyHistDataController.loadAll %d %@ %@ %@ %@ %@ %d %@", [rs intForColumn:@"lottery_times"], [rs stringForColumn:@"set01"]
+            //      , [rs stringForColumn:@"set02"], [rs stringForColumn:@"set03"], [rs stringForColumn:@"set04"]
+            //      , [rs stringForColumn:@"set05"], [rs intForColumn:@"lottery_status"], [rs dateForColumn:@"lottery_date"]);
         }
         [rs close];
         [db close];

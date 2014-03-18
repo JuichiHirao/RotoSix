@@ -17,6 +17,8 @@
 @interface BuyHistoryViewController : UseModalTableViewController <BuyRegistDelegate, TableDisplaySettingEnd> {
     BOOL isCellSetting;
     NSMutableArray *marrQuartzTextDelegate;
+    TableDisplaySetting *dispSetting;
+    CGFloat scrollPosiHeight;
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tabitemDisplaySetting;

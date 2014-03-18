@@ -23,5 +23,6 @@
 @protocol TableDisplaySettingEnd <NSObject>
 
 - (void)TableDisplaySettingSelected:(NSString *)buttonTitleLabel DisplayFlag:(BOOL)isDisplay;
+- (void)TableDisplaySettingSortSelected:(NSInteger)sortKind;
 
 @end
