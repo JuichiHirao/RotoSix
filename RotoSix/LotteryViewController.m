@@ -60,16 +60,9 @@
     [_refreshControl addTarget:self action:@selector(refreshStart) forControlEvents:UIControlEventValueChanged];
     [lotteryView addSubview:_refreshControl];
     
-    //タイトルの設定
-    //NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-    //[attributes setObject:[UIColor whiteColor] forKey:NSBackgroundColorAttributeName];  //タイトルの背景色
-    //[attributes setObject:[UIColor redColor] forKey:NSForegroundColorAttributeName];  //タイトルの文字色
-    
+    // Evernote UIRefreshControlをiOS7にすると上がずれるにより暫定的にコメント
     //NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"更新" attributes:attributes];
-    NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"更新" attributes:nil];
-    _refreshControl.attributedTitle = title;  //タイトルの挿入
-    
-//    _refreshControl.tintColor = [UIColor orangeColor];  //色の設定
+    //_refreshControl.attributedTitle = title;  //タイトルの挿入
 }
 
 -(void)refreshStart
@@ -382,7 +375,10 @@
           [error domain],
           [error code],
           [error localizedDescription]);
-    
+
+    // ネットワークエラーが発生した場合は_refreshControlのアニメーションは終了させる
+    [_refreshControl endRefreshing];
+
     self.view.userInteractionEnabled=YES;
     self.navigationController.navigationBar.userInteractionEnabled = YES;
     
