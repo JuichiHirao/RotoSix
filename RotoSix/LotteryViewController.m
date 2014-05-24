@@ -206,11 +206,11 @@
         }
     }
     
-    NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
-    rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
+    //NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
+    //rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
     //    rowBackground = [UIImage imageNamed:@"CellBackground.png"];
     
-    ((UIImageView *)cell.backgroundView).image = rowBackground;
+    //((UIImageView *)cell.backgroundView).image = rowBackground;
     
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
 	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";

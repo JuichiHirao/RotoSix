@@ -111,7 +111,7 @@
     dataController = data;
     NSLog(@"viewDidLoad [%d]", [dataController countOfList]);
     //[data createDemoFromDb];
-
+/*
     histTableView.backgroundColor = [UIColor clearColor];
     UIImageView *imgBg = [[UIImageView alloc] initWithFrame:CGRectMake(121.0, 3.0, 15.0, 15.0)];
     
@@ -121,7 +121,7 @@
     imgBg.image = theImage;
 
     histTableView.backgroundView = imgBg;
-    
+ */
     isCellSetting = NO;
     
     marrQuartzTextDelegate = [[NSMutableArray alloc] init];
@@ -248,10 +248,10 @@
         }
     }
     
-    NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
-    rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
+    //NSString *imageCellBgPath = [[NSBundle mainBundle] pathForResource:@"CellBackground" ofType:@"png"];
+    //rowBackground = [UIImage imageWithContentsOfFile:imageCellBgPath];
     
-    ((UIImageView *)cell.backgroundView).image = rowBackground;
+    //((UIImageView *)cell.backgroundView).image = rowBackground;
 
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
 	NSString *outputDateFormatterStr = @"yyyy年MM月dd日";
