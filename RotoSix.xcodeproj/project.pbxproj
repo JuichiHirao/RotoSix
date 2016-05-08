@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -50,7 +50,6 @@
 		A2A5229A15C6AF0C00D65863 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A5229915C6AF0C00D65863 /* AppDelegate.m */; };
 		A2A522A615C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A522A415C6AF0C00D65863 /* MainStoryboard_iPhone.storyboard */; };
 		A2A522A915C6AF0C00D65863 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A522A715C6AF0C00D65863 /* MainStoryboard_iPad.storyboard */; };
-		A2A522B115C6AF0C00D65863 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A522B015C6AF0C00D65863 /* SenTestingKit.framework */; };
 		A2A522B215C6AF0C00D65863 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228915C6AF0C00D65863 /* UIKit.framework */; };
 		A2A522B315C6AF0C00D65863 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A5228B15C6AF0C00D65863 /* Foundation.framework */; };
 		A2A522BB15C6AF0C00D65863 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2A522B915C6AF0C00D65863 /* InfoPlist.strings */; };
@@ -259,8 +258,7 @@
 		A2A5229915C6AF0C00D65863 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A2A522A515C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		A2A522A815C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		A2A522AF15C6AF0C00D65863 /* RotoSixTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RotoSixTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A2A522B015C6AF0C00D65863 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		A2A522AF15C6AF0C00D65863 /* RotoSixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RotoSixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A522B815C6AF0C00D65863 /* RotoSixTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RotoSixTests-Info.plist"; sourceTree = "<group>"; };
 		A2A522BA15C6AF0C00D65863 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A2A522BC15C6AF0C00D65863 /* RotoSixTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotoSixTests.h; sourceTree = "<group>"; };
@@ -419,7 +417,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2A522B115C6AF0C00D65863 /* SenTestingKit.framework in Frameworks */,
 				A2A522B215C6AF0C00D65863 /* UIKit.framework in Frameworks */,
 				A2A522B315C6AF0C00D65863 /* Foundation.framework in Frameworks */,
 			);
@@ -591,7 +588,7 @@
 			isa = PBXGroup;
 			children = (
 				A2A5228515C6AF0C00D65863 /* RotoSix.app */,
-				A2A522AF15C6AF0C00D65863 /* RotoSixTests.octest */,
+				A2A522AF15C6AF0C00D65863 /* RotoSixTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -602,7 +599,6 @@
 				A2A5228915C6AF0C00D65863 /* UIKit.framework */,
 				A2A5228B15C6AF0C00D65863 /* Foundation.framework */,
 				A2A5228D15C6AF0C00D65863 /* CoreGraphics.framework */,
-				A2A522B015C6AF0C00D65863 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -754,8 +750,8 @@
 			);
 			name = RotoSixTests;
 			productName = RotoSixTests;
-			productReference = A2A522AF15C6AF0C00D65863 /* RotoSixTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = A2A522AF15C6AF0C00D65863 /* RotoSixTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -763,11 +759,12 @@
 		A2A5227C15C6AF0C00D65863 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0730;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Juuichi Hirao";
 			};
 			buildConfigurationList = A2A5227F15C6AF0C00D65863 /* Build configuration list for PBXProject "RotoSix" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1047,8 +1044,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1062,9 +1059,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "153BBC2B-71F0-4A30-B656-3F3C4C093E30";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "153BBC2B-71F0-4A30-B656-3F3C4C093E30";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1081,18 +1078,18 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hirao Juuichi (XQ74V87AF7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "153BBC2B-71F0-4A30-B656-3F3C4C093E30";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "153BBC2B-71F0-4A30-B656-3F3C4C093E30";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1102,14 +1099,14 @@
 		A2A522C215C6AF0C00D65863 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
 				INFOPLIST_FILE = "RotoSix/RotoSix-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CC57F89A-D2AA-45F6-BD7E-503266A1E639";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CC57F89A-D2AA-45F6-BD7E-503266A1E639";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1117,14 +1114,14 @@
 		A2A522C315C6AF0C00D65863 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
 				INFOPLIST_FILE = "RotoSix/RotoSix-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CC57F89A-D2AA-45F6-BD7E-503266A1E639";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CC57F89A-D2AA-45F6-BD7E-503266A1E639";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1136,13 +1133,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
 				INFOPLIST_FILE = "RotoSixTests/RotoSixTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -1153,13 +1150,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotoSix/RotoSix-Prefix.pch";
 				INFOPLIST_FILE = "RotoSixTests/RotoSixTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
